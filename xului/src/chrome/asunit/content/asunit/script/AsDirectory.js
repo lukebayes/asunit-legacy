@@ -1,0 +1,4 @@
+
+AsDirectory = function() {
+
+}

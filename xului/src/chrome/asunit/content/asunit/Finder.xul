@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://asunit/content/style/AsUnit.css" type="text/css"?>
+
+<window
+	id="finder"
+	title="Finder"
+	persist="width height screenX screenY"
+	width="320"
+	height="450"
+	screenY="50"
+	screenX="10"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	onload="finder.init();">
+
+	<script src="chrome://asunit/content/script/Finder.js" />
+
+	<keyset>
+		<key id="escapeKey" keycode="VK_ESCAPE" oncommand="finder.onCancel();" />
+		<key id="closeWindowKey" keycode="W" modifiers="control" oncommand="finder.onCancel();" />
+		<key id="enterKey" keycode="VK_ENTER" oncommand="finder.onSubmit();" />
+		<key id="moveUpKey" keycode="VK_UP" oncommand="finder.onMoveUp();" />
+		<key id="moveDownKey" keycode="VK_DOWN" oncommand="finder.onMoveDown();" />
+	</keyset>
+
+	<groupbox flex="1">
+		<label value="Finder:" />
+		<textbox id="nameInput" flex="1" maxheight="25" type="timed" timeout="200" oncommand="finder.onTextChanged(this);" />
+		<label id="resultLabel" />
+
+		<box id="listContainer" flex="1">
+			<!--
+			THE LIST BOX IS ADDED USING JAVASCRIPT
+			BECAUSE OF A BUG IN THE FIREFOX ENGINE...
+			The bug prevents us from doing "removeItemAt"
+			when there are a bunch of items...
+			<listbox id="finderList" flex="1">
+			  <listhead id="listHeader">
+				<listheader label="Name"/>
+				<listheader label="Full Name"/>
+			  </listhead>
+
+			  <listcols id="listCols">
+				<listcol flex="1"/>
+				<listcol flex="2"/>
+			  </listcols>
+
+			</listbox>
+			-->
+		</box>
+
+		<vbox>
+			<description id="footerText" />
+		</vbox>
+
+		<hbox>
+			<image src="" class="blueKey" />
+			<spacer flex="1" />
+			<button id="submitBtn" label="Submit" oncommand="finder.onSubmit();" />
+			<button id="cancelBtn" label="Cancel" oncommand="finder.onCancel();" />
+		</hbox>
+	</groupbox>
+	<statusbar align="right" />
+</window>

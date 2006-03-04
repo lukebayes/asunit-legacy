@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<dialog id="CreateClassDialog" title="Create A New Class" 
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+        buttons="accept,cancel" 
+        ondialogaccept="return execAccept();" 
+        ondialogcancel="return execCancel();" 
+        ondialoghelp="return execHelp(this);">
+
+<vbox>
+	<label id="mainLabel" value="Class Name:" />
+	<label id="subLabel" value="(eg: com.yourdomain.yourproject.YourClass)" />
+	<textbox id="classPathInput" value="" width="240" />
+	<checkbox id="autoOpenCheckBox" accesskey="A" label="Automatically open new files in your ActionScript editor" />
+	<hbox>
+		<label id="" value="      " />
+		<checkbox id="flashEditorCheckBox" accesskey="F" label="Your ActionScript editor is Flash (Only valid if you choose to Auto Open)" />
+	</hbox>
+	<checkbox id="isMovieCheckBox" accesskey="M" label="Add to Library as MovieClip." />
+	<checkbox id="addPackagesCheckBox" accesskey="P" label="Prefix Class Name with '__Packages'." />
+	<checkbox id="updateSuitesCheckBox" accesskey="S" label="Add new Test Case to Test Suites." />
+</vbox>
+
+
+<script>
+
+function init()
+{
+	var trace = fl.trace;
+	
+	var defaultPath = "com.yourdomain.yourproject.YourClass";
+	var defaultOpen = "true";
+	var defaultIsMovie = "true";
+	var defaultAddPackages = "false";
+	var defaultUpdateSuites = "true";
+	var defaultFlashEditor = "true";
+
+ 	var lastPath = document.getDataFromDocument("lastCreatedClassName");
+ 	var lastOpen = document.getDataFromDocument("lastAutoOpen");
+ 	var lastIsMovie = document.getDataFromDocument("lastIsMovie");
+ 	var lastAddPackages = document.getDataFromDocument("lastAddPackages");
+ 	var lastUpdateSuites = document.getDataFromDocument("lastUpdateSuites");
+ 	var lastFlashEditor = document.getDataFromDocument("lastFlashEditor");
+ 	
+ 	var path = (lastPath == 0) ? defaultPath : lastPath;
+	var open = (lastOpen == 0) ? defaultOpen : lastOpen;
+	var isMovie = (lastIsMovie == 0) ? defaultIsMovie : lastIsMovie;
+	var addPackages = (lastAddPackages == 0) ? defaultAddPackages : lastAddPackages;
+	var updateSuites = (lastUpdateSuites == 0) ? defaultUpdateSuites : lastUpdateSuites;
+	var flashEditor = (lastFlashEditor == 0) ? defaultFlashEditor : lastFlashEditor;
+	
+	fl.xmlui.set("classPathInput", path);
+	fl.xmlui.set("autoOpenCheckBox", open);
+	fl.xmlui.set("isMovieCheckBox", isMovie);
+	fl.xmlui.set("addPackagesCheckBox", addPackages);
+	fl.xmlui.set("updateSuitesCheckBox", updateSuites);
+	fl.xmlui.set("flashEditorCheckBox", flashEditor);
+}
+
+init();
+
+</script>
+
+</dialog>
+

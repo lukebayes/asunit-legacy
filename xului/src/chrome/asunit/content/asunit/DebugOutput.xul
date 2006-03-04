@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://asunit/content/style/AsUnit.css" type="text/css"?>
+
+<window
+	id="debug-window"
+	title="Debug Output"
+	persist="width height screenX screenY"
+	width="425"
+	height="460"
+	screenX="450"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script src="chrome://asunit/content/script/DebugOutput.js" />
+
+	<groupbox flex="1">
+		<label value="Debug Output:" />
+		<textbox id="debugTextField" scrollbar="true" multiline="true" wordwrap="true" flex="1" />
+	</groupbox>
+	<statusbar align="right" />
+</window>

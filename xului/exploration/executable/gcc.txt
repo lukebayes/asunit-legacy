@@ -1,0 +1,1 @@
+gcc -mwindows AsUnit.cpp -o AsUnit.exe

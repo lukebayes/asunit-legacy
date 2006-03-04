@@ -1,0 +1,48 @@
+--------------------------------------
+REMAINING
+
+ - Build Firefox, Mozilla, XULRunner AND Netscape Installer
+ - Update AsUnit XML object so that it fails loudly when loads don't work
+ - Allow for asynchronous to work simultaneous with mock objects
+ - Make interface finder allow multiple selections (might cause key command interference)
+
+--------------------------------------
+Build 3.0.2
+ - Fixed Add Packages Prefix for AS 2.0 projects.
+ - Updated the label for addPackagesPrefix button
+
+--------------------------------------
+Build 3.0.1
+
+ - Add AS 2.0 support back into the UI
+ - Make storageBox persist "firstRunCompleted" so that the wizard only auto-shows once
+ - Remove Launch AsUnit User Interface from UI
+ - Remove escape key listener that closes the UI, the interface should be kept open
+ 	and so closing shouldn't be so easy to do accidentally
+ - Make default class path selectable text in wizard
+ - Make addInterface select the newly added interface - even if it already exists in the list.
+ - Update Finder so that key commands make more sense...
+ 	a) Any Typing should always be entered in the text field and thereby narrow the list
+ 		Regardless of the focused element.
+ 	b) Pressing enter should always leave with selected (or topmost?) item
+ 	c) Arrows up/down should always choose different items in list
+ 	d) Mouse selection should be allowed, but typing will return focus to the filter entry
+ - Update Finder so that you can select the first item in the list
+ - Fix superclass textfield listener so that you can type in there
+ 	Made the listener wait a full second before selecting the field.
+ - Make first page of wizard not highlight all text
+ - Add button to Generate Test Suites without creating a new class
+ - Build Wizard interface for introductions
+ - Make interface list disallow empty items
+ - Update interface listbox so that next item is selected after an
+ 	item is removed
+
+--------------------------------------
+DEFERRED
+
+ - Write an FAQ
+ - Organize Instructional Material
+ - Make Interface selections build out stub interfaces based on the files selected
+ - Add support for creating public static main class (mtasc only?)
+
+--------------------------------------

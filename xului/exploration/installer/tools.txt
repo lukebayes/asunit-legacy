@@ -1,0 +1,6 @@
+
+Localized Installers Tutorial: http://www.mozilla.org/projects/firefox/l10n/localize-release.html
+
+Resource Hacker: http://www.angusj.com/resourcehacker/
+7-zip: http://www.7-zip.org/
+upx: http://upx.sourceforge.net/

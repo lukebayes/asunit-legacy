@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://asunit/content/style/AsUnit.css" type="text/css"?>
+
+<window
+	id="unittest-window"
+	title="Unit Test Output"
+	persist="width height screenX screenY"
+	width="500"
+	height="350"
+	screenX="450"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script src="chrome://asunit/content/script/UnitTestOutput.js" />
+	<keyset>
+		<key id="escapeKey" keycode="VK_ESCAPE" oncommand="window.close();" />
+		<key id="closeWindow" key="W" multiline="true" rows="2" modifiers="control" oncommand="window.close();" />
+		<key id="closeWindow" key="Q" multiline="true" rows="2" modifiers="control" oncommand="window.close();" />
+	</keyset>
+
+	<browser id="unitTestOutput" src="chrome://asunit/content/AsUnitUi.html" flex="1" />
+<!--
+	<vbox flex="1">
+		<html:div width="100%" height="100%">
+			<html:object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="100%" height="100%" id="AsUnitUi" align="middle">
+				<html:param name="allowScriptAccess" value="sameDomain" />
+				<html:param name="movie" value="chrome://asunit/content/AsUnitUi.swf" />
+				<html:param name="loop" value="false" />
+				<html:param name="menu" value="false" />
+				<html:param name="quality" value="high" />
+				<html:param name="bgcolor" value="#ffffff" />
+				<html:embed src="chrome://asunit/content/AsUnitUi.swf" loop="false" menu="false" quality="high" bgcolor="#ffffff" width="100%" height="100%" name="AsUnitUi" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+			</html:object>
+		</html:div>
+	</vbox>
+-->
+	<statusbar align="right" />
+</window>

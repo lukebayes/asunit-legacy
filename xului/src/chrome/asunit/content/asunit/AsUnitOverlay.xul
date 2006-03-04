@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<overlay id="asunit-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<!-- This imports our javascript. -->
+<script type="application/x-javascript" src="chrome://asunit/content/script/AsUnitOverlay.js">
+</script>
+
+<!-- This is for the Tools menu. -->
+<menupopup id="menu_ToolsPopup">
+    <menuitem insertafter="devToolsSeparator" label="Launch AsUnit"
+    accesskey="A" oncommand="launchAsUnit();" />
+</menupopup>
+
+</overlay>
