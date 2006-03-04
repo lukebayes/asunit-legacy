@@ -70,6 +70,7 @@ p.badge, .badge-footer {
 
 .question {
 	padding:10px 0px 10px 0px;
+	text-align:left;
 	vertical-align:top;
 	width:300px;
 	font-size:28px;
