@@ -49,6 +49,10 @@ class asunit.framework.TestCase extends Assert implements Test {
 		this.result = result;
 	}
 	
+	private function getResult():TestResult {
+		return result;
+	}
+	
 	public function setContext(context:MovieClip):Void {
 		this.context = context;
 	}
@@ -66,7 +70,8 @@ class asunit.framework.TestCase extends Assert implements Test {
 		var methods:Array = getTestMethods();
 		var name:String;
 		try {
-			for(var i:Number = 0; i < methods.length; i++) {
+			var len:Number = methods.length;
+			for(var i:Number = 0; i < len; i++) {
 				name = methods[i];
 				try {
 					runMethod(name);
@@ -123,10 +128,6 @@ class asunit.framework.TestCase extends Assert implements Test {
 		_global.ASSetPropFlags(this.__proto__, null, 1, true);
 		methods.reverse();
 		return methods;
-	}
-	
-	private function getResult():TestResult {
-		return result;
 	}
 
 	/**
