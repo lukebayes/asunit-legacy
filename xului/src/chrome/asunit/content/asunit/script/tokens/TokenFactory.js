@@ -7,10 +7,33 @@ TokenFactory.create = function(name) {
 	if(name == "as2") {
 		return new As2Factory();
 	} else if(name == "as25") {
-		return new As2Factory();
+		return new As25Factory();
 	} else if(name == "as3") {
 		return new As3Factory();
 	}
+}
+
+//--------------------------------------
+
+var As25Factory = function() {
+}
+
+As25Factory.prototype.type = "ActionScript 2.0";
+
+As25Factory.prototype.getClassDefinition = function(model) {
+	return new ClassDefinition(model);
+}
+
+As25Factory.prototype.getTestCaseDefinition = function(model) {
+	return new As25TestCaseDefinition(model);
+}
+
+As25Factory.prototype.getMockDefinition = function(model) {
+	return new MockDefinition(model);
+}
+
+As25Factory.prototype.getTestSuiteDefinition = function() {
+	return new As25TestSuiteDefinition();
 }
 
 //--------------------------------------
