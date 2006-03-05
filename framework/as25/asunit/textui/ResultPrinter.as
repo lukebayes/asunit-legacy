@@ -26,9 +26,10 @@ class asunit.textui.ResultPrinter extends MovieClip implements IResultPrinter, I
 	public function ResultPrinter() {
 		init();
 		configureAssets();
-		println("AsUnit - Powered by Pattern Park");
-		// show clips in case people attach them behind me...
-		_alpha = 93;
+		println("AsUnit [$id] - Powered by Pattern Park");
+		// If you can't see clips that you think should be
+		// attached... Perhaps it's behind this runner?
+		// _alpha = 50;
 	}
 	
 	private function init():Void {
