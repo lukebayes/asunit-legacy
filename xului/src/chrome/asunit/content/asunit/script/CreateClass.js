@@ -287,8 +287,7 @@ CreateClass.prototype.setSelectedTemplate = function(value) {
 
 CreateClass.prototype.onConstructorTypeChanged = function(event) {
 	var combo = this.targetEnvironment;
-
-	alert("on template changed with: " + combo);
+//	alert("on template changed with: " + combo);
 }
 
 CreateClass.prototype.onConstructorTypeChanged = function(event) {
