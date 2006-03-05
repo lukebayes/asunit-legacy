@@ -12,7 +12,8 @@ As25TestCaseDefinition.prototype.init = function(model) {
 
 	this.setFullName(model.getTestCaseName());
 
-	this.config = new TestCaseConfig();
+	this.config = new As25TestCaseConfig();
+
 	var name = model.getClassName();
 	if(model.getTestCaseType() == ClassModel.MOCK_TYPE) {
 		name = model.getMockName()

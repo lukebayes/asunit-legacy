@@ -51,6 +51,7 @@
 
 
 	<!-- AS 2.5 CLASS DEFINITION TOKENS JS -->
+	<script src="chrome://asunit/content/script/tokens/As25TestCaseConfig.js" />
 	<script src="chrome://asunit/content/script/tokens/As25TestCaseDefinition.js" />
 	<script src="chrome://asunit/content/script/tokens/As25TestSuiteDefinition.js" />
 
