@@ -3,7 +3,7 @@ import asunit.textui.TestRunner;
 class AsUnitTestRunner extends TestRunner {
 	
 	public function AsUnitTestRunner() {
-		start(asunit.framework.ObjectTest);
+		start(AllTests);
 	}
 	
 	public static function main():Void {

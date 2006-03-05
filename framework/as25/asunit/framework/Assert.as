@@ -9,13 +9,11 @@ import asunit.errors.AssertionFailedError;
  * @see TestCase
  */
 class asunit.framework.Assert {
-//	private static var testRunner:TestRunner;
 	private static var defaultClassName:String = "[ClassName Unknown]";
 	private static var lastDepth:Number = 1;
 
-
-//	private function Assert() {
-//	}
+	private function Assert() {
+	}
 	
 	/**
 	 * Returns the next available depth for attaching a MovieClip.
@@ -352,7 +350,6 @@ class asunit.framework.Assert {
 	 * </pre>
 	 */
 	public static function fail(msg:String):Void {
-		trace("attempting to fail an assertion now with: " + msg);
 		throw new AssertionFailedError(msg);
-	}	
+	}
 }

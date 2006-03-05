@@ -58,7 +58,15 @@ class asunit.framework.TestCase extends Assert implements Test {
 					result.addFailure(this, e);
 				}
 				catch(ioe:Error) {
-					result.addError(this, ioe);
+					// Had to add this catch because compiling from Flash 8 Authoring
+					// Always sends the error to this catch statement...
+					// Compiling with MTASC seems to capture above...
+					if(ioe instanceof AssertionFailedError) {
+						result.addFailure(this, AssertionFailedError(ioe));
+					}
+					else {
+						result.addError(this, ioe);
+					}
 				}
 			}
 		}
@@ -117,7 +125,6 @@ class asunit.framework.TestCase extends Assert implements Test {
 	}
 	
 	public function toString():String {
-		trace("TEST CASE TO STRING: " + getCurrentMethod());
 		return getName() + "." + getCurrentMethod() + "()";
 	}
 	
