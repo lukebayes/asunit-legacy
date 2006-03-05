@@ -10,7 +10,7 @@ import asunit.errors.AssertionFailedError;
  */
 class asunit.framework.Assert {
 	private static var defaultClassName:String = "[ClassName Unknown]";
-	private static var lastDepth:Number = 1;
+	private static var lastDepth:Number = 10;
 
 	private function Assert() {
 	}
@@ -21,7 +21,7 @@ class asunit.framework.Assert {
 	 * @return
 	 *         Number of next available depth.
 	 */
-	private static function nextDepth():Number {
+	public static function nextDepth():Number {
 		return Assert.lastDepth++;
 	}
 

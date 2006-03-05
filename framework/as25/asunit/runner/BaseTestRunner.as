@@ -1,9 +1,11 @@
 import asunit.runner.IResultPrinter;
 import asunit.framework.Test;
 import asunit.framework.TestResult;
+import asunit.framework.Assert;
 
 class asunit.runner.BaseTestRunner {
 	private static var instance:BaseTestRunner;
+	private static var clipContext:MovieClip;
 	private var printer:IResultPrinter;
 	
 	public function BaseTestRunner(printerReference:Function) {
@@ -13,6 +15,7 @@ class asunit.runner.BaseTestRunner {
 		Stage.scaleMode = "noscale";
 		Stage.align = "TL";
 		instance = this;
+		setClipContext(_root);
 		setPrinter(createResultPrinter(printerReference));
 	}
 
@@ -62,19 +65,23 @@ class asunit.runner.BaseTestRunner {
 		return IResultPrinter(printer);
 	}
 
+	public function setClipContext(context:MovieClip):Void {
+		BaseTestRunner.clipContext = context;
+	}
 	/*
-	 * This function should return a refrence to the
+	 * This function should return a reference to the
 	 * MovieClip that all test cases will attach items
 	 * to. This MovieClip should probably *not* be _root.
 	 */	
 	public function getClipContext():MovieClip {
-		return _root;
+		return BaseTestRunner.clipContext;
 	}
 	
 	private static function createResultPrinter(reference:Function):IResultPrinter {
 		var printer:IResultPrinter;
 		if(printer == undefined) {
-			printer = IResultPrinter(_root.attachMovie(reference.linkageId, "asUnitResultPrinter_" + 9000, 10000));
+			var context:MovieClip = BaseTestRunner.clipContext;
+			printer = IResultPrinter(context.attachMovie(reference.linkageId, "asUnitResultPrinter_" + 9000, Assert.nextDepth()));
 		}
 		return printer;
 	}
