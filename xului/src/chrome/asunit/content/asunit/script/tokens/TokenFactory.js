@@ -6,6 +6,8 @@ var TokenFactory = new Object();
 TokenFactory.create = function(name) {
 	if(name == "as2") {
 		return new As2Factory();
+	} else if(name == "as25") {
+		return new As2Factory();
 	} else if(name == "as3") {
 		return new As3Factory();
 	}
