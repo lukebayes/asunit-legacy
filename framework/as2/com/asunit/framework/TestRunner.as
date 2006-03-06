@@ -8,22 +8,12 @@ class com.asunit.framework.TestRunner extends Array {
 	private var interval:Number = 10;
 	private var tests:Array;
 
-	public static function getLocalConn():LocalConnClient {
+	private static function getLocalConn():LocalConnClient {
 		if(localConn == null) {
 			localConn = LocalConnGateway.createClient("_AsUnitTestRunner");
 			localConn["clearTestDisplay"]();
 		}
 		return localConn;
-	}
-
-	public static function addSuccess(ref:TestResult):Void {
-		var lc:LocalConnClient = getLocalConn();
-		lc["addSuccess"](ref);
-	}
-
-	public static function addFailure(ref:TestFailure):Void {
-		var lc:LocalConnClient = getLocalConn();
-		lc["addFailure"](ref);
 	}
 
 	public function TestRunner() {
@@ -35,17 +25,17 @@ class com.asunit.framework.TestRunner extends Array {
 		clearInterval(intervalId);
 
 		if(num > 100) {
-			renderTests(tests);
+			renderTests();
 		} else {
-			intervalId = setInterval(this, "renderTests", interval, tests);
+			intervalId = setInterval(this, "renderTests", interval);
 		}
 		return num;
 	}
 
-	public function renderTests(arr:Array):Void {
+	public function renderTests():Void {
 		clearInterval(intervalId);
 		var lc:LocalConnClient = getLocalConn();
-		lc["addTests"](arr);
+		lc["addTests"](tests);
 		tests = new Array();
 	}
 }
