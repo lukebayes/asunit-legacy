@@ -1,4 +1,5 @@
 import asunit.errors.AssertionFailedError;
+import asunit.errors.IllegalOperationError;
 
 /**
  * Provides assert methods and other utility methods which are inherited by
@@ -288,6 +289,10 @@ class asunit.framework.Assert {
 			assertion = Boolean(msg);
 			msg = "";
 		}
+		
+		if(arguments.length > 2) {
+			failError("Argument Count Exceeded " + String(msg), "assertTrue");
+		}
 		addTestResult(String(msg), "assertTrue", assertion);
 	}
 
@@ -351,5 +356,9 @@ class asunit.framework.Assert {
 	 */
 	public static function fail(msg:String):Void {
 		throw new AssertionFailedError(msg);
+	}
+	
+	public static function failError(msg:String):Void {
+		throw new IllegalOperationError(msg);
 	}
 }

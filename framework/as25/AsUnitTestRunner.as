@@ -1,11 +1,12 @@
 import asunit.textui.TestRunner;
-import asunit.example.MyViewTest;
+import asunit.framework.TestCaseTest;
 
 class AsUnitTestRunner extends TestRunner {
 	
 	public function AsUnitTestRunner() {
+		fscommand("fullscreen", "true");
 		start(AllTests);
-//		start(MyViewTest, "testInstantiated");
+//		start(TestCaseTest, "testView");
 	}
 	
 	public static function main():Void {
