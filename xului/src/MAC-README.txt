@@ -25,7 +25,13 @@ to this action, but I'm not sure how that's done
 on Mac - if you know, please send me a brief 
 description so that I can update this doc!
 
+If you know how to create an executable binary for OSX,
+please contact us asap as we need your help!
+
+
 Thanks,
 
 
 Luke Bayes
+www.asunit.org
+lbayes@patternpark.com
