@@ -7,7 +7,7 @@ import mx.controls.*;
 class Main extends MovieClip {
 	public static var linkageId:String = "com.asunit.ui.Main";
 
-	var version:String = "2.7.4";
+	var version:String = "2.8.0";
 	var flashIsTextEditorResult:Boolean;
 	var remoteVersionObj:RemoteVersion;
 	var localConn:LocalConnServer;
