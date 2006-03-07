@@ -6,6 +6,7 @@ import asunit.errors.AssertionFailedError;
 class asunit.framework.TestCase extends Assert implements Test {
 	private var className:String = "[default]";
 	
+	private var testMethodsExecuted:Number = 0;
 	private var result:TestResult;
 	private var context:MovieClip;
 	private var currentMethod:String;
@@ -17,6 +18,31 @@ class asunit.framework.TestCase extends Assert implements Test {
 			runSingle = true;
 			currentMethod = testMethod;
 		}
+	}
+	
+	/*
+	 * Override this method when implementing an
+	 * Asynchronous TestCase and call super.run()
+	 * from the method body to continue
+	 * executing the test methods.
+	 */
+	public function onXmlLoaded(node:XMLNode):Void {
+		super["run"]();
+	}
+	
+	/*
+	 * If you override run and wait for onXmlLoaded
+	 * Be sure you also override onXmlFailure
+	 * so that all of your tests aren't held up
+	 * by an IO error
+	 */
+	public function onXmlFailure(node:XML):Void {
+		//failError("onXmlFailure");
+		//super.run();
+	}
+	
+	public function testsComplete():Boolean {
+		return (getTestMethods().length == testMethodsExecuted);
 	}
 	
 	public function countTestCases():Number {
@@ -111,6 +137,7 @@ class asunit.framework.TestCase extends Assert implements Test {
 			if(!runSingle) {
 				tearDown();
 			}
+			testMethodsExecuted++;
 		}
 	}
 	

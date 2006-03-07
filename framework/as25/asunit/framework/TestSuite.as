@@ -13,6 +13,18 @@ class asunit.framework.TestSuite extends TestCase {
 	private function getTestMethods():Array {
 		return new Array();
 	}
+	
+	public function testsComplete():Boolean {
+		var completed:Boolean;
+		var len:Number = fTests.length;
+		for(var i:Number = 0; i < len; i++) {
+			if(!fTests[i].testsComplete()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	/**
 	 * Adds a test to the suite.
 	 */

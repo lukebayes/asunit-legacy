@@ -7,6 +7,7 @@ class asunit.runner.BaseTestRunner {
 	private static var instance:BaseTestRunner;
 	private static var clipContext:MovieClip;
 	private var printer:IResultPrinter;
+	private var intervalId:Number;
 	
 	public function BaseTestRunner(printerReference:Function) {
 		if(printerReference == undefined) {
@@ -41,7 +42,7 @@ class asunit.runner.BaseTestRunner {
 			suite.setResult(result);
 			suite.setContext(getClipContext());
 			suite.run();
-			onTestsCompleted(result, startTime);
+			intervalId = setInterval(this, "completionHandler", 1, suite, result, startTime);
 			return result;
 		}
 		catch(e:Error) {
@@ -49,8 +50,11 @@ class asunit.runner.BaseTestRunner {
 		}
 	}
 	
-	private function onTestsCompleted(result:TestResult, startTime:Number):Void {
-		getPrinter().printResult(result, (getTimer() - startTime));
+	private function completionHandler(suite:Test, result:TestResult, startTime:Number):Void {
+		if(suite.testsComplete()) {
+			clearInterval(intervalId);
+			getPrinter().printResult(result, (getTimer() - startTime));
+		}
 	}
 	
 	public static function trace(msg:String):Void {
