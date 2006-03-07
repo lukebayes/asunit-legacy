@@ -42,6 +42,7 @@ class asunit.runner.BaseTestRunner {
 			suite.setResult(result);
 			suite.setContext(getClipContext());
 			suite.run();
+			clearInterval(intervalId);
 			intervalId = setInterval(this, "completionHandler", 1, suite, result, startTime);
 			return result;
 		}
