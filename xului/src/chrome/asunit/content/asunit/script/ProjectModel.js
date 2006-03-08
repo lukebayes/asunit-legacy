@@ -126,20 +126,28 @@ ProjectModel.prototype.fromString = function(str) {
 	this.projects = new Array();
 	var ln = projectList.length;
 	for(var i = 0 ; i < ln; i++) {
+		if(projectList[i].indexOf("lastProjectId=") == 0) {
+			var value = projectList[i].split("=");
+			var id = value[1];
+			this.setCurrentProjectById(id);
+			break;
+		}
 		var project = new ClassModel();
 		project.fromString(projectList[i]);
 		this.projects.push(project);
 	}
 
-	this.setCurrentProject(this.projects[0]);
+	if(this.project == undefined) {
+		this.setCurrentProject(this.projects[0]);
+	}
 	this.doOnSpecificChange("onProjectModelChanged", project);
 }
 
 ProjectModel.prototype.toString = function() {
 	var str = "";
-//	var str += this.project.projectId + "\n";
 	for(var k = 0; k < this.projects.length; k++) {
 		str += this.projects[k].toString() + "\n";
 	}
+	str += "lastProjectId=" + this.project.projectId + "\n";
 	return str;
 }
