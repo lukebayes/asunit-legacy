@@ -5,7 +5,8 @@ class AsUnitTestRunner extends TestRunner {
 
 	public function AsUnitTestRunner() {
 		fscommand("fullscreen", "true");
-		start(AllTests);
+//		start(AllTests);
+		start(TestCaseTest, "testInstantiated");
 	}
 
 	public static function main():Void {
