@@ -5,7 +5,7 @@ package {
 	import flash.display.StageScaleMode;
 	import flash.system.fscommand;
 	
-	public class AsUnit extends TestRunner {
+	public class AsUnitTestRunner extends TestRunner {
 
 		public function AsUnit() {
 			fscommand("fullscreen", "true");
