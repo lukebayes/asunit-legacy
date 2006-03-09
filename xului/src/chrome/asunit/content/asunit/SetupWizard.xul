@@ -30,8 +30,8 @@
 	<label class="rowLabel" value="Templates:" />
 	<menulist id="targetEnvironment" flex="1" oncommand="model.setTemplate(this.selectedItem.value);">
 		<menupopup>
-			<menuitem label="ActionScript 2.0 (Flash Player 6 or 7)" value="as2" />
-			<menuitem label="ActionScript 2.0 (Flash Player 8)" value="as25" />
+			<menuitem label="ActionScript 2.0 (Flash Player 6, 7 or 8)" value="as2" />
+			<menuitem label="ActionScript 2.0 (Flash Player 7 or 8 only)" value="as25" />
 			<menuitem label="ActionScript 3.0 (Flash Player 8.5)" value="as3" />
 		</menupopup>
 	</menulist>
