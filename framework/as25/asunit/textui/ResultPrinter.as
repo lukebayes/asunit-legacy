@@ -51,6 +51,7 @@ class asunit.textui.ResultPrinter extends MovieClip implements IResultPrinter, I
 	}
 	
 	public function trace():Void {
+		traceOutput._visible = true;
 		traceOutput.text += arguments.toString() + "\n";
 		traceOutput.scroll = traceOutput.maxscroll;
 	}
@@ -90,7 +91,8 @@ class asunit.textui.ResultPrinter extends MovieClip implements IResultPrinter, I
 	}
 	
 	private function createOutput():Void {
-		traceOutput = getTextField("output", 1);
+		traceOutput = getTextField("output", 4);
+		traceOutput._visible = false;
 		var format:TextFormat = traceOutput.getTextFormat();
 		format.align = "right";
 		traceOutput.setNewTextFormat(format);
