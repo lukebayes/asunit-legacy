@@ -129,8 +129,8 @@ class asunit.framework.TestCase extends Assert implements Test {
 	
 	private function runMethod(methodName:String):Void {
 		currentMethod = methodName;
-		setUp();
 		try {
+			setUp();
 			this[methodName]();
 		}
 		finally {
