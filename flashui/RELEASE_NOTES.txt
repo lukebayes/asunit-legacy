@@ -1,8 +1,9 @@
 
- - TODO: Improve Flex and Central Installations
- - TODO: Add tighter Eclipse/MTASC integration
- Perhaps we could just have a Java Socket communicate
- directly with the JUnit UI that appears in Eclipse?
+------------------------------------------------
+Version 2.8
+------------------------------------------------
+ - Cleaned up Mac integration for mxp
+
 
 ------------------------------------------------
 Version 2.7
