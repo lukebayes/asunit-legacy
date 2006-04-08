@@ -12,17 +12,24 @@ class asunit.framework.TestCaseXml extends XML {
 		source = src;
 		callback = cb;
 		ignoreWhite = true;
-		onLoad = loadHandler;
 		if(src != undefined) {
 			load(source);
 		}
 	}
 
-	public function loadHandler(success:Boolean):Void {
+	public function onData(data:String):Void {
+		if(data == "" || data == undefined) {
+			callback.onXmlFailure(this);
+		}
+		else {
+			super.onData(data);
+		}
+	}
+
+	public function onLoad(success:Boolean):Void {
 		if(success) {
 			callback.onXmlLoaded(this.firstChild);
 		} else {
-			trace("Error: TestCaseXml Failed to load data at: " + source);
 			callback.onXmlFailure(this);
 		}
 	}

@@ -1,5 +1,3 @@
-//import flash.events.EventDispatcher;
-import asunit.errors.IllegalOperationError;
 import asunit.errors.AssertionFailedError;
 import asunit.errors.InstanceNotFoundError;
 import asunit.framework.Test;
@@ -22,7 +20,7 @@ class asunit.framework.TestResult {
 	private var fListeners:Array;
 	private var fRunTests:Number;
 	private var fStop:Boolean;
-	
+
 	public function TestResult() {
 		fFailures  = new Array();
 		fErrors	   = new Array();
@@ -99,7 +97,7 @@ class asunit.framework.TestResult {
 	public function failures():Array {
 		return fFailures;
 	}
-	
+
 	/**
 	 * Runs a TestCase.
 	 */
@@ -108,11 +106,11 @@ class asunit.framework.TestResult {
 		try {
 			test.runBare();
 		}
-		catch(e:AssertionFailedError) {
-			addFailure(test, e);
+		catch(afe:AssertionFailedError) {
+			addFailure(test, afe);
 		}
-		catch(ioe:IllegalOperationError) {
-			addError(test, ioe);
+		catch(e:Error) {
+			addError(test, e);
 		}
 		finally {
 			endTest(test);

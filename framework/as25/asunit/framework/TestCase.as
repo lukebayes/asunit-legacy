@@ -5,57 +5,57 @@ import asunit.errors.AssertionFailedError;
 
 class asunit.framework.TestCase extends Assert implements Test {
 	private var className:String = "[default]";
-	
+
 	private var testMethodsExecuted:Number = 0;
 	private var result:TestResult;
 	private var context:MovieClip;
 	private var currentMethod:String;
 	private var runSingle:Boolean;
 	private var isComplete:Boolean;
-	
+
 	public function TestCase(testMethod:String) {
 		if(testMethod != undefined) {
 			runSingle = true;
 			currentMethod = testMethod;
 		}
 	}
-	
+
 	/*
-	 * Override this method when implementing an
-	 * Asynchronous TestCase and call super.run()
-	 * from the method body to continue
-	 * executing the test methods.
+	 * You can choose to override this method when implementing
+	 * asynchronous test cases.
+	 * By default, the TestCaseXml object will call back to this
+	 * method and begin execution of the test case.
 	 */
 	public function onXmlLoaded(node:XMLNode):Void {
-		super["run"]();
+		runNow();
 	}
-	
+
 	/*
-	 * If you override run and wait for onXmlLoaded
-	 * Be sure you also override onXmlFailure
-	 * so that all of your tests aren't held up
-	 * by an IO error
+	 * By default, this method will be triggered from
+	 * a TestCaseXml instance. If there is a problem
+	 * an error will be shown in the output.
 	 */
 	public function onXmlFailure(node:XML):Void {
-		//failError("onXmlFailure");
-		//super.run();
+		currentMethod = "onXmlFailure";
+		getResult().addError(this, new Error("TestCaseXml failed to load successfully: " + node.toString()));
+		runNow();
 	}
-	
+
 	public function testsComplete():Boolean {
 		return (getTestMethods().length == testMethodsExecuted);
 	}
-	
+
 	public function countTestCases():Number {
 		return getTestMethods().length;
 	}
-	
+
 	/*
 	 * setUp() is called before each method that begins with "test*"
 	 * This method should used to instantiate common fixtures
 	 */
 	private function setUp():Void {
 	}
-	
+
 	/*
 	 * tearDown() is called after each method that begins with "test*"
 	 * This method should be used to destroy any objects created from
@@ -63,35 +63,39 @@ class asunit.framework.TestCase extends Assert implements Test {
 	 */
 	private function tearDown():Void {
 	}
-	
+
 	/* cleanUp() is called one time after all test methods have completed
-	 * in a single TestCase. This is typically overridden and used to 
+	 * in a single TestCase. This is typically overridden and used to
 	 * clean up after an Asynchronous TestCase has completed.
 	 */
 	private function cleanUp():Void {
 	}
-	
+
 	public function setResult(result:TestResult):Void {
 		this.result = result;
 	}
-	
+
 	private function getResult():TestResult {
 		return result;
 	}
-	
+
 	public function setContext(context:MovieClip):Void {
 		this.context = context;
 	}
-	
+
 	public function getContext():MovieClip {
 		return context;
 	}
-	
+
 	public function run():Void {
+		runNow();
+	}
+
+	private function runNow():Void {
 		var result:TestResult = getResult();
 		result.run(this);
 	}
-	
+
 	public function runBare():Void {
 		var methods:Array = getTestMethods();
 		var name:String;
@@ -102,18 +106,12 @@ class asunit.framework.TestCase extends Assert implements Test {
 				try {
 					runMethod(name);
 				}
-				catch(e:AssertionFailedError) {
-					result.addFailure(this, e);
-				}
-				catch(ioe:Error) {
-					// Had to add this catch because compiling from Flash 8 Authoring
-					// Always sends the error to this catch statement...
-					// Compiling with MTASC seems to capture above...
-					if(ioe instanceof AssertionFailedError) {
-						result.addFailure(this, AssertionFailedError(ioe));
+				catch(e:Error) {
+					if(e instanceof AssertionFailedError) {
+						result.addFailure(this, AssertionFailedError(e));
 					}
 					else {
-						result.addError(this, ioe);
+						result.addError(this, e);
 					}
 				}
 			}
@@ -126,7 +124,7 @@ class asunit.framework.TestCase extends Assert implements Test {
 
 		isComplete = true;
 	}
-	
+
 	private function runMethod(methodName:String):Void {
 		currentMethod = methodName;
 		try {
@@ -140,7 +138,7 @@ class asunit.framework.TestCase extends Assert implements Test {
 			testMethodsExecuted++;
 		}
 	}
-	
+
 	private function getTestMethods():Array {
 		if(runSingle) {
 			return new Array(currentMethod);
@@ -168,15 +166,15 @@ class asunit.framework.TestCase extends Assert implements Test {
 	public function getCurrentMethod():String {
 		return currentMethod;
 	}
-	
+
 	public function toString():String {
 		return getName() + "." + getCurrentMethod() + "()";
 	}
-	
+
 	public function getName():String {
 		return className;
 	}
-	
+
 	private function createEmptyMovieClip(name:String, depth:Number):MovieClip {
 		return getContext().createEmptyMovieClip(name, depth);
 	}
@@ -192,12 +190,12 @@ class asunit.framework.TestCase extends Assert implements Test {
 
 	/*
 	 * This helper method will support the following method signatures:
-	 * 
+	 *
 	 * attachMovie(linkageId:String):MovieClip;
 	 * attachMovie(linkageId:String, initObject:Object):MovieClip;
 	 * attachMovie(linkageId:String, name:String, depth:Number):MovieClip;
 	 * attachMovie(linkageId:String, name:String, depth:Number, initObject:Object):MovieClip;
-	 * 
+	 *
 	 * @return
 	 * 	MovieClip
 	 */
