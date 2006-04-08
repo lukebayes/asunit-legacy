@@ -4,5 +4,6 @@ class [%PACKAGE_NAME%]AllTests extends com.asunit.framework.TestSuite {
 
 	public function AllTests() {
 		super();
-		[%TEST_LIST%]}
+		[%TEST_LIST%]
+	}
 }
