@@ -1,11 +1,11 @@
 
 <macromedia-extension
  name="As Unit"
- version="2.7.1"
+ version="2.8"
  type="flash panel"
  requires-restart="false">
 
-<!-- List the required/compatible products -->
+<!-- List the requiredcompatible products -->
 
 <products>
 	<product name="Flash" version="7" primary="true" />
@@ -36,47 +36,33 @@
 <!-- Describe the files that comprise the extension -->
 
 <files>
-	<file name="AsUnit Ui.swf" destination="$flash/WindowSWF" />
-	<file name="Sys.as" destination="$flash/Classes/" />
-
-	<!-- COM.ASUNIT.CONTROLS -->
-	<file name="com/asunit/controls/LocalOutputPanel.as" destination="$flash/Classes/com/asunit/controls/" />
-	<file name="com/asunit/controls/LocalOutputPanelTextArea.as" destination="$flash/Classes/com/asunit/controls/" />
-	<file name="com/asunit/controls/LocalOutputPanelTitleBar.as" destination="$flash/Classes/com/asunit/controls/" />
-	<file name="com/asunit/controls/ResizeHandle.as" destination="$flash/Classes/com/asunit/controls/" />
-	<file name="com/asunit/controls/ScrollArrow.as" destination="$flash/Classes/com/asunit/controls/" />
-	<file name="com/asunit/controls/ScrollHandle.as" destination="$flash/Classes/com/asunit/controls/" />
-	<file name="com/asunit/controls/ScrollListener.as" destination="$flash/Classes/com/asunit/controls/" />
-	<file name="com/asunit/controls/TextScroller.as" destination="$flash/Classes/com/asunit/controls/" />
-
-	<!-- COM.ASUNIT.CONTROLS.SHAPES -->
-	<file name="com/asunit/controls/shapes/Rectangle.as" destination="$flash/Classes/com/asunit/controls/shapes/" />
-	<file name="com/asunit/controls/shapes/Triangle.as" destination="$flash/Classes/com/asunit/controls/shapes/" />
+	<file name="as2/AsUnit Ui.swf" destination="$flash/WindowSWF" />
+	<file name="as2/Sys.as" destination="$flash/Classes/" />
 
 	<!-- COM.ASUNIT.FRAMEWORK -->
-	<file name="com/asunit/framework/Assert.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/Assertion.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/AsUnit.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/Reflection.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/Test.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/TestCase.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/TestSetup.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/TestCaseXml.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/TestFailure.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/TestResult.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/TestRunner.as" destination="$flash/Classes/com/asunit/framework/" />
-	<file name="com/asunit/framework/TestSuite.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/Assert.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/Assertion.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/AsUnit.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/Reflection.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/Test.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/TestCase.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/TestSetup.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/TestCaseXml.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/TestFailure.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/TestResult.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/TestRunner.as" destination="$flash/Classes/com/asunit/framework/" />
+	<file name="as2/com/asunit/framework/TestSuite.as" destination="$flash/Classes/com/asunit/framework/" />
 
 	<!-- COM.ASUNIT.UTIL -->
-	<file name="com/asunit/util/EventListener.as" destination="$flash/Classes/com/asunit/util/" />
-	<file name="com/asunit/util/EventSource.as" destination="$flash/Classes/com/asunit/util/" />
-	<file name="com/asunit/util/LocalMessageBroker.as" destination="$flash/Classes/com/asunit/util/" />
-	<file name="com/asunit/util/LocalConnClient.as" destination="$flash/Classes/com/asunit/util/" />
-	<file name="com/asunit/util/LocalConnGateway.as" destination="$flash/Classes/com/asunit/util/" />
-	<file name="com/asunit/util/LocalConnServer.as" destination="$flash/Classes/com/asunit/util/" />
-	<file name="com/asunit/util/Observable.as" destination="$flash/Classes/com/asunit/util/" />
-	<file name="com/asunit/util/Comparable.as" destination="$flash/Classes/com/asunit/util/" />
-	<file name="com/asunit/util/TextFile.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/EventListener.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/EventSource.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/LocalMessageBroker.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/LocalConnClient.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/LocalConnGateway.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/LocalConnServer.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/Observable.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/comparable.as" destination="$flash/Classes/com/asunit/util/" />
+	<file name="as2/com/asunit/util/TextFile.as" destination="$flash/Classes/com/asunit/util/" />
 
 	<!-- CREATE CLASS -->
 	<file name="createClass/Create Class.jsfl" destination="$flash/Commands" />
@@ -89,6 +75,11 @@
 	<!-- BUILD TEST SUITES -->
 	<file name="createTestSuites/Build Test Suites.jsfl" destination="$flash/Commands" />
 	<file name="createTestSuites/TestSuiteTemplate.as" destination="$flash/External Libraries/asunit/" />
+
+
+	<!-- ASUNIT 2.5 -->
+
+
 </files>
 
 </macromedia-extension>

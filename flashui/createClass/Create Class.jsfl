@@ -195,10 +195,7 @@ CreateClass.prototype.checkVersion = function() {
 	vers = vers[1].split(",");
 	// If the revision number does not reflect "7.2" ++
 	// Throw an error to output...
-	if(vers[0] > 7) {
-		return true;
-	}
-	if(vers[1] < 2) {
+	if(vers[0] < 7 || vers[0] == 7 && vers[1] < 2) {
 		return false;
 	}
 	return true;
