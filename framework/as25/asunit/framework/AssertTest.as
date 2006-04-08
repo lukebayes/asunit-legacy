@@ -32,8 +32,8 @@ class asunit.framework.AssertTest extends TestCase {
 			}
 		}
 	}
-	
-//			instance.assertTrue("faux message", false);			
+
+//			instance.assertTrue("faux message", false);
 
 	public function testAssertTrueTooManyArgs():Void {
 		try {
@@ -41,13 +41,12 @@ class asunit.framework.AssertTest extends TestCase {
 			fail("assertTrue should have failed with too many args");
 		}
 		catch(e) {
-			trace("hit failure");
 			if(!(e instanceof IllegalOperationError)) {
 				fail(e.toString());
 			}
 		}
 	}
-	
+
 	public function testAssertTrueSuccess():Void {
 		try {
 			instance.assertTrue(true);
