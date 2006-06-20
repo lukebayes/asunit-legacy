@@ -1,6 +1,5 @@
 package asunit.framework {
 
-	import flash.util.trace;
 	import flash.errors.IllegalOperationError;
 	import asunit.errors.AssertionFailedError;
 

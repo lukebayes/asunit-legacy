@@ -32,7 +32,7 @@
 		<menupopup>
 			<menuitem label="ActionScript 2.0 (Flash Player 6, 7 or 8)" value="as2" />
 			<menuitem label="ActionScript 2.0 (Flash Player 7 or 8 only)" value="as25" />
-			<menuitem label="ActionScript 3.0 (Flash Player 8.5)" value="as3" />
+			<menuitem label="ActionScript 3.0 (Flash Player 9.0)" value="as3" />
 		</menupopup>
 	</menulist>
 	<spacer flex="100" />

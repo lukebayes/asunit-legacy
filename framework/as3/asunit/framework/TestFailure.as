@@ -1,6 +1,4 @@
 package asunit.framework {
-	
-	import flash.util.StringBuilder;
 	import asunit.errors.AssertionFailedError;
 	
 	/**
@@ -36,12 +34,6 @@ package asunit.framework {
 		 */
 		public function toString():String {
 			return "";
-//			return fFailedTest.toString();
-//		    var buffer:StringBuilder = new StringBuilder();
-//		    buffer.append(fFailedTest.toString());
-//		    buffer.append(":\n");
-//		    buffer.append(fThrownException.toString());
-//		    return buffer.toString();
 		}
 
 		public function exceptionMessage():String {

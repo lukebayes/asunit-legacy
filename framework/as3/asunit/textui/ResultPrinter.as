@@ -1,17 +1,4 @@
 package asunit.textui {
-	
-	import flash.util.setTimeout;
-	import flash.util.trace;
-	import flash.ui.Keyboard;
-	import flash.display.Shape;
-	import flash.display.Sprite;
-	import flash.display.Stage;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
-	import flash.text.TextFormat;
-	import flash.util.StringBuilder;
-	import flash.display.TextField;
-	import flash.events.*;
 	import asunit.errors.AssertionFailedError;
 	import asunit.framework.Test;
 	import asunit.framework.TestFailure;
@@ -19,6 +6,17 @@ package asunit.textui {
 	import asunit.framework.TestResult;
 	import asunit.runner.BaseTestRunner;
 	import asunit.runner.Version;
+	
+	import flash.display.Shape;
+	import flash.display.Sprite;
+	import flash.display.Stage;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
+	import flash.events.*;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.ui.Keyboard;
+	import flash.utils.setTimeout;
 	
 	public class ResultPrinter extends Sprite implements TestListener {
 		private var fColumn:int = 0;
@@ -220,7 +218,7 @@ package asunit.textui {
 
 import flash.display.Sprite;
 
-public class SuccessBar extends Sprite {
+class SuccessBar extends Sprite {
 	private var myWidth:uint;
 	private var myHeight:uint;
 	private var bgColor:uint;

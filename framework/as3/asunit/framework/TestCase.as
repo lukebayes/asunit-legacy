@@ -1,9 +1,10 @@
 package asunit.framework {
-	import flash.util.describeType;
+	import asunit.errors.AssertionFailedError;
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.errors.IllegalOperationError;
-	import asunit.errors.AssertionFailedError;
+	import flash.utils.describeType;
 
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>

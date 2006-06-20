@@ -86,7 +86,7 @@ As3TestCaseConfig.prototype.toString = function() {
 	} else if(this.isVisual) {
 		str += "\t\t\tremoveChild(instance);\n";
 	}
-	str += "\t\t\tdelete instance;\n";
+	str += "\t\t\tinstance = null;\n";
 
 	str += "\t\t}\n\n";
 	str += "\t\tpublic function testInstantiated():void {\n";

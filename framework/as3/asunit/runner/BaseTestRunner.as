@@ -1,19 +1,18 @@
 package asunit.runner {
-	
-	import flash.util.trace;
-	import flash.util.getClassByName;
-	import flash.display.Sprite;
-	import flash.util.describeType;
-	import asunit.framework.TestSuite;
-	import asunit.framework.TestListener;
-	import asunit.framework.Test;
 	import asunit.errors.AbstractMemberCalledError;
 	import asunit.errors.AssertionFailedError;
 	import asunit.errors.ClassNotFoundError;
 	import asunit.errors.InvocationTargetError;
 	import asunit.errors.UnimplementedFeatureError;
+	import asunit.framework.Test;
+	import asunit.framework.TestListener;
+	import asunit.framework.TestSuite;
 	import asunit.util.Properties;
+	
+	import flash.display.Sprite;
 	import flash.errors.IllegalOperationError;
+	import flash.utils.describeType;
+	import flash.utils.getDefinitionByName;
 	
 	/**
 	 * Base class for all test runners.
@@ -133,7 +132,7 @@ package asunit.runner {
 			var TestClass:Class = null;
 			
 			try {
-				TestClass = getClassByName(testCase);
+				TestClass = getDefinitionByName(testCase);
 			}
 			catch(e:ClassNotFoundError) {
 				var clazz:String = e.getMessage();

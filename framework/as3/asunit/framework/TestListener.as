@@ -1,6 +1,6 @@
 package asunit.framework {
 	import asunit.errors.AssertionFailedError;
-	import asunit.lang.Error;
+//	import asunit.lang.Error;
 	
 	public interface TestListener {
 		/**

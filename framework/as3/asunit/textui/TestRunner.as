@@ -1,16 +1,15 @@
 package asunit.textui {
-	import flash.util.trace;
-	import flash.util.getTimer;
-	import flash.util.describeType;
-	import flash.util.setInterval;
-	import flash.util.clearInterval;
-	import flash.events.Event;
-	import flash.events.EventType;
-	import flash.system.fscommand;
-	import flash.display.Sprite;
-	import asunit.framework.TestResult;
-	import asunit.framework.Test;
 	import asunit.errors.AbstractMemberCalledError;
+	import asunit.framework.Test;
+	import asunit.framework.TestResult;
+	
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.system.fscommand;
+	import flash.utils.clearInterval;
+	import flash.utils.describeType;
+	import flash.utils.getTimer;
+	import flash.utils.setInterval;
 
 	/**
 	 * A command line based tool to run tests.

@@ -1,5 +1,4 @@
 package asunit.framework {
-	import flash.util.trace;
 	import flash.display.DisplayObjectContainer;
 	
 	/**

@@ -1,9 +1,9 @@
 package asunit.framework {
-	import flash.util.trace;
-	import flash.events.EventDispatcher;
-	import flash.errors.IllegalOperationError;
 	import asunit.errors.AssertionFailedError;
 	import asunit.errors.InstanceNotFoundError;
+	
+	import flash.errors.IllegalOperationError;
+	import flash.events.EventDispatcher;
 	
 	/**
 	 * A <code>TestResult</code> collects the results of executing
