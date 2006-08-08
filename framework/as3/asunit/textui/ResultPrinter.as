@@ -77,11 +77,13 @@ package asunit.textui {
 		}
 
 		public function println(...args:Array):void {
-			textArea.text += args.toString() + "\n";
+//			textArea.text += args.toString() + "\n";
+			textArea.appendText(args.toString() + "\n");
 		}
 		
 		public function print(...args:Array):void {
-			textArea.text += args.toString();
+//			textArea.text += args.toString();
+			textArea.appendText(args.toString());
 		}
 		/* API for use by textui.TestRunner
 		 */

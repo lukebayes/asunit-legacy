@@ -1,5 +1,4 @@
 package asunit.framework {
-	import flash.util.trace;
 	import flash.net.URLRequest;
 	import flash.net.URLLoader;
 	import flash.events.*;
