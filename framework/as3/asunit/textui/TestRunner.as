@@ -39,23 +39,21 @@ package asunit.textui {
 		}
 
 		private function configureListeners():void {
-			addEventListener(Event.ADDED, onAdded);
+			addEventListener(Event.ADDED, addedHandler);
 //			addEventListener(KeyboardEventType.KEY_DOWN, onKeyDown);
 		}
 		
-		private function onAdded(event:Event):void {
-			trace("-------------------");
-			trace("ON ADDED CALLED WITH: " + event);
+		protected function addedHandler(event:Event):void {
 			if(event.target === this) {
 				stage.align = StageAlign.TOP_LEFT;
 				stage.scaleMode = StageScaleMode.NO_SCALE;
-				stage.addEventListener(Event.RESIZE, onResized);
-				onResized(new Event("resize"));
+				stage.addEventListener(Event.RESIZE, resizeHandler);
+				resizeHandler(new Event("resize"));
 				fPrinter.println("AsUnit " + Version.id() + " by Luke Bayes and Ali Mills"); 
 			}
 		}
 		
-		private function onResized(event:Event):void {
+		private function resizeHandler(event:Event):void {
 			fPrinter.width = stage.stageWidth;
 			fPrinter.height = stage.stageHeight;
 		}

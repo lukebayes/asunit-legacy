@@ -3,10 +3,13 @@ package asunit.textui {
 	import flash.events.Event;
 	import asunit.runner.Version;
 	
-	public class FlexTestRunner extends TestRunner implements IUIComponent {
+	public class FlexTestRunner extends TestRunner {
 
-		private function onAdded(event:Event):void {
-			fPrinter.println("AsUnit " + Version.id() + " by Luke Bayes and Ali Mills"); 
+		protected override function addedHandler(event:Event):void {
+			if(event.target === this) {
+				parent.addEventListener(Event.RESIZE, resizeHandler);
+				fPrinter.println("AsUnit " + Version.id() + " by Luke Bayes and Ali Mills");
+			}
 		}
 		
 		public override function set width(w:Number):void {
@@ -15,6 +18,11 @@ package asunit.textui {
 
 		public override function set height(h:Number):void {
 			fPrinter.height = h;
+		}
+		
+		private function resizeHandler(event:Event):void {
+			width = event.target.width;
+			height = event.target.height;
 		}
 	}		
 }
