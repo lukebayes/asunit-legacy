@@ -1,14 +1,14 @@
 package asunit.textui {
-	import mx.core.IUIComponent;
+	import flash.display.DisplayObject;
 	import flash.events.Event;
-	import asunit.runner.Version;
+	
+	import mx.core.IUIComponent;
 	
 	public class FlexTestRunner extends TestRunner {
 
 		protected override function addedHandler(event:Event):void {
 			if(event.target === this) {
 				parent.addEventListener(Event.RESIZE, resizeHandler);
-				fPrinter.println("AsUnit " + Version.id() + " by Luke Bayes and Ali Mills");
 			}
 		}
 		
@@ -23,6 +23,15 @@ package asunit.textui {
 		private function resizeHandler(event:Event):void {
 			width = event.target.width;
 			height = event.target.height;
+		}
+		
+		public override function addChild(child:DisplayObject):DisplayObject {
+			if(parent) {
+				return parent.addChild(child);
+			}
+			else {
+				return super.addChild(child);
+			}
 		}
 	}		
 }

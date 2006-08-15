@@ -45,6 +45,7 @@ package asunit.textui {
 			format.color = 0xFFFFFF;
 			textArea.defaultTextFormat = format;
 			addChild(textArea);
+			println("AsUnit " + Version.id() + " by Luke Bayes and Ali Mills");
 			
 			bar = new SuccessBar();
 			addChild(bar);
@@ -65,12 +66,10 @@ package asunit.textui {
 		}
 
 		public function println(...args:Array):void {
-//			textArea.text += args.toString() + "\n";
 			textArea.appendText(args.toString() + "\n");
 		}
 		
 		public function print(...args:Array):void {
-//			textArea.text += args.toString();
 			textArea.appendText(args.toString());
 		}
 		/* API for use by textui.TestRunner

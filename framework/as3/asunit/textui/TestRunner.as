@@ -2,7 +2,6 @@ package asunit.textui {
 	import asunit.errors.AbstractMemberCalledError;
 	import asunit.framework.Test;
 	import asunit.framework.TestResult;
-	import asunit.runner.Version;
 	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -49,7 +48,6 @@ package asunit.textui {
 				stage.scaleMode = StageScaleMode.NO_SCALE;
 				stage.addEventListener(Event.RESIZE, resizeHandler);
 				resizeHandler(new Event("resize"));
-				fPrinter.println("AsUnit " + Version.id() + " by Luke Bayes and Ali Mills"); 
 			}
 		}
 		
