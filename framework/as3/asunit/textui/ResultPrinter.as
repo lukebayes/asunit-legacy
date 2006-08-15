@@ -31,7 +31,6 @@ package asunit.textui {
 			this.showTrace = showTrace;
 			configureAssets();
 			println();
-			configureListeners();
 		}
 
 		private function configureAssets():void {
@@ -51,28 +50,17 @@ package asunit.textui {
 			addChild(bar);
 		}
 		
-		private function configureListeners():void {
-			addEventListener(Event.ADDED, onAdded);
-//			addEventListener(KeyboardEventType.KEY_DOWN, onKeyDown);
-		}
-		
-		private function onAdded(event:Event):void {
-			stage.align = StageAlign.TOP_LEFT;
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.addEventListener(Event.RESIZE, onResized);
-			onResized(new Event("resize"));
-			println("AsUnit " + Version.id() + " by Luke Bayes and Ali Mills"); 
+		public override function set width(w:Number):void {
+			textArea.x = gutter;
+			textArea.width = w - gutter*2;
+			bar.x = gutter;
+			bar.width = textArea.width;
 		}
 
-		private function onResized(event:Event):void {
-			textArea.x = gutter;
-			textArea.y = gutter;
-			textArea.width = stage.stageWidth - gutter*2;
-			textArea.height = stage.stageHeight - ((gutter*2) + barHeight);
-			
-			bar.x = gutter;
-			bar.y = stage.stageHeight - (gutter + barHeight);
-			bar.width = textArea.width;
+		public override function set height(h:Number):void {
+			textArea.height = h - ((gutter*2) + barHeight);
+			textArea.y = gutter;			
+			bar.y = h - (gutter + barHeight);
 			bar.height = barHeight;
 		}
 

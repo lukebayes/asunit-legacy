@@ -2,15 +2,18 @@ package asunit.textui {
 	import asunit.errors.AbstractMemberCalledError;
 	import asunit.framework.Test;
 	import asunit.framework.TestResult;
+	import asunit.runner.Version;
 	
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.system.fscommand;
 	import flash.utils.clearInterval;
 	import flash.utils.describeType;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
-
+	
 	/**
 	 * A command line based tool to run tests.
 	 * <pre>
@@ -29,7 +32,33 @@ package asunit.textui {
 		public static const FAILURE_EXIT:int   = 1;
 		public static const EXCEPTION_EXIT:int = 2;
 		public static const SHOW_TRACE:Boolean = true;
-		private var fPrinter:ResultPrinter;
+		protected var fPrinter:ResultPrinter;
+
+		public function TestRunner() {
+			configureListeners();
+		}
+
+		private function configureListeners():void {
+			addEventListener(Event.ADDED, onAdded);
+//			addEventListener(KeyboardEventType.KEY_DOWN, onKeyDown);
+		}
+		
+		private function onAdded(event:Event):void {
+			trace("-------------------");
+			trace("ON ADDED CALLED WITH: " + event);
+			if(event.target === this) {
+				stage.align = StageAlign.TOP_LEFT;
+				stage.scaleMode = StageScaleMode.NO_SCALE;
+				stage.addEventListener(Event.RESIZE, onResized);
+				onResized(new Event("resize"));
+				fPrinter.println("AsUnit " + Version.id() + " by Luke Bayes and Ali Mills"); 
+			}
+		}
+		
+		private function onResized(event:Event):void {
+			fPrinter.width = stage.stageWidth;
+			fPrinter.height = stage.stageHeight;
+		}
 
 		/**
 		 * Starts a test run based on the TestCase/TestSuite provided
