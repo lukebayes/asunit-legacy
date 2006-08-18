@@ -44,5 +44,14 @@ package asunit.textui {
 			return super.addChild(child);
 	    }
 	}
+
+	public override function removeChild(child:DisplayObject):DisplayObject {
+	    if(child is IUIComponent) {
+		return parent.removeChild(child);
+	    }
+	    else {
+		return super.removeChild(child);
+	    }
+	}
     }
 }
