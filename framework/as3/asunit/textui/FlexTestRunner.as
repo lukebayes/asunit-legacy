@@ -1,37 +1,48 @@
 package asunit.textui {
-	import flash.display.DisplayObject;
-	import flash.events.Event;
-	
-	import mx.core.IUIComponent;
-	
-	public class FlexTestRunner extends TestRunner {
+    import flash.display.DisplayObject;
+    import flash.events.Event;
+    import mx.core.IUIComponent;
+    import asunit.textui.TestRunner;
 
-		protected override function addedHandler(event:Event):void {
-			if(event.target === this) {
-				parent.addEventListener(Event.RESIZE, resizeHandler);
-			}
-		}
-		
-		public override function set width(w:Number):void {
-			fPrinter.width = w;
-		}
+    public class FlexTestRunner extends TestRunner {
 
-		public override function set height(h:Number):void {
-			fPrinter.height = h;
+	public function FlexTestRunner(showTrace:Boolean) {
+		setPrinter(new ResultPrinter(showTrace));
+	}
+
+	protected override function addedHandler(event:Event):void {
+	    if(event.target === this) {
+			parent.addEventListener(Event.RESIZE, resizeHandler);
+			resizeHandler(new Event(Event.RESIZE));
+	    }
+	    else {
+			event.stopPropagation();
 		}
-		
-		private function resizeHandler(event:Event):void {
-			width = event.target.width;
-			height = event.target.height;
-		}
-		
-		public override function addChild(child:DisplayObject):DisplayObject {
-			if(parent) {
-				return parent.addChild(child);
-			}
-			else {
-				return super.addChild(child);
-			}
-		}
-	}		
+	}
+
+	public override function set width(w:Number):void {
+	    fPrinter.width = w;
+	}
+
+	public override function set height(h:Number):void {
+	    fPrinter.height = h;
+	}
+
+	public function resizeHandler(event:Event):void {
+	    width = parent.width;
+	    height = parent.height;
+	}
+
+	public override function addChild(child:DisplayObject):DisplayObject {
+	    if(parent && child is IUIComponent) {
+			// AND check for 'is' UIUComponent...
+			trace(">> 1 add child called with: " + child);
+			return parent.addChild(child);
+	    }
+	    else {
+			trace(">> 2 add child called with: " + child);
+			return super.addChild(child);
+	    }
+	}
+    }
 }
