@@ -86,6 +86,9 @@ package asunit.textui {
 			if(fPrinter == null) {
 				setPrinter(new ResultPrinter(showTrace));
 			}
+			else {
+				fPrinter.setShowTrace(showTrace);
+			}
 			result.addListener(getPrinter());
 			var startTime:Number = getTimer();
 			suite.setResult(result);

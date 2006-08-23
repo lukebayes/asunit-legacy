@@ -51,6 +51,10 @@ package asunit.textui {
 			addChild(bar);
 		}
 
+		public function setShowTrace(showTrace:Boolean):void {
+			this.showTrace = showTrace;
+		}
+		
 		public override function set width(w:Number):void {
 			textArea.x = gutter;
 			textArea.width = w - gutter*2;

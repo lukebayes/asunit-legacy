@@ -6,8 +6,8 @@ package asunit.textui {
 
     public class FlexTestRunner extends TestRunner {
 
-	public function FlexTestRunner(showTrace:Boolean) {
-		setPrinter(new ResultPrinter(showTrace));
+	public function FlexTestRunner() {
+		setPrinter(new ResultPrinter());
 	}
 
 	protected override function addedHandler(event:Event):void {
