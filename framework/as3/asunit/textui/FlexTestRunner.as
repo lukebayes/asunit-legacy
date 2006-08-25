@@ -36,11 +36,9 @@ package asunit.textui {
 	public override function addChild(child:DisplayObject):DisplayObject {
 	    if(parent && child is IUIComponent) {
 			// AND check for 'is' UIUComponent...
-			trace(">> 1 add child called with: " + child);
 			return parent.addChild(child);
 	    }
 	    else {
-			trace(">> 2 add child called with: " + child);
 			return super.addChild(child);
 	    }
 	}
