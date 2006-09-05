@@ -18,4 +18,8 @@ class ProjectTest < Test::Unit::TestCase
 	def test_name
 		assert_equal(@instance.name, @default_name)
 	end
+	
+#	def test_different_dir
+#		other = AsUnit::Project.new(@default_name, Dir.getwd + '/src')
+#	end
 end

@@ -18,34 +18,41 @@ module AsUnit
 
 	class Project
 		attr_reader :name, :settings
-			
+		
 		def initialize(name, dir=nil)
 			@name = name;
-			@settings = AsUnit::Settings.new
 			if(!dir.nil?)
-				@dir = dir
+				puts 'changing working directory to : ' + dir
+				Dir.chdir dir
 			end
-			content = create_dirs
-			create_project_file('.asunit_' + name.downcase, content)
+
+			dirs = AsUnit::Settings.new.directories
+			content = create_dirs(dirs)
+			create_project_file('.asunit', content)
 		end
 		
-		def create_dirs
-			create_dir(@settings.src)
-			create_dir(@settings.test)
-			create_dir(@settings.lib)
-
-			contents = ['src=\'' + File.expand_path(@settings.src) + '\'']
-			contents.push('test=\'' + File.expand_path(@settings.test) + '\'')
-			contents.push('lib=\'' + File.expand_path(@settings.lib) + '\'')
+		def create_dirs(dirs)
+			contents = Array.new
+			dirs.each do |dir|
+				create_dir(dir)
+				contents.push("#{dir}=\'#{File.expand_path(dir)}\'")
+			end
+			contents
 		end
 		
 		def create_project_file(name, contents)
 			open(name, 'w') do |f|
+				f.puts 'project=\'' + @name + '\''
 				contents.each { |i|
 					f.puts i
 				}
+				f.puts 'classpath=' + get_classpath
 				f.flush
 			end
+		end
+		
+		def get_classpath
+			return '\'\''
 		end
 		
 		def dir
@@ -60,7 +67,7 @@ module AsUnit
 			if(!File.exists? name)
 				Dir.mkdir name
 			end
-			return File.new name
+			return File.new(name)
 		end
 		
 	end
