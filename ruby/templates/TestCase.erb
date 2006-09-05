@@ -1,0 +1,29 @@
+package lifebin.controls {
+    import asunit.framework.TestCase;
+    
+    public class <%= classname %> extends TestCase {
+		private var instance:<%= classname %>;
+		
+		public function <%= classname %>Test(testMethod:String = null) {
+		    super(testMethod);
+		}
+		
+		protected override function setUp():void {
+		    super.setUp();
+		    instance = new <%= classname %>();
+		}
+		
+		protected override function tearDown():void {
+		    super.tearDown();
+		    instance = null;
+		}
+		
+		public function testInstantiated():void {
+		  	assertTrue("<%= classname %> instantiated", instance is <%= classname %>);
+		}
+		
+		public function test():void {
+			assertTrue('default failing test', false);
+		}
+    }
+}

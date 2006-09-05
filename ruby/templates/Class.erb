@@ -1,0 +1,10 @@
+package <%= package %> {
+	import <%= if(extends?) extends %>
+
+	public class ClassName <%= if(extends?) %> extends <% classname end %>{
+		
+		public function <%= classname %>() {
+			super();
+		}		
+	}
+}

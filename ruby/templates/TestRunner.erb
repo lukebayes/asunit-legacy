@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" initialize="start()">
+    <mx:Style source="css/<%= @project %>.css"/>
+    <mx:Script>
+	<![CDATA[
+		import asunit.textui.FlexTestRunner;
+		private var runner:FlexTestRunner;
+
+		public function start():void {
+			runner = new FlexTestRunner();
+			rawChildren.addChild(runner);
+			runner.start(AllTests, null, true);
+		}
+
+	]]>
+	</mx:Script>
+</mx:Application>
