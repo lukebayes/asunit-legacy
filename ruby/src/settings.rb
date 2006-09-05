@@ -4,7 +4,7 @@ module AsUnit
 		attr_accessor :src, :test, :template, :directories
 		
 		def initialize()
-			@directories = ['src', 'test', 'templates']
+			@directories = ['src', 'test', 'templates', 'css', 'xml']
 			@src = 'src'
 			@test = 'test'
 			@template = 'template'
