@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/bin/ruby
 
 module AsUnit
   # ------------------------------------------------------------------
@@ -39,17 +39,50 @@ module AsUnit
 	  end
   end
 
+	require 'optparse'
+	
 	class Application
-	    def initialize
+		def initialize
+			super
+			arguments = AsUnitArguments.new(ARGV)
+	    	counter = 0
+	    	eol = 
+	    	ARGF.each do |line|
+	    		line.sub!(/$/, arguments[:show_ends])
+	    		print '%6.d  ' % (counter += 1) if arguments[:number_lines]
+	    		print line
+			end
+		end
+	end
+	
+	class AsUnitArguments < Hash
+	    def initialize(args)
 	      super
-	    end
-	    
-	    def run
-	    	printf "Hello Nancy"
+	      self[:show_ends] = ''
+	      self[:number_lines] = false
+	      
+	      opts = OptionParser.new do |opts|
+	      	opts.banner = "Usage: #$0 [options]"
+	      	opts.on('-E', '--show-ends [STRING]',
+	      			'display [STRING] at end of each line') do |string|
+	      		self[:show_ends] = string || '$'
+	      	end
+	      	
+	      	opts.on('-n', '--number', 'number all output lines') do
+	      		self[:number_lines] = true
+	      	end
+	      	
+	      	opts.on_tail('-h', '--help', 'display this help and exit') do
+	      		puts opts
+	      		exit
+	      	end
+	      	opts.parse!(args)
+	      	
+	      end
 	    end
 	end
 end
 
 if __FILE__ == $0 then
-  AsUnit::Application.new.run
+  AsUnit::Application.new
 end
