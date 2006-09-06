@@ -6,9 +6,6 @@ require 'settings'
 class CreateClassTest < Test::Unit::TestCase
 
 	def setup
-		if(File.exists? 'src')
-			File.delete 'src'
-		end
 		@classname = 'somepackage.otherpackage.SomeClass'
 		@template_name = 'Class.erb'
 		@settings = AsUnit::Settings.new
