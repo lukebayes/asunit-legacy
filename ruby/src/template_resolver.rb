@@ -40,6 +40,10 @@ module AsUnit
 			return @package
 		end
 		
+		def path
+			return fullclass.split('.').join(File::SEPARATOR)	
+		end
+
 		def add_test_case(test_case)
 			@test_cases.push(test_case)
 			@test_cases.sort!
