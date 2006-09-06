@@ -42,44 +42,104 @@ module AsUnit
 	require 'optparse'
 	
 	class Application
+		@@PROJECT_FILE_NAME = '.asunit'
+
 		def initialize
 			super
 			arguments = AsUnitArguments.new(ARGV)
-	    	counter = 0
-	    	eol = 
-	    	ARGF.each do |line|
-	    		line.sub!(/$/, arguments[:show_ends])
-	    		print '%6.d  ' % (counter += 1) if arguments[:number_lines]
-	    		print line
+			project_file = get_project_file Dir.pwd
+			puts 'pf dir: ' + Dir.pwd
+			puts 'pf: ' + project_file.read
+			arguments.classnames.each { |name|
+				create_class name
+			}
+		end
+		
+		def get_project_file(dir)
+			if(dir == '/')
+				raise 'Project file not found, please create a new asunit project by typing "asunit -create-project ProjectName"'
 			end
+			Dir.chdir dir
+			if(File.exists? @@PROJECT_FILE_NAME)
+				return File.open(@@PROJECT_FILE_NAME, 'r')
+			end
+			get_project_file(File.dirname dir)
+		end
+
+		def create_class(name)
+			puts 'name: ' + name
 		end
 	end
 	
 	class AsUnitArguments < Hash
+	    
 	    def initialize(args)
 	      super
-	      self[:show_ends] = ''
-	      self[:number_lines] = false
+	      self[:classnames] = nil
+	      self[:display_object] = false
+	      self[:interfaces] = Array.new
+	      self[:project_file] = nil
+	      self[:superclass] = nil
 	      
 	      opts = OptionParser.new do |opts|
-	      	opts.banner = "Usage: #$0 [options]"
-	      	opts.on('-E', '--show-ends [STRING]',
-	      			'display [STRING] at end of each line') do |string|
-	      		self[:show_ends] = string || '$'
+	      	opts.banner = "Usage: #$0 [options] CLASSNAME(s)"
+
+			opts.on('-d', '--display-object', 'class created is a subclass of flash.display.DisplayObject') do
+				self[:display_object] = true
+			end
+			
+	      	opts.on('-p', '--project-file [FILE]', 'use this project file instead of looking for the nearest one [FILE]') do |file|
+	      		if(file.nil?)
+	      			raise '-p [--project-file] argument must be followed by a relative or absolute file target"'
+	      		end
+	      		self[:project_file] = (file || '$')
+	      	end
+	      		      	
+	      	opts.on('-i', '--add-interface [STRING]', 'add an interface to this class [STRING]') do |inf|
+	      		if(inf.nil?)
+	      			raise '-i [--add-interface] argument must be followed by a fully-qualified interface name eg: "flash.events.IEventDispatcher"'
+	      		end
+	      		self[:interfaces].push(inf || '$')
 	      	end
 	      	
-	      	opts.on('-n', '--number', 'number all output lines') do
-	      		self[:number_lines] = true
+	      	opts.on('-s', '--superclass [STRING]', 'superclass of class being created [STRING]') do |superclass|
+	      		if(superclass.nil?)
+	      			raise '-s [--superclass] argument must be followed by a fully-qualified class name eg: "flash.display.DisplayObject"'
+	      		end
+	      		self[:superclass] = (superclass || '$')
 	      	end
 	      	
 	      	opts.on_tail('-h', '--help', 'display this help and exit') do
 	      		puts opts
 	      		exit
 	      	end
+
+			if(args.length == 0)
+				puts opts
+				exit
+			end
+
 	      	opts.parse!(args)
-	      	
+	      	self[:classnames] = args
+
 	      end
 	    end
+		
+		def project_file
+			return self[:project_file]
+		end
+
+		def interfaces
+			return self[:interfaces]
+		end
+		
+		def superclass
+			return self[:superclass]
+		end
+		
+		def classnames
+			return self[:classnames]
+		end
 	end
 end
 

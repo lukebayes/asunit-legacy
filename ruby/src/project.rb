@@ -68,7 +68,6 @@ module AsUnit
 				Dir.mkdir name
 			end
 			return File.new(name)
-		end
-		
+		end		
 	end
 end
