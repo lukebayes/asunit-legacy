@@ -5,7 +5,7 @@ require 'erb'
 module AsUnit
 	class TemplateResolver
 		attr_reader :template, :fullclass, :interfaces, :test_cases
-		attr_accessor :superclass, :visual
+		attr_accessor :superclass, :display_object
 		
 		def initialize(fullclass)
 			@fullclass = fullclass;
@@ -14,7 +14,7 @@ module AsUnit
 			@package = nil
 			@parsed = nil
 			@superclass = nil
-			@visual = nil
+			@display_object = false
 			@interfaces = Array.new
 			@test_cases = Array.new
 		end
@@ -52,6 +52,10 @@ module AsUnit
 			@test_cases.push(test_case)
 			@test_cases.sort!
 		end
+		
+		def display_object?
+			return @display_object
+		end
 
 		def superclass?
 			return !@superclass.nil?
@@ -64,10 +68,6 @@ module AsUnit
 		def add_interface(interface)
 			@interfaces.push(interface)
 			@interfaces.sort!
-		end
-		
-		def visual?
-			return @visual.nil?
 		end
 		
 		def superclass_decl
@@ -88,8 +88,11 @@ module AsUnit
 					imports.push(import_statement(inf))
 				}
 			end
+			if(imports.length == 0)
+				return ''
+			end
 			imports.sort!
-			return imports.join("\n")
+			return "\n" + imports.join("\n") + "\n"
 		end
 		
 		def import_statement(target)

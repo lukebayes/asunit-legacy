@@ -10,17 +10,15 @@ package <%= package %>{
 
 		protected override function setUp():void {
 		    super.setUp();
-		    instance = new <%= classname %>();
-		    <% if visual? %>
-		    addChild(instance);
-		    <% end %>
+		    instance = new <%= classname %>();<%
+		    if display_object? %>
+		    addChild(instance);<% end %>
 		}
 
 		protected override function tearDown():void {
-		    super.tearDown();
-		    <% if visual? %>
-		    removeChild(instance);
-		    <% end %>
+		    super.tearDown();<%
+		    if display_object? %>
+		    removeChild(instance);<% end %>
 		    instance = null;
 		}
 

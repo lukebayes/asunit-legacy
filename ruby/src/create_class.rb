@@ -15,7 +15,7 @@ module AsUnit
 		
 		def run(args)
 			@resolver.superclass = args.superclass
-			@resolver.visual = args.display_object?
+			@resolver.display_object = args.display_object?
 			args.interfaces.each {|inf|
 				@resolver.add_interface(inf)
 			}
