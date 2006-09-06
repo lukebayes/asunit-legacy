@@ -4,38 +4,41 @@ require 'template_resolver'
 module AsUnit
 	class CreateClass
 		attr_accessor :settings, :template_name
+		attr_reader :final_path
 
 		def initialize(name, settings, template)
 			@settings = settings
 			@template_name = template
 			@resolver = AsUnit::TemplateResolver.new name
+			@final_path = ''
 		end
 		
-		def run
+		def run(force=false)
 			src = Dir.pwd + File::SEPARATOR + settings.templates + File::SEPARATOR + template_name
-			puts 'opening: ' + src
 			template = IO.read(src)
 			@resolver.template = template
 			parsed = @resolver.parse
-			file = create_file(target_file(settings.src))
+			file = create_file(target_file(settings.src), force)
 			file.write(parsed)
 		end
 		
-		def create_file(relative)
+		def create_file(relative, force)
 			segments = relative.split(File::SEPARATOR)
 			file_name = segments.pop
 			current_path = ''
 			segments.each { |dir|
 				current_path << dir << File::SEPARATOR 
-				if(!File.exists? current_path)
+				if(!File.exists?(current_path))
 					Dir.mkdir(current_path)
 				end
 			}
 			current_path << file_name
-			if(File.exists?(current_path))
-				raise 'Requested File Exists at: ' + Dir.pwd + File::SEPARATOR + current_path
+			if(!force && File.exists?(current_path))
+				raise "\nRequested File Exists at: " + Dir.pwd + File::SEPARATOR + current_path + ". \n\nUse -f option to overwrite."
 			else
 				file = File.new(current_path, 'w')
+				@final_path = current_path
+				file
 			end
 		end
 		
