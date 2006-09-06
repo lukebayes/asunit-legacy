@@ -62,18 +62,18 @@ module AsUnit
 			arguments.classnames.each { |name|
 				if(name.ends_with? "Test")
 					begin
-						create_class(name, settings, TEST_TEMPLATE, arguments.force?)
+						create_class(name, settings, TEST_TEMPLATE, arguments)
 					rescue Exception => e
 						results.push(e)
 					end
 				else
 					begin
-						create_class(name, settings, AsUnit::CLASS_TEMPLATE, arguments.force?)
+						create_class(name, settings, AsUnit::CLASS_TEMPLATE, arguments)
 					rescue Exception => e
 						results.push(e)
 					end
 					begin
-						create_class(name + "Test", settings, AsUnit::TEST_TEMPLATE, arguments.force?)
+						create_class(name + "Test", settings, AsUnit::TEST_TEMPLATE, arguments)
 					rescue Exception => e
 						results.push(e)
 					end
@@ -84,10 +84,10 @@ module AsUnit
 			end
 		end
 		
-		def create_class(name, settings, template, force)
+		def create_class(name, settings, template, arguments)
 			begin
 				class_creator = AsUnit::CreateClass.new(name, settings, template)
-				class_creator.run(force)
+				class_creator.run(arguments)
 				puts 'File Created at: ' + class_creator.final_path
 				return nil
 			rescue Exception => e

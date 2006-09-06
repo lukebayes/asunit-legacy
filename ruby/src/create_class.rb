@@ -4,7 +4,7 @@ require 'template_resolver'
 module AsUnit
 	class CreateClass
 		attr_accessor :settings, :template_name
-		attr_reader :final_path
+		attr_reader :final_path, :resolver
 
 		def initialize(name, settings, template)
 			@settings = settings
@@ -13,12 +13,17 @@ module AsUnit
 			@final_path = ''
 		end
 		
-		def run(force=false)
+		def run(args)
+			@resolver.superclass = args.superclass
+			@resolver.visual = args.display_object?
+			args.interfaces.each {|inf|
+				@resolver.add_interface(inf)
+			}
 			src = Dir.pwd + File::SEPARATOR + settings.templates + File::SEPARATOR + template_name
 			template = IO.read(src)
 			@resolver.template = template
 			parsed = @resolver.parse
-			file = create_file(target_file(settings.src), force)
+			file = create_file(target_file(settings.src), args.force?)
 			file.write(parsed)
 		end
 		

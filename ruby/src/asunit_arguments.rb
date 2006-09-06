@@ -16,7 +16,7 @@ module AsUnit
 	      opts = OptionParser.new do |opts|
 	      	opts.banner = "Usage: #$0 [options] CLASSNAME(s)"
 
-			opts.on('-d', '--display-object', 'class created is a subclass of flash.display.DisplayObject') do
+			opts.on('-d', '--display-object', 'class is a visual entity') do
 				self[:display_object] = true
 			end
 			
@@ -24,13 +24,6 @@ module AsUnit
 				self[:force] = true
 			end
 			
-	      	opts.on('-p', '--project-file [FILE]', 'use this project file instead of looking for the nearest one [FILE]') do |file|
-	      		if(file.nil?)
-	      			raise '-p [--project-file] argument must be followed by a relative or absolute file target"'
-	      		end
-	      		self[:project_file] = (file || '$')
-	      	end
-	      		      	
 	      	opts.on('-i', '--add-interface [STRING]', 'add an interface to this class [STRING]') do |inf|
 	      		if(inf.nil?)
 	      			raise '-i [--add-interface] argument must be followed by a fully-qualified interface name eg: "flash.events.IEventDispatcher"'
@@ -38,6 +31,13 @@ module AsUnit
 	      		self[:interfaces].push(inf || '$')
 	      	end
 	      	
+	      	opts.on('-p', '--project-file [FILE]', 'use provided project file [FILE]') do |file|
+	      		if(file.nil?)
+	      			raise '-p [--project-file] argument must be followed by a relative or absolute file target"'
+	      		end
+	      		self[:project_file] = (file || '$')
+	      	end
+	      		      	
 	      	opts.on('-s', '--superclass [STRING]', 'superclass of class being created [STRING]') do |superclass|
 	      		if(superclass.nil?)
 	      			raise '-s [--superclass] argument must be followed by a fully-qualified class name eg: "flash.display.DisplayObject"'
@@ -75,6 +75,10 @@ module AsUnit
 		
 		def classnames
 			return self[:classnames]
+		end
+		
+		def display_object?
+			return self[:display_object]
 		end
 		
 		def force?

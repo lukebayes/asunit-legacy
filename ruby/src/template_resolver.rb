@@ -4,7 +4,7 @@ require 'erb'
 
 module AsUnit
 	class TemplateResolver
-		attr_reader :template, :fullclass, :classname, :interfaces, :test_cases
+		attr_reader :template, :fullclass, :interfaces, :test_cases
 		attr_accessor :superclass, :visual
 		
 		def initialize(fullclass)
@@ -28,16 +28,20 @@ module AsUnit
 			return ERB.new(@template).result(binding)
 		end
 		
-		def package
-			if(@package.nil?)
+		def classname(fullname=@classname)
+			return fullname.split('.').pop
+		end
+
+		def package(pkg=@package)
+			if(pkg.nil?)
 				segments = fullclass.split('.')
 				segments.pop
-				@package = segments.join('.')
+				pkg = segments.join('.')
 				if(segments.length > 0)
-					@package += ' '
+					pkg += ' '
 				end
 			end
-			return @package
+			return pkg
 		end
 		
 		def path
@@ -64,6 +68,43 @@ module AsUnit
 		
 		def visual?
 			return @visual.nil?
+		end
+		
+		def superclass_decl
+			if(superclass?)
+				return ' extends ' + superclass.split('.').pop
+			else
+				return ''
+			end
+		end
+		
+		def import_statements
+			imports = Array.new
+			if(superclass?)
+				imports.push(import_statement(superclass))
+			end
+			if(interfaces?)
+				interfaces.each {|inf|
+					imports.push(import_statement(inf))
+				}
+			end
+			imports.sort!
+			return imports.join("\n")
+		end
+		
+		def import_statement(target)
+			return "\timport " + target + ";"
+		end
+		
+		def interfaces_decl
+			if(!interfaces?)
+				return ''
+			end
+			infs = Array.new
+			interfaces.each {|inf|
+				infs.push(classname(inf))
+			}
+			return " implements " + infs.join(", ")
 		end
 	end
 end
