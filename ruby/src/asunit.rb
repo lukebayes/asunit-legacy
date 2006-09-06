@@ -39,35 +39,47 @@ module AsUnit
 	  end
   end
 
+	require 'yaml'
 	require 'optparse'
+	require 'settings'
+	require 'create_class'
 	
 	class Application
 		@@PROJECT_FILE_NAME = '.asunit'
-
+		@@CLASS_TEMPLATE = 'Class.erb'
+		@@TEST_TEMPLATE = 'TestCase.erb'
+		
 		def initialize
 			super
 			arguments = AsUnitArguments.new(ARGV)
 			project_file = get_project_file Dir.pwd
-			puts 'pf dir: ' + Dir.pwd
-			puts 'pf: ' + project_file.read
+			prefs = YAML.load(project_file.read)
+			settings = AsUnit::Settings.new(prefs)
+
 			arguments.classnames.each { |name|
-				create_class name
+				if(name.ends_with? "Test")
+					create_class(name, settings, @@TEST_TEMPLATE)
+				else
+					create_class(name, settings, @@CLASS_TEMPLATE)
+					create_class(name + "Test", settings, @@TEST_TEMPLATE)
+				end
 			}
 		end
 		
+		def create_class(name, settings, template)
+			created_class = AsUnit::CreateClass.new(name, settings, template)
+			created_class.run
+		end
+
 		def get_project_file(dir)
 			if(dir == '/')
-				raise 'Project file not found, please create a new asunit project by typing "asunit -create-project ProjectName"'
+				raise 'Project file not found, please create a new asunit project by typing "asunit -create-project [-src, -test, -templates]"'
 			end
 			Dir.chdir dir
 			if(File.exists? @@PROJECT_FILE_NAME)
 				return File.open(@@PROJECT_FILE_NAME, 'r')
 			end
-			get_project_file(File.dirname dir)
-		end
-
-		def create_class(name)
-			puts 'name: ' + name
+			get_project_file(File.dirname(dir))
 		end
 	end
 	
@@ -140,6 +152,12 @@ module AsUnit
 		def classnames
 			return self[:classnames]
 		end
+	end
+end
+
+class String
+	def ends_with? str
+		return false
 	end
 end
 

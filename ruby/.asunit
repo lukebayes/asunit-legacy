@@ -1,0 +1,7 @@
+---
+project: Lifebin
+src: demo/src
+test: demo/test
+templates: src/templates
+file_extension: .as
+classpath: 
