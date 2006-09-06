@@ -10,5 +10,5 @@ class SettingsTest < Test::Unit::TestCase
 	
 	def test_instantiated
 		assert_not_nil(@instance)
-	end	
+	end
 end

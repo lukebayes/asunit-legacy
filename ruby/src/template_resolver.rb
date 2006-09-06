@@ -4,11 +4,12 @@ require 'erb'
 
 module AsUnit
 	class TemplateResolver
-		attr_reader :template, :classname, :interfaces, :test_cases
+		attr_reader :template, :fullclass, :classname, :interfaces, :test_cases
 		attr_accessor :superclass, :visual
 		
-		def initialize(name)
-			@classname = name;
+		def initialize(fullclass)
+			@fullclass = fullclass;
+			@classname = fullclass.split('.').pop
 			@template = template
 			@package = nil
 			@parsed = nil
@@ -29,9 +30,12 @@ module AsUnit
 		
 		def package
 			if(@package.nil?)
-				arr = classname.split('.')
-				arr.pop
-				@package = arr.join('.')
+				segments = fullclass.split('.')
+				segments.pop
+				@package = segments.join('.')
+				if(segments.length > 0)
+					@package += ' '
+				end
 			end
 			return @package
 		end

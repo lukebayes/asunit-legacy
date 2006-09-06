@@ -1,13 +1,13 @@
 
 module AsUnit
 	class Settings
-		attr_accessor :src, :test, :template, :directories
+		attr_accessor :src, :test, :templates, :directories
 		
-		def initialize()
+		def initialize
 			@directories = ['src', 'test', 'templates', 'css', 'xml']
 			@src = 'src'
 			@test = 'test'
-			@template = 'template'
+			@templates = 'templates'
 		end
 	end
 end
