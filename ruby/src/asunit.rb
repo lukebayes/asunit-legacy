@@ -3,9 +3,10 @@
 module AsUnit
 	CLASS_TEMPLATE = 'Class.erb'
 	TEST_TEMPLATE = 'TestCase.erb'
+	PROJECT_FILENAME = '.asunit'
 
   # ------------------------------------------------------------------
-  # Rake module singleton methods.
+  # COPIED FROM RAKE! Rake module singleton methods.
   #
   class << self
     # Current Rake Application
@@ -49,7 +50,6 @@ module AsUnit
 	require 'asunit_arguments'
 	
 	class Application
-		@@PROJECT_FILE_NAME = '.asunit'
 		
 		def initialize
 			super
