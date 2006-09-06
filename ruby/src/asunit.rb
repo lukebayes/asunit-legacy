@@ -1,6 +1,9 @@
 #!/bin/ruby
 
 module AsUnit
+	CLASS_TEMPLATE = 'Class.erb'
+	TEST_TEMPLATE = 'TestCase.erb'
+
   # ------------------------------------------------------------------
   # Rake module singleton methods.
   #
@@ -46,8 +49,6 @@ module AsUnit
 	
 	class Application
 		@@PROJECT_FILE_NAME = '.asunit'
-		@@CLASS_TEMPLATE = 'Class.erb'
-		@@TEST_TEMPLATE = 'TestCase.erb'
 		
 		def initialize
 			super
@@ -58,10 +59,10 @@ module AsUnit
 
 			arguments.classnames.each { |name|
 				if(name.ends_with? "Test")
-					create_class(name, settings, @@TEST_TEMPLATE)
+					create_class(name, settings, TEST_TEMPLATE)
 				else
-					create_class(name, settings, @@CLASS_TEMPLATE)
-					create_class(name + "Test", settings, @@TEST_TEMPLATE)
+					create_class(name, settings, AsUnit::CLASS_TEMPLATE)
+					create_class(name + "Test", settings, AsUnit::TEST_TEMPLATE)
 				end
 			}
 		end

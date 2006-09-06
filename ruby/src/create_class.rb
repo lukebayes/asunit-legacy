@@ -40,11 +40,15 @@ module AsUnit
 		end
 		
 		def target_file(setting)
-			if(@template_name == 'Class.erb')
-				puts Dir.pwd
-				return @settings.src + File::SEPARATOR + @resolver.path + @settings.file_extension
-#				return get_dir(setting) + @resolver.path + @settings.file_extension
+			name = @template_name
+			result = ''
+			case name
+				when AsUnit::CLASS_TEMPLATE
+					return @settings.src + File::SEPARATOR + @resolver.path + @settings.file_extension
+				when AsUnit::TEST_TEMPLATE
+					return @settings.test + File::SEPARATOR + @resolver.path + @settings.file_extension
 			end
+			raise 'The requested template has not yet been supported at: ' + name
 		end
 		
 		def get_dir setting
