@@ -3,7 +3,7 @@
 module AsUnit
 	CLASS_TEMPLATE = 'Class.erb'
 	TEST_TEMPLATE = 'TestCase.erb'
-	PROJECT_FILENAME = '.asunit'
+	PROJECT_FILE_NAME = '.asunit'
 
   # ------------------------------------------------------------------
   # COPIED FROM RAKE! Rake module singleton methods.
@@ -100,8 +100,8 @@ module AsUnit
 				raise 'Project file not found, please create a new asunit project by typing "asunit -create-project [-src, -test, -templates]"'
 			end
 			Dir.chdir dir
-			if(File.exists? @@PROJECT_FILE_NAME)
-				return File.open(@@PROJECT_FILE_NAME, 'r')
+			if(File.exists? AsUnit::PROJECT_FILE_NAME)
+				return File.open(AsUnit::PROJECT_FILE_NAME, 'r')
 			end
 			get_project_file(File.dirname(dir))
 		end
