@@ -2,6 +2,10 @@ package asunit.framework {
 	
 	public class TestCaseTest extends TestCase {
 		
+		public function TestCaseTest(testMethod:String) {
+			super(testMethod);
+		}
+		
 		public function testInstantiated():void {
 			assertTrue(this is TestCase);
 		}
@@ -36,6 +40,10 @@ package asunit.framework {
 			assertTrue("testMethod1Run", mock.testMethod1Run);
 			assertTrue("testMethod2Run", mock.testMethod2Run);
 			assertTrue("testMethod3Run", mock.testMethod3Run);
+		}
+		
+		public function testAsyncMethod():void {
+			assertTrue(false);
 		}
 	}
 }
