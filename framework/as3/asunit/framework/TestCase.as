@@ -9,9 +9,7 @@ package asunit.framework {
 	import asunit.util.ArrayIterator;
 	import flash.net.getClassByAlias;
 	import flash.utils.setTimeout;
-	import flash.utils.flash_proxy;
 
-	use namespace flash_proxy;
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
 	 * 1) implement a subclass of TestCase<br>
@@ -76,7 +74,7 @@ package asunit.framework {
 	 * @see TestResult
 	 * @see TestSuite
 	 */
-	dynamic public class TestCase extends Assert implements Test {
+	public class TestCase extends Assert implements Test {
 		/**
 		 * the name of the test case
 		 */
@@ -88,14 +86,12 @@ package asunit.framework {
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
-		private var asyncMethods:Object;
-
+		private var methodIsAsynchronous:Boolean;
 
 		/**
 		 * Constructs a test case with the given name.
 		 */
 		public function TestCase(testMethod:String = null) {
-			asyncMethods = new Object();
 			var description:XML = describeType(this);
 			var className:Object = description.@name;
 			var methods:XMLList = description..method.(@name.match("^test"));
@@ -119,26 +115,10 @@ package asunit.framework {
 		protected function setTestMethods(methodNodes:XMLList):void {
 			testMethods = new Array();
 			var methodNames:Object = methodNodes.@name;
-			var completeMethods:Array = new Array();
 			var name:String;
 			for each(var item:Object in methodNames) {
 				name = item.toString();
-				if(name.match(/Complete$/)) {
-					completeMethods.push(name);
-				}
-				else {
-					testMethods.push(name);
-				}
-			}
-			for each(name in completeMethods) {
-				var index:int = name.indexOf("Complete");
-				var baseName:String = name.substr(0, index);
-				if(testMethods.indexOf(baseName) == -1) {
-					testMethods.push(name);
-				}
-				else {
-					swapCompleteMethod(name);
-				}
+				testMethods.push(name);
 			}
 		}
 
@@ -189,23 +169,22 @@ package asunit.framework {
 		public function runBare():void {
 			var name:String;
 			var itr:Iterator = getMethodIterator();
-			var isWaiting:Boolean = false;
 			try {
 				while(itr.hasNext()) {
 					name = String(itr.next());
 					trace("name: " + name);
 					if(!runMethod(name)) {
 						trace("BLOCKING EXECUTION ON : " + name);
-						isWaiting = true;
 						break;
 					}
 				}
 			}
 			finally {
 				if(!runSingle) {
-					cleanUp();
-					if(!itr.hasNext() && !isWaiting) {
-						trace("itr hasNext was false");
+					if(!itr.hasNext() && !methodIsAsynchronous) {
+						trace("--------------");
+						trace("INSIDE THE END");
+						cleanUp();
 						result.endTest(this);
 						isComplete = true;
 					}
@@ -225,39 +204,16 @@ package asunit.framework {
 		// member cleanup after all test methods have run
 		protected function cleanUp():void {
 		}
-
-		override flash_proxy function hasProperty(name:*):Boolean {
-			return (this[name] != undefined);
-		}
-		
-		override flash_proxy function getProperty(name:*):* {
-			return asyncMethods[name];
-		}
-		
-//		override flash_proxy function setProperty(name:*, value:*):void {
-//			this[name] = value;
-//		}
 		
 		private function runMethod(methodName:String):Boolean {
 			try {
 				setUp();
 				currentMethod = methodName;
 				try {
-					if((methodName + "Complete") in this) {
-						trace("FOUND YOU! at: " + methodName);
-						this[methodName]();
+					this[methodName]();
+					if(methodIsAsynchronous) {
 						return false;
 					}
-//					var ns:Namespace = flash_proxy;
-//					if(this.flash_proxy::hasProperty(methodName + "Complete")) {
-//						trace("HAS PROP : " + methodName);
-//					}
-//					if(this[methodName + "Complete"] != null) {
-//					if(this.hasOwnProperty(methodName + "Complete")) {
-//						setTimeout(this[methodName], 1);
-//						return false;
-//					}
-					this[methodName]();
 				}
 				finally {
 					if(!runSingle) {
@@ -274,18 +230,6 @@ package asunit.framework {
 			return true;
 		}
 
-		private function swapCompleteMethod(name:String):void {
-			trace("swapping complete method with: " + name);
-			asyncMethods["__" + name] = this[name];
-			asyncMethods[name] = defaultCompleteMethod;
-//			this[name] = this.defaultCompleteMethod;
-			//var result:Boolean = delete this[name];
-			//trace("RESULT: " + result);
-		}
-		
-		public function defaultCompleteMethod():void {
-			trace("asunit complete called");
-		}
 		/**
 		 * Sets up the fixture, for example, instantiate a mock object.
 		 * This method is called before each test is executed.
@@ -330,6 +274,24 @@ package asunit.framework {
 			return context;
 		}
 
+		protected function addAsync(handler:Function):Function {
+			methodIsAsynchronous = true;
+			var context:Object = this;
+			return function(args:*):* {
+				try {
+					handler.apply(context, arguments);
+				}
+				catch(e:AssertionFailedError) {
+					context.result.addFailure(context, e);
+				}
+				catch(ioe:IllegalOperationError) {
+					context.result.addError(context, ioe);
+				}
+				context.methodIsAsynchronous = false;
+				context.runBare();
+			}
+		}
+		
 		protected function addChild(child:DisplayObject):DisplayObject {
 			return getContext().addChild(child);
 		}
@@ -338,8 +300,8 @@ package asunit.framework {
 			return getContext().removeChild(child);
 		}
 
-		public function fail(message:String):void {
-			result.addFailure(this, new AssertionFailedError(message));
-		}
+//		public function fail(message:String):void {
+//			result.addFailure(this, new AssertionFailedError(message));
+//		}
 	}
 }

@@ -1,6 +1,8 @@
 package asunit.textui {
 	import asunit.framework.TestCase;
 	import flash.utils.setTimeout;
+	import flash.events.Event;
+	import flash.errors.IllegalOperationError;
 
 	public class TestRunnerTest extends TestCase {
 		private var instance:TestRunner;
@@ -20,20 +22,26 @@ package asunit.textui {
 		}
 
 		public function testInstantiated():void {
-			assertTrue("TestRunner instantiated", instance is TestRunner);
+			assertTrue("TestRunner instantiated with: " + instance, instance is TestRunner);
 		}
 
 		public function testAsync():void {
-			setTimeout(testAsyncComplete, 10);
+			var handler:Function = addAsync(asyncCompleteHandler);
+			setTimeout(handler, 1000, new Event(Event.ACTIVATE));
 		}
 		
-		public function testAsyncComplete():void {
-			trace("user complete called");
+		public function asyncCompleteHandler(event:Event):void {
+//			throw new IllegalOperationError("what the fuck?");
 			fail("test async complete failed");
-			runBare();
 		}
 		
 		public function testSomethingComplete():void {
+		}
+		
+		public function testSomethingElse():void {
+		}
+		
+		public function testAnotherThing():void {
 		}
 	}
 }

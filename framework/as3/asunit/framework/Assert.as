@@ -8,7 +8,7 @@ package asunit.framework {
 	 * A set of assert methods.  Messages are only displayed when an assert fails.
 	 */
 
-	public class Assert extends Proxy {
+	public class Assert {
 		/**
 		 * Protect constructor since it is a static only class
 		 */

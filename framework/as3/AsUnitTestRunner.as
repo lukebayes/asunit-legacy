@@ -6,8 +6,8 @@ package {
 	public class AsUnitTestRunner extends TestRunner {
 
 		public function AsUnitTestRunner() {
-//			start(AllTests, null, TestRunner.SHOW_TRACE);
-			start(TestRunnerTest);
+			start(AllTests, null, TestRunner.SHOW_TRACE);
+//			start(TestRunnerTest);
 		}
 	}
 }

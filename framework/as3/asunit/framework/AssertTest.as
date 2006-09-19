@@ -51,7 +51,7 @@ package asunit.framework {
 
 		public function testFail():void {
 			try {
-				fail("this shouldn't be caught");
+				Assert.fail("this shouldn't be caught");
 			}
 			catch(e:Error) {
 				assertTrue("passed", true);
