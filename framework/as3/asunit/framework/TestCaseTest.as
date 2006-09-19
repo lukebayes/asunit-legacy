@@ -1,5 +1,4 @@
 package asunit.framework {
-	import flash.util.trace;
 	
 	public class TestCaseTest extends TestCase {
 		
