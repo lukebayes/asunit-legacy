@@ -23,17 +23,17 @@ package asunit.textui {
 			assertTrue("TestRunner instantiated", instance is TestRunner);
 		}
 
-//		public function testAsync():void {
-//			setTimeout(testAsyncComplete, 10);
-//		}
+		public function testAsync():void {
+			setTimeout(testAsyncComplete, 10);
+		}
 		
-//		public function testAsyncComplete():void {
-//			fail("test async complete failed");
-//			runBare();
-//		}
+		public function testAsyncComplete():void {
+			trace("user complete called");
+			fail("test async complete failed");
+			runBare();
+		}
 		
 		public function testSomethingComplete():void {
-			trace("testSomethignCOmplete executed");
 		}
 	}
 }

@@ -76,7 +76,7 @@ package asunit.framework {
 	 * @see TestResult
 	 * @see TestSuite
 	 */
-	public class TestCase extends Assert implements Test {
+	dynamic public class TestCase extends Assert implements Test {
 		/**
 		 * the name of the test case
 		 */
@@ -88,12 +88,14 @@ package asunit.framework {
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
+		private var asyncMethods:Object;
 
 
 		/**
 		 * Constructs a test case with the given name.
 		 */
 		public function TestCase(testMethod:String = null) {
+			asyncMethods = new Object();
 			var description:XML = describeType(this);
 			var className:Object = description.@name;
 			var methods:XMLList = description..method.(@name.match("^test"));
@@ -123,7 +125,6 @@ package asunit.framework {
 				name = item.toString();
 				if(name.match(/Complete$/)) {
 					completeMethods.push(name);
-					swapCompleteMethod(name);
 				}
 				else {
 					testMethods.push(name);
@@ -134,6 +135,9 @@ package asunit.framework {
 				var baseName:String = name.substr(0, index);
 				if(testMethods.indexOf(baseName) == -1) {
 					testMethods.push(name);
+				}
+				else {
+					swapCompleteMethod(name);
 				}
 			}
 		}
@@ -185,12 +189,14 @@ package asunit.framework {
 		public function runBare():void {
 			var name:String;
 			var itr:Iterator = getMethodIterator();
+			var isWaiting:Boolean = false;
 			try {
 				while(itr.hasNext()) {
 					name = String(itr.next());
-					trace("itrating with: " + getName() + "." + name);
+					trace("name: " + name);
 					if(!runMethod(name)) {
-						trace("RETURNING ON : " + name);
+						trace("BLOCKING EXECUTION ON : " + name);
+						isWaiting = true;
 						break;
 					}
 				}
@@ -198,7 +204,8 @@ package asunit.framework {
 			finally {
 				if(!runSingle) {
 					cleanUp();
-					if(!itr.hasNext()) {
+					if(!itr.hasNext() && !isWaiting) {
+						trace("itr hasNext was false");
 						result.endTest(this);
 						isComplete = true;
 					}
@@ -219,12 +226,16 @@ package asunit.framework {
 		protected function cleanUp():void {
 		}
 
-//		override flash_proxy function hasProperty(name:*):Boolean {
-//			return (this[name] != undefined);
-//		}
+		override flash_proxy function hasProperty(name:*):Boolean {
+			return (this[name] != undefined);
+		}
 		
-//		override flash_proxy function getProperty(name:*):* {
-//			return this[name];
+		override flash_proxy function getProperty(name:*):* {
+			return asyncMethods[name];
+		}
+		
+//		override flash_proxy function setProperty(name:*, value:*):void {
+//			this[name] = value;
 //		}
 		
 		private function runMethod(methodName:String):Boolean {
@@ -232,6 +243,11 @@ package asunit.framework {
 				setUp();
 				currentMethod = methodName;
 				try {
+					if((methodName + "Complete") in this) {
+						trace("FOUND YOU! at: " + methodName);
+						this[methodName]();
+						return false;
+					}
 //					var ns:Namespace = flash_proxy;
 //					if(this.flash_proxy::hasProperty(methodName + "Complete")) {
 //						trace("HAS PROP : " + methodName);
@@ -260,15 +276,15 @@ package asunit.framework {
 
 		private function swapCompleteMethod(name:String):void {
 			trace("swapping complete method with: " + name);
-			var obj:Object = new Object();
-			obj[name] = this[name];
-//			this[name] = defaultCompleteMethod;
-//			this.prototype["__" + name] = this.prototype[name];
-//			this[name] = defaultCompleteMethod;
+			asyncMethods["__" + name] = this[name];
+			asyncMethods[name] = defaultCompleteMethod;
+//			this[name] = this.defaultCompleteMethod;
+			//var result:Boolean = delete this[name];
+			//trace("RESULT: " + result);
 		}
 		
-		private function defaultCompleteMethod():void {
-			trace("default complete method called");
+		public function defaultCompleteMethod():void {
+			trace("asunit complete called");
 		}
 		/**
 		 * Sets up the fixture, for example, instantiate a mock object.
@@ -322,5 +338,8 @@ package asunit.framework {
 			return getContext().removeChild(child);
 		}
 
+		public function fail(message:String):void {
+			result.addFailure(this, new AssertionFailedError(message));
+		}
 	}
 }
