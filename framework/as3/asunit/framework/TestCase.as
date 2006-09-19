@@ -9,6 +9,7 @@ package asunit.framework {
 	import asunit.util.ArrayIterator;
 	import flash.net.getClassByAlias;
 	import flash.utils.setTimeout;
+	import flash.utils.clearTimeout;
 
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
@@ -78,11 +79,13 @@ package asunit.framework {
 		/**
 		 * the name of the test case
 		 */
+		protected var DEFAULT_TIMEOUT:int = 500;
 		protected var fName:String;
 		protected var result:TestResult;
 		protected var testMethods:Array;
 		protected var isComplete:Boolean;
 		protected var context:DisplayObjectContainer;
+		private var asyncMethodTimeoutId:Number;
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
@@ -172,9 +175,7 @@ package asunit.framework {
 			try {
 				while(itr.hasNext()) {
 					name = String(itr.next());
-					trace("name: " + name);
 					if(!runMethod(name)) {
-						trace("BLOCKING EXECUTION ON : " + name);
 						break;
 					}
 				}
@@ -182,8 +183,6 @@ package asunit.framework {
 			finally {
 				if(!runSingle) {
 					if(!itr.hasNext() && !methodIsAsynchronous) {
-						trace("--------------");
-						trace("INSIDE THE END");
 						cleanUp();
 						result.endTest(this);
 						isComplete = true;
@@ -207,6 +206,10 @@ package asunit.framework {
 		
 		private function runMethod(methodName:String):Boolean {
 			try {
+				if(!isNaN(asyncMethodTimeoutId)) {
+					clearTimeout(asyncMethodTimeoutId);
+					asyncMethodTimeoutId = NaN;
+				}
 				setUp();
 				currentMethod = methodName;
 				try {
@@ -277,6 +280,7 @@ package asunit.framework {
 		protected function addAsync(handler:Function):Function {
 			methodIsAsynchronous = true;
 			var context:Object = this;
+			asyncMethodTimeoutId = setTimeout(timeoutHandler, DEFAULT_TIMEOUT);
 			return function(args:*):* {
 				try {
 					handler.apply(context, arguments);
@@ -290,6 +294,12 @@ package asunit.framework {
 				context.methodIsAsynchronous = false;
 				context.runBare();
 			}
+		}
+		
+		protected function timeoutHandler():void {
+			result.addError(this, new IllegalOperationError("TestCase.DEFAULT_TIMEOUT (" + DEFAULT_TIMEOUT + "ms) exceeded on an asynchronous test method."));
+			methodIsAsynchronous = false;
+			runBare();
 		}
 		
 		protected function addChild(child:DisplayObject):DisplayObject {
