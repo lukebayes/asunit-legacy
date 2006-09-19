@@ -2,12 +2,13 @@ package asunit.framework {
 
 	import flash.errors.IllegalOperationError;
 	import asunit.errors.AssertionFailedError;
+	import flash.utils.Proxy;
 
 	/**
 	 * A set of assert methods.  Messages are only displayed when an assert fails.
 	 */
 
-	public class Assert {
+	public class Assert extends Proxy {
 		/**
 		 * Protect constructor since it is a static only class
 		 */

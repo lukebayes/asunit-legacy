@@ -1,5 +1,6 @@
 package asunit.textui {
 	import asunit.framework.TestCase;
+	import flash.utils.setTimeout;
 
 	public class TestRunnerTest extends TestCase {
 		private var instance:TestRunner;
@@ -21,9 +22,18 @@ package asunit.textui {
 		public function testInstantiated():void {
 			assertTrue("TestRunner instantiated", instance is TestRunner);
 		}
+
+//		public function testAsync():void {
+//			setTimeout(testAsyncComplete, 10);
+//		}
 		
-		public function testStart():void {
-			instance.start(TestRunnerTestCaseMock);
+//		public function testAsyncComplete():void {
+//			fail("test async complete failed");
+//			runBare();
+//		}
+		
+		public function testSomethingComplete():void {
+			trace("testSomethignCOmplete executed");
 		}
 	}
 }

@@ -103,18 +103,7 @@ package asunit.framework {
 		 */
 		public function run(test:TestCase):void {
 			startTest(test);
-			try {
-				test.runBare();
-			}
-			catch(e:AssertionFailedError) {
-				addFailure(test, e);
-			}
-			catch(ioe:IllegalOperationError) {
-				addError(test, ioe);
-			}
-			finally {
-				endTest(test);
-			}
+			test.runBare();
 		}
 		/**
 		 * Gets the number of run tests.

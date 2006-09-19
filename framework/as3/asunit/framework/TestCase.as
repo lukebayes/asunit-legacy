@@ -5,7 +5,13 @@ package asunit.framework {
 	import flash.display.DisplayObjectContainer;
 	import flash.errors.IllegalOperationError;
 	import flash.utils.describeType;
+	import asunit.util.Iterator;
+	import asunit.util.ArrayIterator;
+	import flash.net.getClassByAlias;
+	import flash.utils.setTimeout;
+	import flash.utils.flash_proxy;
 
+	use namespace flash_proxy;
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
 	 * 1) implement a subclass of TestCase<br>
@@ -70,7 +76,6 @@ package asunit.framework {
 	 * @see TestResult
 	 * @see TestSuite
 	 */
-
 	public class TestCase extends Assert implements Test {
 		/**
 		 * the name of the test case
@@ -82,6 +87,7 @@ package asunit.framework {
 		protected var context:DisplayObjectContainer;
 		private var currentMethod:String;
 		private var runSingle:Boolean;
+		private var methodIterator:Iterator;
 
 
 		/**
@@ -111,8 +117,24 @@ package asunit.framework {
 		protected function setTestMethods(methodNodes:XMLList):void {
 			testMethods = new Array();
 			var methodNames:Object = methodNodes.@name;
+			var completeMethods:Array = new Array();
+			var name:String;
 			for each(var item:Object in methodNames) {
-				testMethods.push(item.toString());
+				name = item.toString();
+				if(name.match(/Complete$/)) {
+					completeMethods.push(name);
+					swapCompleteMethod(name);
+				}
+				else {
+					testMethods.push(name);
+				}
+			}
+			for each(name in completeMethods) {
+				var index:int = name.indexOf("Complete");
+				var baseName:String = name.substr(0, index);
+				if(testMethods.indexOf(baseName) == -1) {
+					testMethods.push(name);
+				}
 			}
 		}
 
@@ -161,27 +183,34 @@ package asunit.framework {
 		 *  throws Error
 		 */
 		public function runBare():void {
-			var methods:Array = testMethods;
+			var name:String;
+			var itr:Iterator = getMethodIterator();
 			try {
-				for each(var name:String in methods) {
-					try {
-						runMethod(name);
-					}
-					catch(e:AssertionFailedError) {
-						result.addFailure(this, e);
-					}
-					catch(ioe:Error) {
-						result.addError(this, ioe);
+				while(itr.hasNext()) {
+					name = String(itr.next());
+					trace("itrating with: " + getName() + "." + name);
+					if(!runMethod(name)) {
+						trace("RETURNING ON : " + name);
+						break;
 					}
 				}
 			}
 			finally {
 				if(!runSingle) {
 					cleanUp();
+					if(!itr.hasNext()) {
+						result.endTest(this);
+						isComplete = true;
+					}
 				}
 			}
-
-			isComplete = true;
+		}
+		
+		private function getMethodIterator():Iterator {
+			if(methodIterator == null) {
+				methodIterator = new ArrayIterator(testMethods);
+			}
+			return methodIterator;
 		}
 
 		// Override this method in Asynchronous test cases
@@ -190,19 +219,57 @@ package asunit.framework {
 		protected function cleanUp():void {
 		}
 
-		private function runMethod(methodName:String):void {
-			setUp();
-			currentMethod = methodName;
+//		override flash_proxy function hasProperty(name:*):Boolean {
+//			return (this[name] != undefined);
+//		}
+		
+//		override flash_proxy function getProperty(name:*):* {
+//			return this[name];
+//		}
+		
+		private function runMethod(methodName:String):Boolean {
 			try {
-				this[methodName]();
-			}
-			finally {
-				if(!runSingle) {
-					tearDown();
+				setUp();
+				currentMethod = methodName;
+				try {
+//					var ns:Namespace = flash_proxy;
+//					if(this.flash_proxy::hasProperty(methodName + "Complete")) {
+//						trace("HAS PROP : " + methodName);
+//					}
+//					if(this[methodName + "Complete"] != null) {
+//					if(this.hasOwnProperty(methodName + "Complete")) {
+//						setTimeout(this[methodName], 1);
+//						return false;
+//					}
+					this[methodName]();
+				}
+				finally {
+					if(!runSingle) {
+						tearDown();
+					}
 				}
 			}
+			catch(e:AssertionFailedError) {
+				result.addFailure(this, e);
+			}
+			catch(ioe:Error) {
+				result.addError(this, ioe);
+			}
+			return true;
 		}
 
+		private function swapCompleteMethod(name:String):void {
+			trace("swapping complete method with: " + name);
+			var obj:Object = new Object();
+			obj[name] = this[name];
+//			this[name] = defaultCompleteMethod;
+//			this.prototype["__" + name] = this.prototype[name];
+//			this[name] = defaultCompleteMethod;
+		}
+		
+		private function defaultCompleteMethod():void {
+			trace("default complete method called");
+		}
 		/**
 		 * Sets up the fixture, for example, instantiate a mock object.
 		 * This method is called before each test is executed.

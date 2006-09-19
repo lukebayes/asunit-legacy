@@ -15,6 +15,10 @@ package asunit.textui {
 			testMethod1Run = true;
 		}
 		
+		public function testMethod1Completed():void {
+			trace("testMethod1Handler called");
+		}
+		
 		public function testMethod2():void {
 			testMethod2Run = true;
 		}
