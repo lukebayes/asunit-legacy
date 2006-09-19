@@ -43,7 +43,7 @@ package asunit.textui {
 		}
 
 		protected function addedHandler(event:Event):void {
-			if(event.target === this) {
+			if(event.target === fPrinter) {
 				stage.align = StageAlign.TOP_LEFT;
 				stage.scaleMode = StageScaleMode.NO_SCALE;
 				stage.addEventListener(Event.RESIZE, resizeHandler);
