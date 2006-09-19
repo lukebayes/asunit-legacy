@@ -2,7 +2,7 @@ package asunit.framework {
 	
 	public class TestFailureTest extends TestCase {
 		
-		public function TestFailureTest(testMethod:String) {
+		public function TestFailureTest(testMethod:String = null) {
 			super(testMethod);
 		}
 

@@ -5,7 +5,7 @@ package asunit.framework {
 		public var testMethod2Run:Boolean;
 		public var testMethod3Run:Boolean;
 		
-		public function TestCaseMock(methodName:String) {
+		public function TestCaseMock(methodName:String = null) {
 			super(methodName);
 		}
 		

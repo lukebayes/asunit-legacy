@@ -5,7 +5,7 @@ package asunit.framework {
 
 	public class AssertTest extends TestCase {
 		
-		public function AssertTest(testMethod:String) {
+		public function AssertTest(testMethod:String = null) {
 			super(testMethod);
 		}
 
