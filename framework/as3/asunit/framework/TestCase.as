@@ -79,7 +79,7 @@ package asunit.framework {
 		/**
 		 * the name of the test case
 		 */
-		protected var DEFAULT_TIMEOUT:int = 500;
+		protected static var DEFAULT_TIMEOUT:int = 500;
 		protected var fName:String;
 		protected var result:TestResult;
 		protected var testMethods:Array;
@@ -277,10 +277,10 @@ package asunit.framework {
 			return context;
 		}
 
-		protected function addAsync(handler:Function):Function {
+		protected function addAsync(handler:Function, timeout:int=500):Function {
 			methodIsAsynchronous = true;
-			var context:Object = this;
-			asyncMethodTimeoutId = setTimeout(timeoutHandler, DEFAULT_TIMEOUT);
+			var context:TestCase = this;
+			asyncMethodTimeoutId = setTimeout(timeoutHandler, timeout);
 			return function(args:*):* {
 				try {
 					handler.apply(context, arguments);
@@ -289,10 +289,13 @@ package asunit.framework {
 					context.result.addFailure(context, e);
 				}
 				catch(ioe:IllegalOperationError) {
+					trace('foo'); // this trace needs to be here?! Why?!
 					context.result.addError(context, ioe);
 				}
-				context.methodIsAsynchronous = false;
-				context.runBare();
+				finally {
+					context.methodIsAsynchronous = false;
+					context.runBare();
+				}
 			}
 		}
 		
