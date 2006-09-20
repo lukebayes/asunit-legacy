@@ -1,13 +1,10 @@
 package {
-	import asunit.framework.TestCaseExample;
 	import asunit.textui.TestRunner;
-	import asunit.textui.TestRunnerTest;
 	
 	public class AsUnitTestRunner extends TestRunner {
 
 		public function AsUnitTestRunner() {
-//			start(AllTests, null, TestRunner.SHOW_TRACE);
-			start(TestCaseExample);
+			start(AllTests, null, TestRunner.SHOW_TRACE);
 		}
 	}
 }
