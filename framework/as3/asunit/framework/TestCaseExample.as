@@ -6,9 +6,8 @@ package asunit.framework {
 	import flash.events.EventDispatcher;
 	import flash.utils.setTimeout;
 
-	// These should always end with Test, the example
-	// doesn't because we don't want TestSuites in this
-	// directory.
+	// TestCase subclasses should always end with 'Test', the example
+	// doesn't because we don't want TestSuites in this directory.
 	public class TestCaseExample extends TestCase {
 		private var date:Date;
 		private var sprite:Sprite;
