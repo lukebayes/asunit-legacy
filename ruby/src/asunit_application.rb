@@ -4,6 +4,7 @@ module AsUnit
 	CLASS_TEMPLATE = 'Class.erb'
 	TEST_TEMPLATE = 'TestCase.erb'
 	PROJECT_FILE_NAME = '.asunit'
+	FLEX_PROJECT_FILE_NAME = '.actionScriptProperties'
 
 	require 'yaml'
 	require 'optparse'
@@ -16,7 +17,17 @@ module AsUnit
 		def initialize
 			super
 			arguments = AsUnitArguments.new(ARGV)
-			project_file = get_project_file Dir.pwd
+			@starting_dir = Dir.pwd
+			project_file = get_project_file(Dir.pwd, AsUnit::PROJECT_FILE_NAME)
+			if(project_file.nil?)
+				Dir.chdir @starting_dir
+				project_file = get_project_file(Dir.pwd, AsUnit::PROJECT_FILE_NAME)
+			end
+
+			if(project_file.nil?)
+				puts 'No project file found!'
+			end
+
 			prefs = YAML.load(project_file.read)
 			settings = AsUnit::Settings.new(prefs)
 
@@ -57,15 +68,16 @@ module AsUnit
 			end
 		end
 
-		def get_project_file(dir)
+		def get_project_file(dir, project_file_name)
 			if(dir == '/')
-				raise 'Project file not found, please create a new asunit project by typing "asunit -create-project [-src, -test, -templates]"'
+				return nil
+#				raise 'Project file not found, please create a new asunit project by typing "asunit -create-project [-src, -test, -templates]"'
 			end
 			Dir.chdir dir
-			if(File.exists? AsUnit::PROJECT_FILE_NAME)
-				return File.open(AsUnit::PROJECT_FILE_NAME, 'r')
+			if(File.exists? project_file_name)
+				return File.open(project_file_name, 'r')
 			end
-			get_project_file(File.dirname(dir))
+			get_project_file(File.dirname(dir), project_file_name)
 		end
 	end	
 end

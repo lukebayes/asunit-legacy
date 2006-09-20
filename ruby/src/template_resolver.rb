@@ -21,7 +21,7 @@ module AsUnit
 		
 		def template=(template)
 			@template = template
-			@parsed = nil	
+			@parsed = nil
 		end
 
 		def parse
@@ -53,6 +53,10 @@ module AsUnit
 			@test_cases.sort!
 		end
 		
+		def class_under_test
+			return classname.sub(/Test$/, '')
+		end
+
 		def display_object?
 			return @display_object
 		end

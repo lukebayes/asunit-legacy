@@ -2,7 +2,7 @@ package <%= package %>{
     import asunit.framework.TestCase;
 
     public class <%= classname %> extends TestCase {
-		private var instance:<%= classname %>;
+		private var instance:<%= class_under_test %>;
 
 		public function <%= classname %>(testMethod:String = null) {
 		    super(testMethod);
@@ -10,7 +10,7 @@ package <%= package %>{
 
 		protected override function setUp():void {
 		    super.setUp();
-		    instance = new <%= classname %>();<%
+		    instance = new <%= class_under_test %>();<%
 		    if display_object? %>
 		    addChild(instance);<% end %>
 		}
@@ -23,7 +23,7 @@ package <%= package %>{
 		}
 
 		public function testInstantiated():void {
-		  	assertTrue("<%= classname %> instantiated", instance is <%= classname %>);
+		  	assertTrue("<%= classname %> instantiated", instance is <%= class_under_test %>);
 		}
 
 		public function test():void {

@@ -10,6 +10,7 @@ module AsUnit
 	      self[:display_object] = false
 	      self[:force] = false
 	      self[:interfaces] = Array.new
+	      self[:is_interface] = false
 	      self[:project_file] = nil
 	      self[:superclass] = nil
 	      
@@ -29,6 +30,10 @@ module AsUnit
 	      			raise '-i [--add-interface] argument must be followed by a fully-qualified interface name eg: "flash.events.IEventDispatcher"'
 	      		end
 	      		self[:interfaces].push(inf || '$')
+	      	end
+	      	
+	      	opts.on('-I', '--is-interface', 'class being created is an interface') do
+	      		self[:is_interface] = true
 	      	end
 	      	
 	      	opts.on('-p', '--project-file [FILE]', 'use provided project file [FILE]') do |file|
