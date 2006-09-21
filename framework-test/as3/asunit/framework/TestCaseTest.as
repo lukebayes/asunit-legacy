@@ -48,10 +48,8 @@ package asunit.framework {
 		}
 
 		public function testAsync():void {
-			trace("TEST ASYNC");
 			var dispatcher:EventDispatcher = new EventDispatcher();
 			var handler:Function = addAsync(asyncHandler, 400);
-			trace("METHOD IS ASYNC? : " + methodIsAsynchronous);
 			dispatcher.addEventListener(Event.COMPLETE, handler);
 			setTimeout(dispatcher.dispatchEvent, 200, new Event(Event.COMPLETE));
 		}

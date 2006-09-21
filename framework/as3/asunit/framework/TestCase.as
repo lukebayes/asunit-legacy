@@ -296,7 +296,6 @@ package asunit.framework {
 					context.getResult().addError(context, ioe);
 				}
 				finally {
-					trace("ASYNC METHOD FINALLY BLOCK CALLED!");
 					context.methodIsAsynchronous = false;
 					context.runBare();
 				}
