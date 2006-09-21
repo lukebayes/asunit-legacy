@@ -24,32 +24,5 @@ package asunit.textui {
 		public function testInstantiated():void {
 			assertTrue("TestRunner instantiated with: " + instance, instance is TestRunner);
 		}
-
-		public function testAsync():void {
-			var handler:Function = addAsync(asyncCompleteHandler);
-			setTimeout(handler, 400, new Event(Event.ACTIVATE));
-		}
-		
-		public function asyncCompleteHandler(event:Event):void {
-//			throw new IllegalOperationError("what the heck?");
-		}
-		
-		public function testAsync2():void {
-			var handler:Function = addAsync(async2CompleteHandler);
-			setTimeout(handler, 40);
-		}
-		
-		public function async2CompleteHandler():void {
-//			fail("test async complete failed");
-		}
-		
-		public function testSomethingComplete():void {
-		}
-		
-		public function testSomethingElse():void {
-		}
-		
-		public function testAnotherThing():void {
-		}
 	}
 }
