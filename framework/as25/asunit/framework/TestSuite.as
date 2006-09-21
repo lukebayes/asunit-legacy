@@ -1,6 +1,8 @@
 import asunit.framework.TestCase;
 import asunit.framework.Test;
 import asunit.framework.TestResult;
+import asunit.util.Iterator;
+import asunit.util.ArrayIterator;
 
 class asunit.framework.TestSuite extends TestCase {
 	private var fTests:Array = new Array();
@@ -49,12 +51,23 @@ class asunit.framework.TestSuite extends TestCase {
 	 */
 	public function run():Void {
 		var result:TestResult = getResult();
+		runTests(fTests, result);
+ 	}
+	
+	public function runTests(tests:Array, result:TestResult):Void {
+		var itr:Iterator = new ArrayIterator(tests);
 		var test:TestCase;
-		var len:Number = fTests.length;
-		for(var i:Number = 0; i < len; i++) {
-			test = TestCase(fTests[i]);
-			test.setResult(result);
-			test.run();
+		if(itr.hasNext()) {
+			test = TestCase(itr.next());
+			runTest(itr, test, result);
+		}
+	}
+	
+	public function runTest(itr:Iterator, test:TestCase, result:TestResult):Void {
+		test.setResult(result);
+		test.run();
+		if(itr.hasNext()) {
+			_global.setTimeout(this, "runTest", 10, itr, itr.next(), result);
 		}
 	}
 

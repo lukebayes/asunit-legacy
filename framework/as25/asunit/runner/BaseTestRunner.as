@@ -2,6 +2,7 @@ import asunit.runner.IResultPrinter;
 import asunit.framework.Test;
 import asunit.framework.TestResult;
 import asunit.framework.Assert;
+import asunit.textui.ResultPrinter;
 
 class asunit.runner.BaseTestRunner {
 	private static var instance:BaseTestRunner;
@@ -59,7 +60,14 @@ class asunit.runner.BaseTestRunner {
 	}
 	
 	public static function trace(msg:String):Void {
-		instance.getPrinter().trace(msg);
+		getInstance().getPrinter().trace(msg);
+	}
+	
+	public static function getInstance():BaseTestRunner {
+		if(instance == undefined) {
+			return instance = new BaseTestRunner(ResultPrinter);
+		}
+		return instance;
 	}
 	
 	public function setPrinter(printer:IResultPrinter):Void {
