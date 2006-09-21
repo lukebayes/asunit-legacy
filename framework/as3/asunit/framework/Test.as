@@ -1,7 +1,8 @@
 package asunit.framework {
 	import flash.display.DisplayObjectContainer;
+	import flash.events.IEventDispatcher;
 		
-	public interface Test {
+	public interface Test extends IEventDispatcher {
 		function countTestCases():int;
 		function toString():String;
 		function setResult(result:TestResult):void;

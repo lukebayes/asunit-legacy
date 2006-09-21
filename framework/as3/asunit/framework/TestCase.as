@@ -10,6 +10,7 @@ package asunit.framework {
 	import flash.net.getClassByAlias;
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
+	import flash.events.Event;
 
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
@@ -89,7 +90,7 @@ package asunit.framework {
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
-		private var methodIsAsynchronous:Boolean;
+		protected var methodIsAsynchronous:Boolean;
 
 		/**
 		 * Constructs a test case with the given name.
@@ -99,12 +100,14 @@ package asunit.framework {
 			var className:Object = description.@name;
 			var methods:XMLList = description..method.(@name.match("^test"));
 			if(testMethod != null) {
-				runSingle = true;
 				testMethods = testMethod.split(", ").join(",").split(",");
 			} else {
 				setTestMethods(methods);
 			}
-			setName(className.toString());
+			if(testMethods.length == 1) {
+				runSingle = true;
+			}
+		setName(className.toString());
 		}
 
 		/**
@@ -152,8 +155,7 @@ package asunit.framework {
 		 * @see TestResult
 		 */
 		public function run():void {
-			var result:TestResult = getResult();
-			result.run(this);
+			getResult().run(this);
 		}
 
 		public function setResult(result:TestResult):void {
@@ -181,12 +183,11 @@ package asunit.framework {
 				}
 			}
 			finally {
-				if(!runSingle) {
-					if(!itr.hasNext() && !methodIsAsynchronous) {
-						cleanUp();
-						result.endTest(this);
-						isComplete = true;
-					}
+				if(!itr.hasNext() && !methodIsAsynchronous) {
+					cleanUp();
+					getResult().endTest(this);
+					isComplete = true;
+					dispatchEvent(new Event(Event.COMPLETE));
 				}
 			}
 		}
@@ -225,10 +226,10 @@ package asunit.framework {
 				}
 			}
 			catch(e:AssertionFailedError) {
-				result.addFailure(this, e);
+				getResult().addFailure(this, e);
 			}
 			catch(ioe:Error) {
-				result.addError(this, ioe);
+				getResult().addError(this, ioe);
 			}
 			return true;
 		}
@@ -250,7 +251,7 @@ package asunit.framework {
 		/**
 		 * Returns a string representation of the test case
 		 */
-		public function toString():String {
+		override public function toString():String {
 			return getName() + "." + getCurrentMethod() + "()";
 		}
 		/**
@@ -278,29 +279,32 @@ package asunit.framework {
 		}
 
 		protected function addAsync(handler:Function, timeout:int=500):Function {
-			methodIsAsynchronous = true;
+			this.methodIsAsynchronous = true;
 			var context:TestCase = this;
-			asyncMethodTimeoutId = setTimeout(timeoutHandler, timeout);
+			this.asyncMethodTimeoutId = setTimeout(this.timeoutHandler, timeout, timeout);
 			return function(args:*):* {
+				clearTimeout(context.asyncMethodTimeoutId);
 				try {
 					handler.apply(context, arguments);
 				}
 				catch(e:AssertionFailedError) {
-					context.result.addFailure(context, e);
+					context.getResult().addFailure(context, e);
 				}
 				catch(ioe:IllegalOperationError) {
-					trace('foo'); // this trace needs to be here?! Why?!
-					context.result.addError(context, ioe);
+					trace('illegaloperation'); // this trace needs to be here?! Why?!
+					// without that trace, the app throws an error!!!!
+					context.getResult().addError(context, ioe);
 				}
 				finally {
+					trace("ASYNC METHOD FINALLY BLOCK CALLED!");
 					context.methodIsAsynchronous = false;
 					context.runBare();
 				}
 			}
 		}
 		
-		protected function timeoutHandler():void {
-			result.addError(this, new IllegalOperationError("TestCase.DEFAULT_TIMEOUT (" + DEFAULT_TIMEOUT + "ms) exceeded on an asynchronous test method."));
+		protected function timeoutHandler(timeout:Number):void {
+			result.addError(this, new IllegalOperationError("TestCase.timeout (" + timeout + "ms) exceeded on an asynchronous test method."));
 			methodIsAsynchronous = false;
 			runBare();
 		}

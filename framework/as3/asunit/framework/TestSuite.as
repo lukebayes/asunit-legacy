@@ -1,5 +1,8 @@
 package asunit.framework {
 	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
+	import asunit.util.Iterator;
+	import asunit.util.ArrayIterator;
 	
 	/**
 	 * A <code>TestSuite</code> is a <code>Composite</code> of Tests.
@@ -15,6 +18,7 @@ package asunit.framework {
 	 */
 	public class TestSuite extends TestCase implements Test {
 		private var fTests:Array = new Array();
+		private var testsCompleteCount:Number = 0;
 
 		 public function TestSuite() {
 		 	super();
@@ -48,12 +52,22 @@ package asunit.framework {
 		 */
 		public override function run():void {
 			var result:TestResult = getResult();
-			for each(var test:TestCase in fTests) {
+			var test:Test;
+			var itr:Iterator = new ArrayIterator(fTests);
+			while(itr.hasNext()) {
+				test = Test(itr.next());
 				test.setResult(result);
+				test.addEventListener(Event.COMPLETE, testCompleteHandler);
 				test.run();
 			}
 		}
-	
+		
+		private function testCompleteHandler(event:Event):void {
+			if(++testsCompleteCount >= testCount()) {
+				dispatchEvent(new Event(Event.COMPLETE));
+			}
+		}
+		
 		/**
 		 * Returns the number of tests in this suite
 		 */

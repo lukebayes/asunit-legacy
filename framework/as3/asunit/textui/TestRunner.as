@@ -32,6 +32,8 @@ package asunit.textui {
 		public static const EXCEPTION_EXIT:int = 2;
 		public static const SHOW_TRACE:Boolean = true;
 		protected var fPrinter:ResultPrinter;
+		protected var startTime:Number;
+		protected var result:TestResult;
 
 		public function TestRunner() {
 			configureListeners();
@@ -66,14 +68,14 @@ package asunit.textui {
 //			fscommand("showmenu", "false");
 
 			try {
-				var suite:Test;
+				var instance:Test;
 				if(testMethod != null) {
-					suite = new testCase(testMethod);
+					instance = new testCase(testMethod);
 				}
 				else {
-					suite = new testCase();
+					instance = new testCase();
 				}
-				return doRun(suite, showTrace);
+				return doRun(instance, showTrace);
 			}
 			catch(e:Error) {
 				throw new Error("Could not create and run test suite: " + e.getStackTrace());
@@ -81,8 +83,8 @@ package asunit.textui {
 			return null;
 		}
 
-		public function doRun(suite:Test, showTrace:Boolean = false):TestResult {
-			var result:TestResult = new TestResult();
+		public function doRun(test:Test, showTrace:Boolean = false):TestResult {
+			result = new TestResult();
 			if(fPrinter == null) {
 				setPrinter(new ResultPrinter(showTrace));
 			}
@@ -90,39 +92,18 @@ package asunit.textui {
 				fPrinter.setShowTrace(showTrace);
 			}
 			result.addListener(getPrinter());
-			var startTime:Number = getTimer();
-			suite.setResult(result);
-			suite.setContext(this);
-			suite.run();
-
-			// Wait for all tests to be completed before finishing
-			// the output.
-			// This is how we are going to support asynchronous
-			// TestCases.
-			var intervalObj:Object 	= new Object();
-			intervalObj.startTime 	= startTime;
-			intervalObj.result 		= result;
-			intervalObj.suite 		= suite;
-			intervalObj.runOnce 	= false;
-			// If you have no asynchronous TestCases, this will complete
-			// in one millisecond
-			intervalObj.intervalId 	= setInterval(onTestCompleted, 1, intervalObj);
-
+			startTime = getTimer();
+			test.setResult(result);
+			test.setContext(this);
+			test.addEventListener(Event.COMPLETE, testCompleteHandler);
+			test.run();
 			return result;
 		}
 
-		private function onTestCompleted(intervalObj:Object):void {
-			if(intervalObj.suite.getIsComplete()) {
-				var endTime:Number = getTimer();
-				var runTime:Number = endTime - intervalObj.startTime;
-				getPrinter().printResult(intervalObj.result, runTime);
-				clearInterval(intervalObj.intervalId);
-			} else if(!intervalObj.runOnce) {
-				// If you have an asynchronous TestCase, poll at less frequent intervals
-				clearInterval(intervalObj.intervalId);
-				intervalObj.runOnce = true;
-				intervalObj.intervalId = setInterval(onTestCompleted, 20, intervalObj);
-			}
+		private function testCompleteHandler(event:Event):void {
+			var endTime:Number = getTimer();
+			var runTime:Number = endTime - startTime;
+			getPrinter().printResult(result, runTime);
 		}
 
 		public function setPrinter(printer:ResultPrinter):void {

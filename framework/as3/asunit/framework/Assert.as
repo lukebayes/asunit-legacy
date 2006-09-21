@@ -1,14 +1,15 @@
 package asunit.framework {
-
-	import flash.errors.IllegalOperationError;
 	import asunit.errors.AssertionFailedError;
+	
+	import flash.errors.IllegalOperationError;
+	import flash.events.EventDispatcher;
 	import flash.utils.Proxy;
 
 	/**
 	 * A set of assert methods.  Messages are only displayed when an assert fails.
 	 */
 
-	public class Assert {
+	public class Assert extends EventDispatcher {
 		/**
 		 * Protect constructor since it is a static only class
 		 */
