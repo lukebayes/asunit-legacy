@@ -80,7 +80,7 @@ package asunit.framework {
 		/**
 		 * the name of the test case
 		 */
-		protected static var DEFAULT_TIMEOUT:int = 500;
+		protected static const DEFAULT_TIMEOUT:int = 1000;
 		protected var fName:String;
 		protected var result:TestResult;
 		protected var testMethods:Array;
@@ -277,7 +277,7 @@ package asunit.framework {
 			return context;
 		}
 
-		protected function addAsync(handler:Function = null, duration:Number=1000):Function {
+		protected function addAsync(handler:Function = null, duration:Number=DEFAULT_TIMEOUT):Function {
 			if(handler == null) {
 				handler = function() {};
 			}
