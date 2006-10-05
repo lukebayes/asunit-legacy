@@ -20,17 +20,17 @@ package asunit.framework {
 		}
 
 		// This method will be called before every test method
-		protected override function setUp():void {
+		override protected function setUp():void {
 			date = new Date();
 //			sprite = new Sprite();
 //			addChild(sprite);
 		}
-		
+
 		// This method will be called after every test method
 		// but only if we're executing the entire TestCase,
-		// the tearDown method won't be called if we're 
+		// the tearDown method won't be called if we're
 		// calling start(MyTestCase, "someMethod");
-		protected override function tearDown():void {
+		override protected function tearDown():void {
 //			removeChild(sprite);
 //			sprite = null;
 			date = null;
@@ -48,29 +48,26 @@ package asunit.framework {
 			date.month = 1;
 			assertEquals(1, date.month);
 		}
-		
-		// This is an asynchronous test method 
+
+		// This is an asynchronous test method
 		public function testAsyncFeature():void {
 			// create a new object that dispatches events...
 			var dispatcher:IEventDispatcher = new EventDispatcher();
 			// get a TestCase async event handler reference
-			var handler:Function = addAsync(changeHandler);
+			// the 2nd arg is an optional timeout in ms. (default=1000ms )
+			var handler:Function = addAsync(changeHandler, 2000);
 			// subscribe to your event dispatcher using the returned handler
 			dispatcher.addEventListener(Event.CHANGE, handler);
 			// cause the event to be dispatched.
-//			dispatcher.dispatchEvent(new Event(Event.CHANGE));
-			setTimeout(dispatcher.dispatchEvent, 200, new Event(Event.CHANGE)); 
+			// either immediately:
+			//dispatcher.dispatchEvent(new Event(Event.CHANGE));
+			// or in the future < your assigned timeout
+			setTimeout( dispatcher.dispatchEvent, 200, new Event(Event.CHANGE));
 		}
-		
+
 		protected function changeHandler(event:Event):void {
+			// perform assertions in your handler
 			assertEquals(Event.CHANGE, event.type);
 		}
-		
-		public function testAsyncFeatureTimeout():void {
-			var dispatcher:IEventDispatcher = new EventDispatcher();
-			var handler:Function = addAsync(changeHandler, 100);
-			dispatcher.addEventListener(Event.CHANGE, handler);
-			dispatcher.dispatchEvent(new Event(Event.CHANGE));
-		}
-	}
+
 }
