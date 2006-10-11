@@ -8,9 +8,9 @@ package asunit.framework {
 	import asunit.util.Iterator;
 	import asunit.util.ArrayIterator;
 	import flash.net.getClassByAlias;
-	import flash.utils.setTimeout;
-	import flash.utils.clearTimeout;
 	import flash.events.Event;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
 
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
@@ -86,11 +86,12 @@ package asunit.framework {
 		protected var testMethods:Array;
 		protected var isComplete:Boolean;
 		protected var context:DisplayObjectContainer;
-		private var asyncMethodTimeoutId:Number;
+		protected var methodIsAsynchronous:Boolean;
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
-		protected var methodIsAsynchronous:Boolean;
+		private var timeout:Timer;
+		private var lastDuration:Number;
 
 		/**
 		 * Constructs a test case with the given name.
@@ -211,10 +212,6 @@ package asunit.framework {
 		
 		private function runMethod(methodName:String):Boolean {
 			try {
-//				if(!isNaN(asyncMethodTimeoutId)) {
-//					clearTimeout(asyncMethodTimeoutId);
-//					asyncMethodTimeoutId = NaN;
-//				}
 				setUp();
 				currentMethod = methodName;
 				this[methodName]();
@@ -279,13 +276,18 @@ package asunit.framework {
 
 		protected function addAsync(handler:Function = null, duration:Number=DEFAULT_TIMEOUT):Function {
 			if(handler == null) {
-				handler = function() {};
+				handler = function(args:*):* {};
 			}
 			var context:TestCase = this;
 			context.methodIsAsynchronous = true;
-			asyncMethodTimeoutId = setTimeout(asyncTimeoutHandler, duration, duration);
+			lastDuration = duration;
+			
+			timeout = new Timer(duration, 1);
+			timeout.addEventListener(TimerEvent.TIMER_COMPLETE, timeoutCompleteHandler);
+			timeout.start();
 			return function(args:*):* {
-				clearTimeout(context.asyncMethodTimeoutId);
+				context.timeout.stop();
+				context.timeout = null;
 				try {
 					handler.apply(context, arguments);
 				}
@@ -300,14 +302,13 @@ package asunit.framework {
 				finally {
 					context.methodIsAsynchronous = false;
 					context.runTearDown();
-					trace("CONTEXT: " + context);
 					context.runBare();
 				}
 			}
 		}
 		
-		private function asyncTimeoutHandler(duration:Number):void {
-			result.addError(this, new IllegalOperationError("TestCase.timeout (" + duration + "ms) exceeded on an asynchronous test method."));
+		private function timeoutCompleteHandler(event:TimerEvent):void {
+			result.addError(this, new IllegalOperationError("TestCase.timeout (" + lastDuration + "ms) exceeded on an asynchronous test method."));
 			methodIsAsynchronous = false;
 			runTearDown();
 			runBare();

@@ -62,13 +62,13 @@ package asunit.framework {
 				test.setResult(result);
 				test.addEventListener(Event.COMPLETE, testCompleteHandler);
 				test.run();
-				if(!test.getIsComplete()) {
-					isRunning = false;
-					break;
-				}
+//				if(!test.getIsComplete()) {
+//					isRunning = false;
+//					break;
+//				}
 			}
 		}
-		
+
 		private function getIterator():ArrayIterator {
 			if(iterator == null) {
 				iterator = new ArrayIterator(fTests);

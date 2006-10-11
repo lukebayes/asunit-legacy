@@ -12,6 +12,8 @@ package asunit.textui {
 	import flash.utils.describeType;
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
 
 	/**
 	 * A command line based tool to run tests.
@@ -99,7 +101,7 @@ package asunit.textui {
 			test.run();
 			return result;
 		}
-
+		
 		private function testCompleteHandler(event:Event):void {
 			var endTime:Number = getTimer();
 			var runTime:Number = endTime - startTime;
