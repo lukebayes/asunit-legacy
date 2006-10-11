@@ -19,6 +19,8 @@ package asunit.framework {
 	public class TestSuite extends TestCase implements Test {
 		private var fTests:Array = new Array();
 		private var testsCompleteCount:Number = 0;
+		private var iterator:ArrayIterator;
+		private var isRunning:Boolean;
 
 		 public function TestSuite() {
 		 	super();
@@ -53,16 +55,31 @@ package asunit.framework {
 		public override function run():void {
 			var result:TestResult = getResult();
 			var test:Test;
-			var itr:Iterator = new ArrayIterator(fTests);
+			var itr:Iterator = getIterator();
 			while(itr.hasNext()) {
+				isRunning = true;
 				test = Test(itr.next());
 				test.setResult(result);
 				test.addEventListener(Event.COMPLETE, testCompleteHandler);
 				test.run();
+				if(!test.getIsComplete()) {
+					isRunning = false;
+					break;
+				}
 			}
 		}
 		
+		private function getIterator():ArrayIterator {
+			if(iterator == null) {
+				iterator = new ArrayIterator(fTests);
+			}
+			return iterator;
+		}
+		
 		private function testCompleteHandler(event:Event):void {
+			if(!isRunning) {
+				run();
+			}
 			if(++testsCompleteCount >= testCount()) {
 				dispatchEvent(new Event(Event.COMPLETE));
 			}

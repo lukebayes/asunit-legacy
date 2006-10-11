@@ -300,6 +300,7 @@ package asunit.framework {
 				finally {
 					context.methodIsAsynchronous = false;
 					context.runTearDown();
+					trace("CONTEXT: " + context);
 					context.runBare();
 				}
 			}
