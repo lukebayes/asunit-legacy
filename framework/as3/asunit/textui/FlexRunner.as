@@ -1,10 +1,9 @@
-package {
+package asunit.textui {
 	import asunit.framework.TestResult;
-	import mx.core.Application;
-	import asunit.textui.TestRunner;
-	import asunit.textui.FlexTestRunner;
 	
-	public class AsUnitApplication extends Application {
+	import mx.core.Application;
+	
+	public class FlexRunner extends Application {
 		protected var runner:TestRunner;
 
 		override protected function createChildren():void {
