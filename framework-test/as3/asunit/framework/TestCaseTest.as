@@ -17,34 +17,62 @@ package asunit.framework {
 		
 		public function testCustomConstructor():void {
 			var mock:TestCaseMock = new TestCaseMock("testMethod1");
+			var handler:Function = addAsync(getCustomConstructorCompleteHandler(mock));
+			mock.addEventListener(Event.COMPLETE, handler);
 			mock.run();
-			assertTrue("testMethod1Run", mock.testMethod1Run);
-			assertFalse("testMethod2Run", mock.testMethod2Run);
-			assertFalse("testMethod3Run", mock.testMethod3Run);
+		}
+		
+		private function getCustomConstructorCompleteHandler(mock:TestCaseMock):Function {
+			return function():* {
+				assertTrue("testMethod1Run", mock.testMethod1Run);
+				assertFalse("testMethod2Run", mock.testMethod2Run);
+				assertFalse("testMethod3Run", mock.testMethod3Run);
+			}
 		}
 		
 		public function testCustomConstructor2():void {
 			var mock:TestCaseMock = new TestCaseMock("testMethod1, testMethod3");
+			var handler:Function = addAsync(getCustomConstructor2CompleteHandler(mock));
+			mock.addEventListener(Event.COMPLETE, handler);
 			mock.run();
-			assertTrue("testMethod1Run", mock.testMethod1Run);
-			assertFalse("testMethod2Run", mock.testMethod2Run);
-			assertTrue("testMethod3Run", mock.testMethod3Run);
+		}
+		
+		private function getCustomConstructor2CompleteHandler(mock:TestCaseMock):Function {
+			return function():* {
+				assertTrue("testMethod1Run", mock.testMethod1Run);
+				assertFalse("testMethod2Run", mock.testMethod2Run);
+				assertTrue("testMethod3Run", mock.testMethod3Run);
+			}
 		}
 
 		public function testCustomConstructor3():void {
 			var mock:TestCaseMock = new TestCaseMock("testMethod1,testMethod3");
+			var handler:Function = addAsync(getCustomConstructor3CompleteHandler(mock));
+			mock.addEventListener(Event.COMPLETE, handler);
 			mock.run();
-			assertTrue("testMethod1Run", mock.testMethod1Run);
-			assertFalse("testMethod2Run", mock.testMethod2Run);
-			assertTrue("testMethod3Run", mock.testMethod3Run);
+		}
+		
+		private function getCustomConstructor3CompleteHandler(mock:TestCaseMock):Function {
+			return function():* {
+				assertTrue("testMethod1Run", mock.testMethod1Run);
+				assertFalse("testMethod2Run", mock.testMethod2Run);
+				assertTrue("testMethod3Run", mock.testMethod3Run);
+			}
 		}
 
 		public function testCustomConstructor4():void {
 			var mock:TestCaseMock = new TestCaseMock("testMethod1, testMethod2,testMethod3");
+			var handler:Function = addAsync(getCustomConstructor4CompleteHandler(mock));
+			mock.addEventListener(Event.COMPLETE, handler);
 			mock.run();
-			assertTrue("testMethod1Run", mock.testMethod1Run);
-			assertTrue("testMethod2Run", mock.testMethod2Run);
-			assertTrue("testMethod3Run", mock.testMethod3Run);
+		}
+
+		private function getCustomConstructor4CompleteHandler(mock:TestCaseMock):Function {
+			return function():* {
+				assertTrue("testMethod1Run", mock.testMethod1Run);
+				assertTrue("testMethod2Run", mock.testMethod2Run);
+				assertTrue("testMethod3Run", mock.testMethod3Run);
+			}
 		}
 
 		public function testAsync():void {
@@ -56,8 +84,6 @@ package asunit.framework {
 		
 		private function asyncHandler(event:Event):void {
 			assertEquals(event.type, Event.COMPLETE);
-//			assertTrue(false);
-//			throw new IllegalOperationError("broken");
 		}
 	}
 }

@@ -62,10 +62,10 @@ package asunit.framework {
 				test.setResult(result);
 				test.addEventListener(Event.COMPLETE, testCompleteHandler);
 				test.run();
-//				if(!test.getIsComplete()) {
-//					isRunning = false;
-//					break;
-//				}
+				if(!test.getIsComplete()) {
+					isRunning = false;
+					break;
+				}
 			}
 		}
 
