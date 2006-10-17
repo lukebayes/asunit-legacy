@@ -103,11 +103,11 @@ package asunit.framework {
 			var methods:XMLList = description..method.(@name.match("^test"));
 			if(testMethod != null) {
 				testMethods = testMethod.split(", ").join(",").split(",");
+				if(testMethods.length == 1) {
+					runSingle = true;
+				}
 			} else {
 				setTestMethods(methods);
-			}
-			if(testMethod != null) {
-				runSingle = true;
 			}
 			setName(className.toString());
 		}
@@ -186,28 +186,6 @@ package asunit.framework {
 				isComplete = true;
 				dispatchEvent(new Event(Event.COMPLETE));
 			}
-
-/*
-			try {
-				while(itr.hasNext()) {
-					name = String(itr.next());
-					if(!runMethod(name)) {
-						runCleanUp = false;
-						break;
-					}
-				}
-			}
-			finally {
-				if(runCleanUp) {
-					if(!itr.hasNext()) {
-						cleanUp();
-						getResult().endTest(this);
-						isComplete = true;
-						dispatchEvent(new Event(Event.COMPLETE));
-					}
-				}
-			}
-*/
 		}
 		
 		private function getMethodIterator():Iterator {
@@ -230,11 +208,11 @@ package asunit.framework {
 				methodIsAsynchronous = false;
 				this[methodName]();
 			}
-			catch(e:AssertionFailedError) {
-				getResult().addFailure(this, e);
+			catch(assertionFailedError:AssertionFailedError) {
+				getResult().addFailure(this, assertionFailedError);
 			}
-			catch(ioe:Error) {
-				getResult().addError(this, ioe);
+			catch(unknownError:Error) {
+				getResult().addError(this, unknownError);
 			}
 			finally {
 				if(!methodIsAsynchronous) {
