@@ -174,6 +174,9 @@ package asunit.framework {
 		 *  throws Error
 		 */
 		public function runBare():void {
+			if(isComplete) {
+				return;
+			}
 			var name:String;
 			var itr:Iterator = getMethodIterator();
 			if(itr.hasNext()) {
@@ -301,6 +304,9 @@ package asunit.framework {
 		}
 
 		protected function runTearDown():void {
+			if(isComplete) {
+				return;
+			}
 			if(!runSingle) {
 				tearDown();
 			}
