@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<componentPackage>
+    <component id="Assert" class="asunit.framework.Assert" />
+    <component id="AsynchronousTestCase" class="asunit.framework.AsynchronousTestCase" />
+    <component id="AsynchronousTestCaseExample" class="asunit.framework.AsynchronousTestCaseExample" />
+    <component id="Test" class="asunit.framework.Test" />
+    <component id="TestCase" class="asunit.framework.TestCase" />
+    <component id="TestCaseExample" class="asunit.framework.TestCaseExample" />
+    <component id="TestFailure" class="asunit.framework.TestFailure" />
+    <component id="TestListener" class="asunit.framework.TestListener" />
+    <component id="TestResult" class="asunit.framework.TestResult" />
+    <component id="TestSuite" class="asunit.framework.TestSuite" />
+
+    <component id="BaseTestRunner" class="asunit.runner.BaseTestRunner" />
+    <component id="TestSuiteLoader" class="asunit.runner.TestSuiteLoader" />
+    <component id="Version" class="asunit.runner.Version" />
+    <component id="FlexRunner" class="asunit.textui.FlexRunner" />
+    <component id="FlexTestRunner" class="asunit.textui.FlexTestRunner" />
+    <component id="ResultPrinter" class="asunit.textui.ResultPrinter" />
+    <component id="TestRunner" class="asunit.textui.TestRunner" />
+    <component id="ArrayIterator" class="asunit.util.ArrayIterator" />
+    <component id="Iterator" class="asunit.util.Iterator" />
+    <component id="Properties" class="asunit.util.Properties" />
+    <component id="LayoutManager" class="mx.managers.LayoutManager" />
+
+    <component id="AbstractMemberCalledError" class="asunit.errors.AbstractMemberCalledError" />
+    <component id="AssertionFailedError" class="asunit.errors.AssertionFailedError" />
+    <component id="ClassNotFoundError" class="asunit.errors.ClassNotFoundError" />
+    <component id="InstanceNotFoundError" class="asunit.errors.InstanceNotFoundError" />
+    <component id="UnimplementedFeatureError" class="asunit.errors.UnimplementedFeatureError" />
+</componentPackage>

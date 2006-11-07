@@ -43,7 +43,6 @@ package asunit.textui {
 
 		private function configureListeners():void {
 			addEventListener(Event.ADDED, addedHandler);
-//			addEventListener(KeyboardEventType.KEY_DOWN, onKeyDown);
 		}
 
 		protected function addedHandler(event:Event):void {

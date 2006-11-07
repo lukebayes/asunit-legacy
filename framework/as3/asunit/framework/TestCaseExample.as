@@ -69,5 +69,5 @@ package asunit.framework {
 			// perform assertions in your handler
 			assertEquals(Event.CHANGE, event.type);
 		}
-
+	}
 }

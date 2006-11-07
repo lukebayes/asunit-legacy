@@ -23,6 +23,7 @@ package asunit.util {
 			catch(e:Error) {
 				throw IllegalOperationError("Properties.getProperty");
 			}
+			return null;
 		}
 	}
 }

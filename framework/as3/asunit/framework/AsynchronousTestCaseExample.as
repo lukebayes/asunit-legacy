@@ -1,5 +1,4 @@
 package asunit.framework {
-	import flash.util.trace;
 	import flash.net.URLRequest;
 	import flash.net.URLLoader;
 	import flash.events.*;
@@ -54,7 +53,7 @@ package asunit.framework {
 		
 		protected override function tearDown():void {
 			// destroy the class under test instance
-			delete instance;
+			instance = null;
 		}
 		
 		public function testBookCount():void {
