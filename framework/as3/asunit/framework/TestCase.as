@@ -13,7 +13,7 @@ package asunit.framework {
 	import flash.events.TimerEvent;
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
-	import mx.managers.LayoutManager;
+	import flash.utils.getDefinitionByName;
 
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
@@ -94,6 +94,7 @@ package asunit.framework {
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
+		private var layoutManager:Object;
 
 		/**
 		 * Constructs a test case with the given name.
@@ -111,6 +112,23 @@ package asunit.framework {
 				setTestMethods(methods);
 			}
 			setName(className.toString());
+			resolveLayoutManager();
+		}
+		
+		private function resolveLayoutManager():void {
+			// Avoid creating import dependencies on flex framework
+			// If you have the framework.swc in your classpath,
+			// the layout manager will be found, if not, a mcok
+			// will be used.
+			try {
+				var manager:Class = getDefinitionByName("mx.managers.LayoutManager") as Class;
+				layoutManager = manager["getInstance"]();
+			}
+			catch(e:Error) {
+				layoutManager = new Object();
+				layoutManager.resetAll = function():void {
+				}
+			}
 		}
 
 		/**
@@ -310,7 +328,7 @@ package asunit.framework {
 			}
 			if(!runSingle) {
 				tearDown();
-				LayoutManager.getInstance().resetAll();
+				layoutManager.resetAll();
 			}
 			setTimeout(runBare, 5);
 		}
