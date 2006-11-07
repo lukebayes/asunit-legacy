@@ -13,6 +13,7 @@ package asunit.framework {
 	import flash.events.TimerEvent;
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
+	import mx.managers.LayoutManager;
 
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
@@ -309,6 +310,7 @@ package asunit.framework {
 			}
 			if(!runSingle) {
 				tearDown();
+				LayoutManager.getInstance().resetAll();
 			}
 			setTimeout(runBare, 5);
 		}
