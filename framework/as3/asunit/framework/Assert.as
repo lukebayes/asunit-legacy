@@ -207,6 +207,39 @@ package asunit.framework {
 				failSame(message);
 		}
 
+		/**
+		 * Asserts that two numerical values are equal within a tolerance range.
+		 * If they are not an AssertionFailedError is thrown with the given message.
+		 */
+		static public function assertEqualsFloat(...args:Array):void {
+			var message:String;
+			var expected:Number;
+			var actual:Number;
+			var tolerance:Number = 0;
+
+			if(args.length == 3) {
+				message = "";
+				expected = args[0];
+				actual = args[1];
+				tolerance = args[2];
+			}
+			else if(args.length == 4) {
+				message = args[0];
+				expected = args[1];
+				actual = args[2];
+				tolerance = args[3];
+			}
+			else {
+				throw new IllegalOperationError("Invalid argument count");
+			}
+			if (isNaN(tolerance)) tolerance = 0;
+			if(Math.abs(expected - actual) <= tolerance) {
+				   return;
+			}
+			failNotEquals(message, expected, actual);
+		}
+
+
 		static private function failSame(message:String):void {
 			var formatted:String = "";
 	 		if(message != null) {
