@@ -1,0 +1,1107 @@
+
+----------------------------
+RELEASE
+----------------------------
+
+------------------------------------------------------------------------
+r140 | lukebayes | 2006-11-24 00:32:08 -0800 (Fri, 24 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3
+   M /trunk/framework/as3/build.sh
+
+Cleaning up build process
+------------------------------------------------------------------------
+r137 | alimills | 2006-11-11 08:57:45 -0800 (Sat, 11 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/Assert.as
+
+adding assertEqualsFloat() which was donated by Penner
+------------------------------------------------------------------------
+r136 | lukebayes | 2006-11-06 17:23:44 -0800 (Mon, 06 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/errors/AbstractMemberCalledError.as
+   M /trunk/framework/as3/asunit/errors/AssertionFailedError.as
+   M /trunk/framework/as3/asunit/errors/ClassNotFoundError.as
+   M /trunk/framework/as3/asunit/errors/InstanceNotFoundError.as
+   D /trunk/framework/as3/asunit/errors/InvocationTargetError.as
+   M /trunk/framework/as3/asunit/errors/UnimplementedFeatureError.as
+   M /trunk/framework/as3/asunit/framework/AsynchronousTestCaseExample.as
+   M /trunk/framework/as3/asunit/framework/TestCaseExample.as
+   M /trunk/framework/as3/asunit/runner/BaseTestRunner.as
+   D /trunk/framework/as3/asunit/runner/TestRunListener.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+   M /trunk/framework/as3/asunit/util/Properties.as
+   A /trunk/framework/as3/build.sh
+   A /trunk/framework/as3/manifest.xml
+
+Cleaned up classes for swc creation, removed unused support and error classes
+------------------------------------------------------------------------
+r135 | lukebayes | 2006-11-06 16:17:29 -0800 (Mon, 06 Nov 2006) | 1 line
+Changed paths:
+   D /trunk/framework/as3/mx/managers/LayoutManagerTest.as
+   D /trunk/framework/as3/mx/managers/MockContainer.as
+
+Removed LayoutManagerTest and related class, as they can't be executed / tested without framework dependencies
+------------------------------------------------------------------------
+r134 | lukebayes | 2006-11-06 16:15:34 -0800 (Mon, 06 Nov 2006) | 1 line
+Changed paths:
+   D /trunk/framework/as3/mx/managers/ILayoutManagerClient.as
+
+Removed interface that didn't actually need to be imported
+------------------------------------------------------------------------
+r133 | lukebayes | 2006-11-06 16:11:50 -0800 (Mon, 06 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+
+Cleaned up LayoutManager code to avoid framework dependencies
+------------------------------------------------------------------------
+r132 | lukebayes | 2006-11-06 16:01:21 -0800 (Mon, 06 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   A /trunk/framework/as3/mx
+   A /trunk/framework/as3/mx/managers
+   A /trunk/framework/as3/mx/managers/ILayoutManagerClient.as
+   A /trunk/framework/as3/mx/managers/LayoutManager.as
+   A /trunk/framework/as3/mx/managers/LayoutManagerTest.as
+   A /trunk/framework/as3/mx/managers/MockContainer.as
+
+Added custom Implementation of LayoutManager that will prevent Validation of Flex components after tearDown has been called, this greatly speeds up the execution of larger test suites
+------------------------------------------------------------------------
+r131 | lukebayes | 2006-10-23 12:12:48 -0700 (Mon, 23 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+
+
+----------------------------
+RELEASE
+----------------------------
+
+
+Added bug fix to prevent multiple dispacthes to an async method from completing test execution more than once
+------------------------------------------------------------------------
+r128 | lukebayes | 2006-10-17 14:41:30 -0700 (Tue, 17 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+
+Working on async methods in TestCase
+------------------------------------------------------------------------
+r127 | lukebayes | 2006-10-11 23:21:07 -0700 (Wed, 11 Oct 2006) | 1 line
+Changed paths:
+   D /trunk/framework/as3/AsUnitApplication.as
+   A /trunk/framework/as3/asunit/textui/FlexRunner.as
+
+Moved base flex application to textui package
+------------------------------------------------------------------------
+r126 | lukebayes | 2006-10-11 23:13:25 -0700 (Wed, 11 Oct 2006) | 1 line
+Changed paths:
+   A /trunk/framework/as3/AsUnitApplication.as
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/framework/TestSuite.as
+   M /trunk/framework-test/as3/asunit/framework/AllTests.as
+   D /trunk/framework-test/as3/asunit/framework/AsyncMethod2Test.as
+   M /trunk/framework-test/as3/asunit/framework/AsyncMethodTest.as
+   M /trunk/framework-test/as3/asunit/framework/TestCaseTest.as
+
+Restructured base TestCase so that it now runs completely asynchronously, fully support MXML projects, and addAsync works every time
+------------------------------------------------------------------------
+r125 | lukebayes | 2006-10-10 23:51:42 -0700 (Tue, 10 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/framework/TestSuite.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+   M /trunk/framework-test/as3/asunit/framework/AllTests.as
+
+Changed setTimeout to Timer object because setTimeout does not work as promised at all
+------------------------------------------------------------------------
+r124 | lukebayes | 2006-10-10 22:31:17 -0700 (Tue, 10 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/textui/FlexTestRunner.as
+
+Fixed Indenting on FlexTestRunner
+------------------------------------------------------------------------
+r122 | lukebayes | 2006-10-10 22:09:04 -0700 (Tue, 10 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/framework/TestSuite.as
+
+Made TestSuites pause execution for asynchronus TestCases
+------------------------------------------------------------------------
+r121 | lukebayes | 2006-10-05 13:17:40 -0700 (Thu, 05 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCaseExample.as
+
+updated example
+------------------------------------------------------------------------
+r120 | lukebayes | 2006-10-05 12:07:54 -0700 (Thu, 05 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+
+hooked up DEFAULT_TIMEOUT constant to async method timeout duration
+------------------------------------------------------------------------
+r119 | lukebayes | 2006-10-05 12:03:10 -0700 (Thu, 05 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+
+Got async test case working much better within the context of a Flex Framework application
+------------------------------------------------------------------------
+r118 | lukebayes | 2006-09-21 11:19:08 -0700 (Thu, 21 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/framework/TestSuite.as
+   M /trunk/framework/as25/asunit/runner/BaseTestRunner.as
+   A /trunk/framework/as25/asunit/util
+   A /trunk/framework/as25/asunit/util/ArrayIterator.as
+   A /trunk/framework/as25/asunit/util/ArrayIteratorTest.as
+   A /trunk/framework/as25/asunit/util/Iterator.as
+
+added asynchronous execution of test suites to avoid script timeouts on large projects
+------------------------------------------------------------------------
+r117 | lukebayes | 2006-09-20 18:35:18 -0700 (Wed, 20 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework-test/as3/asunit/framework/TestCaseTest.as
+
+Cleaned up traces and whatnot from async feature
+------------------------------------------------------------------------
+r115 | lukebayes | 2006-09-20 18:32:40 -0700 (Wed, 20 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/Assert.as
+   M /trunk/framework/as3/asunit/framework/Test.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/framework/TestSuite.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+
+Async test cases and suites seem to be working properly
+------------------------------------------------------------------------
+r114 | lukebayes | 2006-09-20 14:23:53 -0700 (Wed, 20 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCaseExample.as
+
+updating comments in TestCase
+------------------------------------------------------------------------
+r113 | lukebayes | 2006-09-20 14:22:59 -0700 (Wed, 20 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+
+updated runner to execute all tests
+------------------------------------------------------------------------
+r112 | lukebayes | 2006-09-20 14:21:37 -0700 (Wed, 20 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   D /trunk/framework/as3/asunit/AllTests.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   A /trunk/framework/as3/asunit/framework/TestCaseExample.as
+
+got async method working better
+------------------------------------------------------------------------
+r111 | lukebayes | 2006-09-20 11:50:50 -0700 (Wed, 20 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework
+
+added ignore props
+------------------------------------------------------------------------
+r104 | lukebayes | 2006-09-20 11:20:59 -0700 (Wed, 20 Sep 2006) | 1 line
+Changed paths:
+   D /trunk/framework/as3/AllTests.as
+   D /trunk/framework/as3/asunit/framework/AllTests.as
+   D /trunk/framework/as3/asunit/framework/AssertTest.as
+   D /trunk/framework/as3/asunit/framework/MockData.xml
+   D /trunk/framework/as3/asunit/framework/TestCaseMock.as
+   D /trunk/framework/as3/asunit/framework/TestCaseTest.as
+   D /trunk/framework/as3/asunit/framework/TestFailureTest.as
+   D /trunk/framework/as3/asunit/framework/VisualTestCaseTest.as
+   D /trunk/framework/as3/asunit/runner/BaseTestRunnerMock.as
+   D /trunk/framework/as3/asunit/textui/AllTests.as
+   D /trunk/framework/as3/asunit/textui/TestRunnerTest.as
+   D /trunk/framework/as3/asunit/textui/TestRunnerTestCaseMock.as
+   D /trunk/framework/as3/asunit/util/AllTests.as
+   D /trunk/framework/as3/asunit/util/ArrayIteratorTest.as
+
+moving test classes to framework-test
+------------------------------------------------------------------------
+r103 | lukebayes | 2006-09-20 11:16:23 -0700 (Wed, 20 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3
+
+updated ignore props
+------------------------------------------------------------------------
+r102 | lukebayes | 2006-09-19 15:23:56 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   A /trunk/framework/as3/asunit/textui/AllTests.as
+
+adding test suites
+------------------------------------------------------------------------
+r101 | lukebayes | 2006-09-19 15:22:59 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/textui/TestRunnerTest.as
+
+working toward async test methods, seems like it might be working.
+------------------------------------------------------------------------
+r100 | lukebayes | 2006-09-19 15:11:36 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/Assert.as
+   M /trunk/framework/as3/asunit/framework/AssertTest.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/textui/TestRunnerTest.as
+
+working toward async test methods, almost there
+------------------------------------------------------------------------
+r99 | lukebayes | 2006-09-19 14:40:51 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/textui/TestRunnerTest.as
+
+got a basic async test method working, still not ideal though
+------------------------------------------------------------------------
+r98 | lukebayes | 2006-09-19 13:35:05 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/Assert.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/framework/TestResult.as
+   M /trunk/framework/as3/asunit/textui/TestRunnerTest.as
+   M /trunk/framework/as3/asunit/textui/TestRunnerTestCaseMock.as
+
+Working on async test methods
+------------------------------------------------------------------------
+r97 | lukebayes | 2006-09-19 09:57:15 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   A /trunk/framework/as3/asunit/textui/TestRunnerTest.as
+   A /trunk/framework/as3/asunit/textui/TestRunnerTestCaseMock.as
+
+added TestRunner test and mock
+------------------------------------------------------------------------
+r96 | lukebayes | 2006-09-19 09:56:18 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/AllTests.as
+   M /trunk/framework/as3/asunit/framework/AssertTest.as
+   M /trunk/framework/as3/asunit/framework/TestCaseMock.as
+   M /trunk/framework/as3/asunit/framework/TestCaseTest.as
+   M /trunk/framework/as3/asunit/framework/TestFailureTest.as
+   M /trunk/framework/as3/asunit/framework/VisualTestCaseTest.as
+   A /trunk/framework/as3/asunit/util/AllTests.as
+   A /trunk/framework/as3/asunit/util/ArrayIterator.as
+   A /trunk/framework/as3/asunit/util/ArrayIteratorTest.as
+   A /trunk/framework/as3/asunit/util/Iterator.as
+
+added ArrayIterator to framework
+------------------------------------------------------------------------
+r93 | lukebayes | 2006-09-19 09:24:06 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/AllTests.as
+   M /trunk/framework/as3/asunit/framework/AssertTest.as
+   M /trunk/framework/as3/asunit/framework/TestCaseTest.as
+   M /trunk/framework/as3/asunit/framework/TestFailureTest.as
+   D /trunk/framework/as3/asunit/framework/TestSuiteTest.as
+
+fixing test case constructors
+------------------------------------------------------------------------
+r92 | lukebayes | 2006-09-19 09:19:15 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   A /trunk/framework/as3/AllTests.as
+   A /trunk/framework/as3/asunit/AllTests.as
+   A /trunk/framework/as3/asunit/framework/AllTests.as
+
+added test suites to repository
+------------------------------------------------------------------------
+r91 | lukebayes | 2006-09-19 09:13:14 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/AsUnitTestRunner.as
+   M /trunk/framework/as3/asunit/framework/AssertTest.as
+   M /trunk/framework/as3/asunit/framework/TestCaseTest.as
+
+got test fixtures up to date
+------------------------------------------------------------------------
+r90 | alimills | 2006-09-19 09:11:28 -0700 (Tue, 19 Sep 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+
+fixing bug that broke AsUnit in ActionScript projects
+------------------------------------------------------------------------
+r69 | lukebayes | 2006-08-25 12:41:34 -0700 (Fri, 25 Aug 2006) | 2 lines
+Changed paths:
+   M /trunk/framework/as3/asunit/textui/FlexTestRunner.as
+
+got rid of trace statements
+
+------------------------------------------------------------------------
+r68 | lukebayes | 2006-08-22 20:11:38 -0700 (Tue, 22 Aug 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/textui/FlexTestRunner.as
+   M /trunk/framework/as3/asunit/textui/ResultPrinter.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+
+got the start interface to work properly in the FlexTestRunner (support showTrace:Boolean)
+------------------------------------------------------------------------
+r67 | lukebayes | 2006-08-18 11:18:11 -0700 (Fri, 18 Aug 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/textui/FlexTestRunner.as
+
+added removeChild support to the FlexTestRunner
+------------------------------------------------------------------------
+r66 | lukebayes | 2006-08-18 11:08:49 -0700 (Fri, 18 Aug 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/textui/FlexTestRunner.as
+   M /trunk/framework/as3/asunit/textui/ResultPrinter.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+
+working on flex2 support
+------------------------------------------------------------------------
+r65 | alimills | 2006-08-15 14:28:13 -0700 (Tue, 15 Aug 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/textui/FlexTestRunner.as
+   M /trunk/framework/as3/asunit/textui/ResultPrinter.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+
+Flex project support added!!
+------------------------------------------------------------------------
+r64 | alimills | 2006-08-15 14:19:57 -0700 (Tue, 15 Aug 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/TestListener.as
+   M /trunk/framework/as3/asunit/textui/FlexTestRunner.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+
+integrated with flex!?
+------------------------------------------------------------------------
+r63 | alimills | 2006-08-15 12:14:06 -0700 (Tue, 15 Aug 2006) | 1 line
+Changed paths:
+   A /trunk/framework/as3/asunit/textui/FlexTestRunner.as
+   M /trunk/framework/as3/asunit/textui/ResultPrinter.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+
+working towards a working FlexTestRunner
+------------------------------------------------------------------------
+r62 | alimills | 2006-08-08 16:20:09 -0700 (Tue, 08 Aug 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/errors/AssertionFailedError.as
+   M /trunk/framework/as3/asunit/errors/InstanceNotFoundError.as
+   M /trunk/framework/as3/asunit/framework/AsynchronousTestCase.as
+   M /trunk/framework/as3/asunit/textui/ResultPrinter.as
+   M /trunk/xului/bin/AsUnit.xpi
+
+Flex Builder 2.0 release fixes
+------------------------------------------------------------------------
+r61 | alimills | 2006-06-25 10:32:09 -0700 (Sun, 25 Jun 2006) | 4 lines
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/MockData.xml
+
+The mockdata.xml file in as3\asunit\framework\ uses "&", which should be
+escaped with "&amp;". Also, "Pragmattic" should have one "t". =)
+
+Robert
+------------------------------------------------------------------------
+r57 | alimills | 2006-06-20 15:27:11 -0700 (Tue, 20 Jun 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as3/asunit/framework/Assert.as
+   M /trunk/framework/as3/asunit/framework/TestCase.as
+   M /trunk/framework/as3/asunit/framework/TestFailure.as
+   M /trunk/framework/as3/asunit/framework/TestListener.as
+   M /trunk/framework/as3/asunit/framework/TestResult.as
+   M /trunk/framework/as3/asunit/framework/TestSuite.as
+   M /trunk/framework/as3/asunit/runner/BaseTestRunner.as
+   M /trunk/framework/as3/asunit/textui/ResultPrinter.as
+   M /trunk/framework/as3/asunit/textui/TestRunner.as
+   A /trunk/installers/win/AsUnit-20060619.msi
+   M /trunk/xului/bin/AsUnit.xpi
+   M /trunk/xului/src/chrome/AsUnit.jar
+   M /trunk/xului/src/chrome/asunit/content/asunit/SetupWizard.xul
+   M /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3TestCaseConfig.js
+   M /trunk/xului/src/chrome/en-US.jar
+
+updating for Flex Builder 2.0 beta 3
+------------------------------------------------------------------------
+r54 | lukebayes | 2006-04-08 16:17:30 -0700 (Sat, 08 Apr 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/framework/AssertTest.as
+
+Removed bad trace statement
+------------------------------------------------------------------------
+r53 | lukebayes | 2006-04-08 14:28:50 -0700 (Sat, 08 Apr 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/framework/TestCase.as
+   M /trunk/framework/as25/asunit/framework/TestCaseXml.as
+   M /trunk/framework/as25/asunit/framework/TestResult.as
+
+Working on asynchronous test case error handling. Seems to be working properly now
+------------------------------------------------------------------------
+r47 | lukebayes | 2006-03-16 09:30:23 -0800 (Thu, 16 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/framework/TestCase.as
+
+Moved call to setUp inside of the try..catch so that errors thrown during calls to setUp get caught and displayed.
+------------------------------------------------------------------------
+r46 | lukebayes | 2006-03-16 09:28:53 -0800 (Thu, 16 Mar 2006) | 2 lines
+Changed paths:
+   A /trunk/framework/as25/asunit/errors/AssertionPassedError.as
+   M /trunk/framework/as25/asunit/textui/ResultPrinter.as
+
+Added AssertionPassedError to facilitate try..catch successes
+Updated ResultPrinter so that the traceOutput TextField is hidden until trace is called the first time. This allows us to select the text in the regular output - unless there are trace statements.
+------------------------------------------------------------------------
+r36 | alimills | 2006-03-08 09:52:56 -0800 (Wed, 08 Mar 2006) | 1 line
+Changed paths:
+   D /trunk/framework/as3/AsUnit.as
+   A /trunk/framework/as3/AsUnitTestRunner.as
+
+renaming AsUnit to AsUnitTestRunner
+------------------------------------------------------------------------
+r35 | alimills | 2006-03-08 09:50:50 -0800 (Wed, 08 Mar 2006) | 2 lines
+Changed paths:
+   M /trunk/framework/as25/AsUnitTestRunner.as
+   D /trunk/framework/as25/AsUnitTestRunner.fla
+   D /trunk/framework/as25/AsUnitTestRunner.swf
+
+- removing FLA and SWF
+- cleaned up AsUnitTestRunner
+------------------------------------------------------------------------
+r34 | lukebayes | 2006-03-08 09:40:37 -0800 (Wed, 08 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/AsUnitTestRunner.as
+
+Attempting to commit from anonymous (shouldn't work)
+------------------------------------------------------------------------
+r33 | lukebayes | 2006-03-08 09:38:59 -0800 (Wed, 08 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/AsUnitTestRunner.as
+
+Removed bad start
+------------------------------------------------------------------------
+r32 | lukebayes | 2006-03-08 09:28:15 -0800 (Wed, 08 Mar 2006) | 1 line
+Changed paths:
+   D /trunk/framework/as3/AllTests.as
+   D /trunk/framework/as3/asunit/AllTests.as
+   D /trunk/framework/as3/asunit/errors/AllTests.as
+   D /trunk/framework/as3/asunit/framework/AllTests.as
+   D /trunk/framework/as3/asunit/runner/AllTests.as
+   D /trunk/framework/as3/asunit/textui/AllTests.as
+
+Removed concrete TestSuites from repository as they were causing conflicts in concrete projects
+------------------------------------------------------------------------
+r29 | lukebayes | 2006-03-07 12:13:39 -0800 (Tue, 07 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/textui/ResultPrinter.as
+
+Changed ResultPrinter to show names instead of company
+------------------------------------------------------------------------
+r28 | lukebayes | 2006-03-07 09:19:32 -0800 (Tue, 07 Mar 2006) | 3 lines
+Changed paths:
+   M /trunk/framework/as25/asunit/runner/BaseTestRunner.as
+   M /trunk/framework/as25/asunit/textui/ResultPrinter.as
+
+- Fixed infinite loop in async feature
+- Updated branding to names from company
+- Added 2.5 version number
+------------------------------------------------------------------------
+r25 | lukebayes | 2006-03-06 22:42:13 -0800 (Mon, 06 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/framework/Test.as
+   M /trunk/framework/as25/asunit/framework/TestCase.as
+   A /trunk/framework/as25/asunit/framework/TestCaseXml.as
+   M /trunk/framework/as25/asunit/framework/TestFailure.as
+   M /trunk/framework/as25/asunit/framework/TestSuite.as
+   M /trunk/framework/as25/asunit/runner/BaseTestRunner.as
+
+Added support for singular, asynchronous test cases. Still looking at ways to implement async methods.
+------------------------------------------------------------------------
+r23 | lukebayes | 2006-03-06 09:28:51 -0800 (Mon, 06 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/AsUnitTestRunner.as
+   M /trunk/framework/as25/asunit/framework/Assert.as
+   A /trunk/framework/as25/asunit/framework/AssertMock.as
+   A /trunk/framework/as25/asunit/framework/AssertTest.as
+   A /trunk/framework/as25/asunit/framework/TestCaseMock.as
+   A /trunk/framework/as25/asunit/framework/TestCaseTest.as
+
+Adding tests to framework
+------------------------------------------------------------------------
+r18 | lukebayes | 2006-03-05 22:01:52 -0800 (Sun, 05 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as2/AsUnitUi.swf
+   M /trunk/framework/as2/com/asunit/ui/Main.as
+
+Incremented version number for swfui
+------------------------------------------------------------------------
+r17 | lukebayes | 2006-03-05 21:48:16 -0800 (Sun, 05 Mar 2006) | 18 lines
+Changed paths:
+   M /trunk/framework/as2/com/asunit/framework/TestRunner.as
+
+Implemented changes as per Darren Cook:
+
+I think the renderTests(arr:Array) function should be changed to
+renderTests(Void), and then change:
+               lc["addTests"](arr);
+               tests = new Array();
+to read:
+               lc["addTests"](tests);
+               tests = new Array();
+
+The reason is simply that this.tests gets reset so passing in anything
+other than this.tests is dangerous.
+
+While there I think renderTests() and getLocalConn() can be changed from
+public to private: no other classes seem to call them.
+
+addSuccess() and addFailure() don't seem to be called from anywhere at
+all. What are they for, and do they need to be part of the public interface?
+------------------------------------------------------------------------
+r16 | lukebayes | 2006-03-04 19:02:44 -0800 (Sat, 04 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/AsUnitTestRunner.swf
+
+Checking in the SWF file
+------------------------------------------------------------------------
+r12 | lukebayes | 2006-03-04 18:17:50 -0800 (Sat, 04 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/framework/TestCase.as
+
+Was working on making all method calls asynchronous, but this was non-trivial. Will now look at re-implementing the original support for async TestCases
+------------------------------------------------------------------------
+r11 | lukebayes | 2006-03-04 18:00:49 -0800 (Sat, 04 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/textui/ResultPrinter.as
+
+It didn't do it
+------------------------------------------------------------------------
+r10 | lukebayes | 2006-03-04 18:00:27 -0800 (Sat, 04 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/framework/as25/asunit/textui/ResultPrinter.as
+
+Trying to find out if subversion will insert meta data directly into a file
+------------------------------------------------------------------------
+r9 | lukebayes | 2006-03-04 17:51:25 -0800 (Sat, 04 Mar 2006) | 3 lines
+Changed paths:
+   M /trunk/framework/as25/AsUnitTestRunner.as
+   M /trunk/framework/as25/AsUnitTestRunner.swf
+   M /trunk/framework/as25/asunit/framework/Assert.as
+   M /trunk/framework/as25/asunit/framework/TestCase.as
+   M /trunk/framework/as25/asunit/runner/BaseTestRunner.as
+   M /trunk/framework/as25/asunit/textui/ResultPrinter.as
+
+- Added support for Visual TestCases. 
+- Added support for single-method TestRunners (from the start command)
+
+------------------------------------------------------------------------
+r7 | lukebayes | 2006-03-04 17:18:26 -0800 (Sat, 04 Mar 2006) | 2 lines
+Changed paths:
+   M /trunk/framework/as25/AsUnitTestRunner.as
+   M /trunk/framework/as25/AsUnitTestRunner.fla
+   M /trunk/framework/as25/AsUnitTestRunner.swf
+   M /trunk/framework/as25/asunit/framework/Assert.as
+   M /trunk/framework/as25/asunit/framework/TestCase.as
+   M /trunk/framework/as25/asunit/framework/TestSuite.as
+
+Got TestSuites working.
+Still need to get Visual TestCases and Async TestCases.
+------------------------------------------------------------------------
+r6 | lukebayes | 2006-03-04 16:14:34 -0800 (Sat, 04 Mar 2006) | 1 line
+Changed paths:
+   A /trunk/framework/as25
+   A /trunk/framework/as25/AsUnitTestRunner.as
+   A /trunk/framework/as25/AsUnitTestRunner.fla
+   A /trunk/framework/as25/AsUnitTestRunner.swf
+   A /trunk/framework/as25/asunit
+   A /trunk/framework/as25/asunit/errors
+   A /trunk/framework/as25/asunit/errors/AssertionFailedError.as
+   A /trunk/framework/as25/asunit/errors/ClassNotFoundError.as
+   A /trunk/framework/as25/asunit/errors/IllegalOperationError.as
+   A /trunk/framework/as25/asunit/errors/InstanceNotFoundError.as
+   A /trunk/framework/as25/asunit/errors/InvocationTargetError.as
+   A /trunk/framework/as25/asunit/errors/UnimplementedFeatureError.as
+   A /trunk/framework/as25/asunit/framework
+   A /trunk/framework/as25/asunit/framework/Assert.as
+   A /trunk/framework/as25/asunit/framework/ITestListener.as
+   A /trunk/framework/as25/asunit/framework/Test.as
+   A /trunk/framework/as25/asunit/framework/TestCase.as
+   A /trunk/framework/as25/asunit/framework/TestFailure.as
+   A /trunk/framework/as25/asunit/framework/TestResult.as
+   A /trunk/framework/as25/asunit/framework/TestSuite.as
+   A /trunk/framework/as25/asunit/runner
+   A /trunk/framework/as25/asunit/runner/BaseTestRunner.as
+   A /trunk/framework/as25/asunit/runner/IResultPrinter.as
+   A /trunk/framework/as25/asunit/textui
+   A /trunk/framework/as25/asunit/textui/ResultPrinter.as
+   A /trunk/framework/as25/asunit/textui/SuccessBar.as
+   A /trunk/framework/as25/asunit/textui/TestRunner.as
+
+Working on custom build for Flash Players 7 and 8
+------------------------------------------------------------------------
+r2 | lukebayes | 2006-03-03 16:33:13 -0800 (Fri, 03 Mar 2006) | 1 line
+Changed paths:
+   A /trunk/comm
+   A /trunk/comm/art
+   A /trunk/comm/art/icon
+   A /trunk/comm/art/icon/icon128.png
+   A /trunk/comm/art/icon/icon16.png
+   A /trunk/comm/art/icon/icon32.png
+   A /trunk/comm/art/icon/icon64.png
+   A /trunk/comm/art/logo
+   A /trunk/comm/art/logo/AsUnitLogo.png
+   A /trunk/comm/marketing
+   A /trunk/comm/marketing/shirt
+   A /trunk/comm/marketing/shirt/asunit.png
+   A /trunk/comm/marketing/shirt/asunit_og.png
+   A /trunk/comm/marketing/shirt/asunit_small.png
+   A /trunk/comm/marketing/shirt/base.png
+   A /trunk/comm/marketing/trailer
+   A /trunk/comm/marketing/trailer/art
+   A /trunk/comm/marketing/trailer/art/50091688_49960871fa_o.jpg
+   A /trunk/comm/marketing/trailer/art/AlRamadan.swf
+   A /trunk/comm/marketing/trailer/art/BillGatesBody.gif
+   A /trunk/comm/marketing/trailer/art/BillGatesBody.png
+   A /trunk/comm/marketing/trailer/art/BillGatesBody.psd
+   A /trunk/comm/marketing/trailer/art/BillGatesHead.psd
+   A /trunk/comm/marketing/trailer/art/BillGatesHeadBottom.gif
+   A /trunk/comm/marketing/trailer/art/BillGatesHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/BillGatesHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/BillGatesHeadTop.gif
+   A /trunk/comm/marketing/trailer/art/BillGatesHeadTop.png
+   A /trunk/comm/marketing/trailer/art/BillGatesHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/DavidFilo.jpg
+   A /trunk/comm/marketing/trailer/art/DavidFilo.psd
+   A /trunk/comm/marketing/trailer/art/DavidFiloBody.png
+   A /trunk/comm/marketing/trailer/art/DavidFiloBody.psd
+   A /trunk/comm/marketing/trailer/art/DavidFiloHead.png
+   A /trunk/comm/marketing/trailer/art/DavidFiloHead.psd
+   A /trunk/comm/marketing/trailer/art/Heinemeier.jpg
+   A /trunk/comm/marketing/trailer/art/HeinemeierBody.png
+   A /trunk/comm/marketing/trailer/art/HeinemeierBody.psd
+   A /trunk/comm/marketing/trailer/art/HeinemeierHead.psd
+   A /trunk/comm/marketing/trailer/art/HeinemeierHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/HeinemeierHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/HeinemeierHeadTop.png
+   A /trunk/comm/marketing/trailer/art/HeinemeierHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/JerryYang.jpg
+   A /trunk/comm/marketing/trailer/art/JerryYang.psd
+   A /trunk/comm/marketing/trailer/art/JerryYangBody.png
+   A /trunk/comm/marketing/trailer/art/JerryYangBody.psd
+   A /trunk/comm/marketing/trailer/art/JerryYangHead.psd
+   A /trunk/comm/marketing/trailer/art/JerryYangHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/JerryYangHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/JerryYangHeadTop.png
+   A /trunk/comm/marketing/trailer/art/JerryYangHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/KevinLynch.psd
+   A /trunk/comm/marketing/trailer/art/KevinLynchBody.png
+   A /trunk/comm/marketing/trailer/art/KevinLynchBody.psd
+   A /trunk/comm/marketing/trailer/art/KevinLynchHead.psd
+   A /trunk/comm/marketing/trailer/art/KevinLynchHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/KevinLynchHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/KevinLynchHeadTop.png
+   A /trunk/comm/marketing/trailer/art/KevinLynchHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/LarryAndSergeyBodies.png
+   A /trunk/comm/marketing/trailer/art/LarryAndSergeyBodies.psd
+   A /trunk/comm/marketing/trailer/art/LarryPageBody.png
+   A /trunk/comm/marketing/trailer/art/LarryPageBody.psd
+   A /trunk/comm/marketing/trailer/art/LarryPageHead.png
+   A /trunk/comm/marketing/trailer/art/LarryPageHead.psd
+   A /trunk/comm/marketing/trailer/art/MitchellBaker.jpg
+   A /trunk/comm/marketing/trailer/art/MitchellBody.png
+   A /trunk/comm/marketing/trailer/art/MitchellBody.psd
+   A /trunk/comm/marketing/trailer/art/MitchellHead.psd
+   A /trunk/comm/marketing/trailer/art/MitchellHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/MitchellHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/MitchellHeadTop.png
+   A /trunk/comm/marketing/trailer/art/MitchellHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/OReilly.jpg
+   A /trunk/comm/marketing/trailer/art/OReilly.psd
+   A /trunk/comm/marketing/trailer/art/OReilly2.jpg
+   A /trunk/comm/marketing/trailer/art/OReillyBody.png
+   A /trunk/comm/marketing/trailer/art/OReillyBody.psd
+   A /trunk/comm/marketing/trailer/art/OReillyHead.psd
+   A /trunk/comm/marketing/trailer/art/OReillyHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/OReillyHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/OReillyHeadTop.png
+   A /trunk/comm/marketing/trailer/art/OReillyHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/Schwartz.jpg
+   A /trunk/comm/marketing/trailer/art/Schwartz.psd
+   A /trunk/comm/marketing/trailer/art/SchwartzBody.png
+   A /trunk/comm/marketing/trailer/art/SchwartzBody.psd
+   A /trunk/comm/marketing/trailer/art/SchwartzHead.psd
+   A /trunk/comm/marketing/trailer/art/SchwartzHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/SchwartzHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/SchwartzHeadTop.png
+   A /trunk/comm/marketing/trailer/art/SchwartzHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/SergeyAndLarry.jpg
+   A /trunk/comm/marketing/trailer/art/SergeyBody.png
+   A /trunk/comm/marketing/trailer/art/SergeyBody.psd
+   A /trunk/comm/marketing/trailer/art/SergeyHead.psd
+   A /trunk/comm/marketing/trailer/art/SergeyHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/SergeyHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/SergeyHeadTop.png
+   A /trunk/comm/marketing/trailer/art/SergeyHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/SteveJobsBody.png
+   A /trunk/comm/marketing/trailer/art/SteveJobsBody.psd
+   A /trunk/comm/marketing/trailer/art/SteveJobsHead.psd
+   A /trunk/comm/marketing/trailer/art/SteveJobsHeadBottom.png
+   A /trunk/comm/marketing/trailer/art/SteveJobsHeadBottom.psd
+   A /trunk/comm/marketing/trailer/art/SteveJobsHeadTop.png
+   A /trunk/comm/marketing/trailer/art/SteveJobsHeadTop.psd
+   A /trunk/comm/marketing/trailer/art/melynch_white_bckgd_copy.jpg
+   A /trunk/comm/marketing/trailer/art/normal_BillGates.jpg
+   A /trunk/comm/marketing/trailer/art/steve_jobs1.jpg
+   A /trunk/comm/marketing/trailer/fla
+   A /trunk/comm/marketing/trailer/fla/AsUnit-TechnicalMerit-Trailer.swf
+   A /trunk/comm/marketing/trailer/fla/Trailer.fla
+   A /trunk/comm/marketing/trailer/snd
+   A /trunk/comm/marketing/trailer/snd/outsidethebox-1.mp3
+   A /trunk/comm/marketing/trailer/snd/outsidethebox-2.mp3
+   A /trunk/comm/marketing/trailer/snd/outsidethebox-3.mp3
+   A /trunk/comm/marketing/trailer/snd/part1.mp3
+   A /trunk/comm/marketing/trailer/snd/part2.mp3
+   A /trunk/comm/marketing/trailer/snd/part3.mp3
+   A /trunk/comm/marketing/trailer/snd/part4.mp3
+   A /trunk/comm/marketing/trailer/snd/part5.mp3
+   A /trunk/comm/marketing/trailer/snd/part6.mp3
+   A /trunk/comm/marketing/trailer/snd/part7.mp3
+   A /trunk/comm/marketing/trailer/snd/part8.mp3
+   A /trunk/comm/marketing/trailer/snd/part9.mp3
+   A /trunk/comm/training
+   A /trunk/comm/training/yahoo
+   A /trunk/comm/training/yahoo/AllTests.as
+   A /trunk/comm/training/yahoo/LivePreview.as
+   A /trunk/comm/training/yahoo/LivePreviewRunner.as
+   A /trunk/comm/training/yahoo/asunit
+   A /trunk/comm/training/yahoo/asunit/AllTests.as
+   A /trunk/comm/training/yahoo/asunit/example
+   A /trunk/comm/training/yahoo/asunit/example/AllTests.as
+   A /trunk/comm/training/yahoo/asunit/example/LivePreviewController.as
+   A /trunk/comm/training/yahoo/asunit/example/LivePreviewControllerTest.as
+   A /trunk/comm/training/yahoo/asunit/example/LivePreviewModel.as
+   A /trunk/comm/training/yahoo/asunit/example/LivePreviewModelMock.as
+   A /trunk/comm/training/yahoo/asunit/example/LivePreviewModelTest.as
+   A /trunk/comm/training/yahoo/asunit/example/LivePreviewView.as
+   A /trunk/comm/training/yahoo/asunit/example/LivePreviewViewMock.as
+   A /trunk/comm/training/yahoo/asunit/example/LivePreviewViewTest.as
+   A /trunk/comm/training/yahoo/asunit/example/OutputFormatter.as
+   A /trunk/comm/training/yahoo/asunit/example/OutputFormatterTest.as
+   A /trunk/comm/training/yahoo/bin
+   A /trunk/comm/training/yahoo/bin/LivePreview.html
+   A /trunk/comm/training/yahoo/bin/LivePreviewRunner.html
+   A /trunk/comm/training/yahoo/doc
+   A /trunk/comm/training/yahoo/doc/PresentationHandout.doc
+   A /trunk/comm/training/yahoo/doc/PresentationNotes.doc
+   A /trunk/comm/www
+   A /trunk/comm/www/art
+   A /trunk/comm/www/art/AsUnitLogo.png
+   A /trunk/comm/www/art/DownloadFramework.png
+   A /trunk/comm/www/art/DownloadMXP.png
+   A /trunk/comm/www/art/DownloadXULUI.png
+   A /trunk/comm/www/art/GetInvolved.png
+   A /trunk/comm/www/art/GetStarted-img.png
+   A /trunk/comm/www/art/GetStarted.png
+   A /trunk/comm/www/art/GetStartedText.png
+   A /trunk/comm/www/art/LearnMore.png
+   A /trunk/comm/www/art/TagLine.png
+   A /trunk/comm/www/html
+   A /trunk/comm/www/html/AsUnitUi-2.7.swf
+   A /trunk/comm/www/html/AsUnitUi.swf
+   A /trunk/comm/www/html/articles
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/YourFirstUnitTest.doc
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/img
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/img/AsUnitUi-Failing.gif
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/img/AsUnitUi-Passing-1.gif
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/img/AsUnitUi-Passing.gif
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/img/AsUnitUi-Passing.psd
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/img/SimpleTestCase.gif
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/img/SimpleTestCase.psd
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/Main.fla
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/Main.swf
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/MainIncl.as
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/Sample.zip
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/com
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/com/yourdomain
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/com/yourdomain/yourproject
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/com/yourdomain/yourproject/Main.as
+   A /trunk/comm/www/html/articles/1-YourFirstUnitTest/sample/com/yourdomain/yourproject/MainTest.as
+   A /trunk/comm/www/html/css
+   A /trunk/comm/www/html/css/AsUnit.css
+   A /trunk/comm/www/html/css/Style.css
+   A /trunk/comm/www/html/docs
+   A /trunk/comm/www/html/docs/img
+   A /trunk/comm/www/html/docs/img/extendsmovieclip-lib.jpg
+   A /trunk/comm/www/html/docs/img/extendsmovieclip-nonlib.jpg
+   A /trunk/comm/www/html/docs/img/simpleclass.jpg
+   A /trunk/comm/www/html/docs/present
+   A /trunk/comm/www/html/docs/present/Presentation-b.doc
+   A /trunk/comm/www/html/faq
+   A /trunk/comm/www/html/faq/AsUnitFramework3.txt
+   A /trunk/comm/www/html/files
+   A /trunk/comm/www/html/files/learning
+   A /trunk/comm/www/html/files/learning/PhoneNumberExample.zip
+   A /trunk/comm/www/html/files/learning/createclass.zip
+   A /trunk/comm/www/html/files/releases
+   A /trunk/comm/www/html/files/releases/FlashUi-20060302.mxp
+   A /trunk/comm/www/html/files/releases/Framework-20060302.zip
+   A /trunk/comm/www/html/files/releases/SwfUi-20060302.swf
+   A /trunk/comm/www/html/img
+   A /trunk/comm/www/html/img/AsUnitLogo.gif
+   A /trunk/comm/www/html/img/DownloadFramework.gif
+   A /trunk/comm/www/html/img/DownloadFrameworkText.gif
+   A /trunk/comm/www/html/img/DownloadMXP.gif
+   A /trunk/comm/www/html/img/DownloadMXPText.gif
+   A /trunk/comm/www/html/img/DownloadXULUI.gif
+   A /trunk/comm/www/html/img/DownloadXULUIText.gif
+   A /trunk/comm/www/html/img/GetInvolved.gif
+   A /trunk/comm/www/html/img/GetInvolvedText.gif
+   A /trunk/comm/www/html/img/GetStarted.gif
+   A /trunk/comm/www/html/img/GetStartedText.gif
+   A /trunk/comm/www/html/img/LearnMore.gif
+   A /trunk/comm/www/html/img/LearnMoreText.gif
+   A /trunk/comm/www/html/img/TagLine.gif
+   A /trunk/comm/www/html/index.html
+   A /trunk/comm/www/html/version.xml
+   A /trunk/flashui
+   A /trunk/flashui/FlashUi.mxi
+   A /trunk/flashui/FlashUi.mxp
+   A /trunk/flashui/LICENSE.txt
+   A /trunk/flashui/README.txt
+   A /trunk/flashui/RELEASE_NOTES.txt
+   A /trunk/flashui/createClass
+   A /trunk/flashui/createClass/ClassTemplate.as
+   A /trunk/flashui/createClass/ConfigureFileSeparator.jsfl
+   A /trunk/flashui/createClass/Create Class.jsfl
+   A /trunk/flashui/createClass/Create Class.xul
+   A /trunk/flashui/createClass/TestClassTemplate.as
+   A /trunk/flashui/createClass/dll
+   A /trunk/flashui/createClass/dll/Debug
+   A /trunk/flashui/createClass/dll/Debug/FileIo.dll
+   A /trunk/flashui/createClass/dll/Debug/FileIo.exp
+   A /trunk/flashui/createClass/dll/Debug/FileIo.ilk
+   A /trunk/flashui/createClass/dll/Debug/FileIo.lib
+   A /trunk/flashui/createClass/dll/Debug/FileIo.obj
+   A /trunk/flashui/createClass/dll/Debug/FileIo.pch
+   A /trunk/flashui/createClass/dll/Debug/FileIo.pdb
+   A /trunk/flashui/createClass/dll/Debug/vc60.idb
+   A /trunk/flashui/createClass/dll/Debug/vc60.pdb
+   A /trunk/flashui/createClass/dll/FileIo.c
+   A /trunk/flashui/createClass/dll/FileIo.dsp
+   A /trunk/flashui/createClass/dll/FileIo.dsw
+   A /trunk/flashui/createClass/dll/FileIo.ncb
+   A /trunk/flashui/createClass/dll/FileIo.opt
+   A /trunk/flashui/createClass/dll/FileIo.plg
+   A /trunk/flashui/createClass/dll/mm_jsapi.h
+   A /trunk/flashui/createClass/fileio.dll
+   A /trunk/flashui/createTestSuites
+   A /trunk/flashui/createTestSuites/Build Test Suites.jsfl
+   A /trunk/flashui/createTestSuites/TestSuiteTemplate.as
+   A /trunk/framework
+   A /trunk/framework/as2
+   A /trunk/framework/as2/AsUnitUi.swf
+   A /trunk/framework/as2/Sys.as
+   A /trunk/framework/as2/com
+   A /trunk/framework/as2/com/asunit
+   A /trunk/framework/as2/com/asunit/controls
+   A /trunk/framework/as2/com/asunit/controls/LocalOutputPanel.as
+   A /trunk/framework/as2/com/asunit/controls/LocalOutputPanelTest.as
+   A /trunk/framework/as2/com/asunit/controls/LocalOutputPanelTextArea.as
+   A /trunk/framework/as2/com/asunit/controls/LocalOutputPanelTextAreaTest.as
+   A /trunk/framework/as2/com/asunit/controls/LocalOutputPanelTitleBar.as
+   A /trunk/framework/as2/com/asunit/controls/ResizeHandle.as
+   A /trunk/framework/as2/com/asunit/controls/ScrollArrow.as
+   A /trunk/framework/as2/com/asunit/controls/ScrollHandle.as
+   A /trunk/framework/as2/com/asunit/controls/ScrollListener.as
+   A /trunk/framework/as2/com/asunit/controls/TextScroller.as
+   A /trunk/framework/as2/com/asunit/controls/shapes
+   A /trunk/framework/as2/com/asunit/controls/shapes/Rectangle.as
+   A /trunk/framework/as2/com/asunit/controls/shapes/Triangle.as
+   A /trunk/framework/as2/com/asunit/framework
+   A /trunk/framework/as2/com/asunit/framework/AsUnit.as
+   A /trunk/framework/as2/com/asunit/framework/Assert.as
+   A /trunk/framework/as2/com/asunit/framework/Assertion.as
+   A /trunk/framework/as2/com/asunit/framework/Reflection.as
+   A /trunk/framework/as2/com/asunit/framework/Test.as
+   A /trunk/framework/as2/com/asunit/framework/TestCase.as
+   A /trunk/framework/as2/com/asunit/framework/TestCaseXml.as
+   A /trunk/framework/as2/com/asunit/framework/TestFailure.as
+   A /trunk/framework/as2/com/asunit/framework/TestResult.as
+   A /trunk/framework/as2/com/asunit/framework/TestRunner.as
+   A /trunk/framework/as2/com/asunit/framework/TestSetup.as
+   A /trunk/framework/as2/com/asunit/framework/TestSuite.as
+   A /trunk/framework/as2/com/asunit/ui
+   A /trunk/framework/as2/com/asunit/ui/Main.as
+   A /trunk/framework/as2/com/asunit/ui/RemoteVersion.as
+   A /trunk/framework/as2/com/asunit/ui/SuccessMeter.as
+   A /trunk/framework/as2/com/asunit/util
+   A /trunk/framework/as2/com/asunit/util/Comparable.as
+   A /trunk/framework/as2/com/asunit/util/EventListener.as
+   A /trunk/framework/as2/com/asunit/util/EventSource.as
+   A /trunk/framework/as2/com/asunit/util/LocalConnClient.as
+   A /trunk/framework/as2/com/asunit/util/LocalConnGateway.as
+   A /trunk/framework/as2/com/asunit/util/LocalConnServer.as
+   A /trunk/framework/as2/com/asunit/util/LocalMessageBroker.as
+   A /trunk/framework/as2/com/asunit/util/Observable.as
+   A /trunk/framework/as2/com/asunit/util/TextFile.as
+   A /trunk/framework/as3
+   A /trunk/framework/as3/AllTests.as
+   A /trunk/framework/as3/AsUnit.as
+   A /trunk/framework/as3/asunit
+   A /trunk/framework/as3/asunit/AllTests.as
+   A /trunk/framework/as3/asunit/errors
+   A /trunk/framework/as3/asunit/errors/AbstractMemberCalledError.as
+   A /trunk/framework/as3/asunit/errors/AllTests.as
+   A /trunk/framework/as3/asunit/errors/AssertionFailedError.as
+   A /trunk/framework/as3/asunit/errors/ClassNotFoundError.as
+   A /trunk/framework/as3/asunit/errors/InstanceNotFoundError.as
+   A /trunk/framework/as3/asunit/errors/InvocationTargetError.as
+   A /trunk/framework/as3/asunit/errors/UnimplementedFeatureError.as
+   A /trunk/framework/as3/asunit/framework
+   A /trunk/framework/as3/asunit/framework/AllTests.as
+   A /trunk/framework/as3/asunit/framework/Assert.as
+   A /trunk/framework/as3/asunit/framework/AssertTest.as
+   A /trunk/framework/as3/asunit/framework/AsynchronousTestCase.as
+   A /trunk/framework/as3/asunit/framework/AsynchronousTestCaseExample.as
+   A /trunk/framework/as3/asunit/framework/MockData.xml
+   A /trunk/framework/as3/asunit/framework/Test.as
+   A /trunk/framework/as3/asunit/framework/TestCase.as
+   A /trunk/framework/as3/asunit/framework/TestCaseMock.as
+   A /trunk/framework/as3/asunit/framework/TestCaseTest.as
+   A /trunk/framework/as3/asunit/framework/TestFailure.as
+   A /trunk/framework/as3/asunit/framework/TestFailureTest.as
+   A /trunk/framework/as3/asunit/framework/TestListener.as
+   A /trunk/framework/as3/asunit/framework/TestResult.as
+   A /trunk/framework/as3/asunit/framework/TestSuite.as
+   A /trunk/framework/as3/asunit/framework/TestSuiteTest.as
+   A /trunk/framework/as3/asunit/framework/VisualTestCaseTest.as
+   A /trunk/framework/as3/asunit/runner
+   A /trunk/framework/as3/asunit/runner/AllTests.as
+   A /trunk/framework/as3/asunit/runner/BaseTestRunner.as
+   A /trunk/framework/as3/asunit/runner/BaseTestRunnerMock.as
+   A /trunk/framework/as3/asunit/runner/TestRunListener.as
+   A /trunk/framework/as3/asunit/runner/TestSuiteLoader.as
+   A /trunk/framework/as3/asunit/runner/Version.as
+   A /trunk/framework/as3/asunit/textui
+   A /trunk/framework/as3/asunit/textui/AllTests.as
+   A /trunk/framework/as3/asunit/textui/ResultPrinter.as
+   A /trunk/framework/as3/asunit/textui/TestRunner.as
+   A /trunk/framework/as3/asunit/util
+   A /trunk/framework/as3/asunit/util/Properties.as
+   A /trunk/installers
+   A /trunk/installers/win
+   A /trunk/installers/win/AsUnit-20060301.msi
+   A /trunk/swfui
+   A /trunk/swfui/AsUnitUi.as
+   A /trunk/swfui/AsUnitUi.fla
+   A /trunk/xului
+   A /trunk/xului/bin
+   A /trunk/xului/bin/AsUnit.xpi
+   A /trunk/xului/exploration
+   A /trunk/xului/exploration/executable
+   A /trunk/xului/exploration/executable/AsUnit.cpp
+   A /trunk/xului/exploration/executable/AsUnit.exe
+   A /trunk/xului/exploration/executable/ResHack.zip
+   A /trunk/xului/exploration/executable/art
+   A /trunk/xului/exploration/executable/art/16.ico
+   A /trunk/xului/exploration/executable/art/32.ico
+   A /trunk/xului/exploration/executable/art/64.ico
+   A /trunk/xului/exploration/executable/gcc.txt
+   A /trunk/xului/exploration/executable/xulrunner.exe
+   A /trunk/xului/exploration/installer
+   A /trunk/xului/exploration/installer/tools.txt
+   A /trunk/xului/exploration/playerglobal
+   A /trunk/xului/exploration/playerglobal/doc
+   A /trunk/xului/exploration/playerglobal/doc/CatalogParser.as
+   A /trunk/xului/exploration/playerglobal/doc/CatalogParser.fla
+   A /trunk/xului/exploration/playerglobal/doc/CatalogParser.swf
+   A /trunk/xului/exploration/playerglobal/doc/README.txt
+   A /trunk/xului/exploration/playerglobal/doc/catalog.xml
+   A /trunk/xului/src
+   A /trunk/xului/src/TODO.txt
+   A /trunk/xului/src/application.ini
+   A /trunk/xului/src/build.sh
+   A /trunk/xului/src/chrome
+   A /trunk/xului/src/chrome/AsUnit.jar
+   A /trunk/xului/src/chrome/asunit
+   A /trunk/xului/src/chrome/asunit/content
+   A /trunk/xului/src/chrome/asunit/content/asunit
+   A /trunk/xului/src/chrome/asunit/content/asunit/AsUnit.xul
+   A /trunk/xului/src/chrome/asunit/content/asunit/AsUnitOverlay.xul
+   A /trunk/xului/src/chrome/asunit/content/asunit/AsUnitUi.html
+   A /trunk/xului/src/chrome/asunit/content/asunit/DebugOutput.xul
+   A /trunk/xului/src/chrome/asunit/content/asunit/EditPath.xul
+   A /trunk/xului/src/chrome/asunit/content/asunit/Finder.xul
+   A /trunk/xului/src/chrome/asunit/content/asunit/SetupWizard.xul
+   A /trunk/xului/src/chrome/asunit/content/asunit/UnitTestOutput.xul
+   A /trunk/xului/src/chrome/asunit/content/asunit/about.xul
+   A /trunk/xului/src/chrome/asunit/content/asunit/contents.rdf
+   A /trunk/xului/src/chrome/asunit/content/asunit/data
+   A /trunk/xului/src/chrome/asunit/content/asunit/data/as25classes.txt
+   A /trunk/xului/src/chrome/asunit/content/asunit/data/as2classes.txt
+   A /trunk/xului/src/chrome/asunit/content/asunit/data/as3classes.txt
+   A /trunk/xului/src/chrome/asunit/content/asunit/script
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/As25Entities.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/As2Entities.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/As3Entities.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/AsDirectory.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/AsFile.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/AsFileTest.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/AsUnitOverlay.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/ClassModel.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/CreateClass.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/CreateNewClass.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/DebugOutput.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/EditPath.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/Entity.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/EntityTable.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/EntityTableBuilder.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/EntityTableTest.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/Event.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/EventListener.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/EventSource.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/Finder.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/GenerateTestSuites.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/ProjectModel.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/SetupWizard.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/StubEntity.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/TestCase.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/UnitTestOutput.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/WrittenFile.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3ClassBody.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3ClassConstructor.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3ClassDeclaration.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3ClassDefinition.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3ClassHeader.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3ClassSerializable.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3MockDefinition.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3TestCaseConfig.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3TestCaseConstructor.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3TestCaseDefinition.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/As3TestSuiteDefinition.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/ClassBody.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/ClassConstructor.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/ClassDeclaration.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/ClassDefinition.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/ClassHeader.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/ClassSerializable.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/DoTrace.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/MainMethod.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/MockDefinition.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/TestCaseConfig.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/TestCaseDefinition.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/TestSuiteDefinition.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/script/tokens/TokenFactory.js
+   A /trunk/xului/src/chrome/asunit/content/asunit/style
+   A /trunk/xului/src/chrome/asunit/content/asunit/style/AsUnit.css
+   A /trunk/xului/src/chrome/asunit/content/asunit/style/AsUnit.png
+   A /trunk/xului/src/chrome/chrome.manifest
+   A /trunk/xului/src/chrome/en-US
+   A /trunk/xului/src/chrome/en-US/locale
+   A /trunk/xului/src/chrome/en-US/locale/asunit
+   A /trunk/xului/src/chrome/en-US/locale/asunit/AsUnit.dtd
+   A /trunk/xului/src/chrome/en-US.jar
+   A /trunk/xului/src/defaults
+   A /trunk/xului/src/defaults/preferences
+   A /trunk/xului/src/defaults/preferences/prefs.js
+   A /trunk/xului/src/install.rdf
+
+Initial build of SVN on sourceforge!
+------------------------------------------------------------------------
