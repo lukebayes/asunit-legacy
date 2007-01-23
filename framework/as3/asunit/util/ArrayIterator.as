@@ -1,8 +1,8 @@
 package asunit.util {
 
-	[ExcludeClass]
 	import asunit.util.Iterator;
 
+	[ExcludeClass]
 	public class ArrayIterator implements Iterator {
 		private var list:Array;
 		private var index:Number = 0;
