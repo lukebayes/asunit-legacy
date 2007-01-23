@@ -1,4 +1,6 @@
 package asunit.util {
+
+	[ExcludeClass]
 	import asunit.util.Iterator;
 
 	public class ArrayIterator implements Iterator {
@@ -8,15 +10,15 @@ package asunit.util {
 		public function ArrayIterator(list:Array) {
 			this.list = list;
 		}
-		
+
 		public function hasNext():Boolean {
 			return list[index] != null;
 		}
-		
-		public function next():Object { 
+
+		public function next():Object {
 			return list[index++];
 		}
-		
+
 		public function reset():void {
 			index = 0;
 		}
