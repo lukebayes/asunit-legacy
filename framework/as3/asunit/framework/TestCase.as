@@ -338,6 +338,9 @@ package asunit.framework {
 		}
 
 		protected function removeChild(child:DisplayObject):DisplayObject {
+			if(child == null) {
+				throw new IllegalOperationError("TestCase.removeChild must have non-null parameter child");
+			}
 			return getContext().removeChild(child);
 		}
 
