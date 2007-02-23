@@ -108,7 +108,7 @@ class asunit.framework.Assert {
 		} else if(assertion2["equals"] != undefined) {
 			addTestResult(String(msg), "assertEquals", assertion2["equals"](assertion1));
 		} else {
-			addTestResult(format(String(msg), assertion1, assertion2), "assertEquals", assertion1 === assertion2);
+			addTestResult(format(String(msg), assertion1, assertion2), "assertEquals", assertion1 == assertion2);
 		}
 
 	}
