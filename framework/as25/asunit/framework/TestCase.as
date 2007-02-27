@@ -2,6 +2,7 @@ import asunit.framework.Assert;
 import asunit.framework.Test;
 import asunit.framework.TestResult;
 import asunit.errors.AssertionFailedError;
+import asunit.errors.AssertionPassedError;
 
 class asunit.framework.TestCase extends Assert implements Test {
 	private var className:String = "[default]";
@@ -110,7 +111,7 @@ class asunit.framework.TestCase extends Assert implements Test {
 					if(e instanceof AssertionFailedError) {
 						result.addFailure(this, AssertionFailedError(e));
 					}
-					else {
+					else if(!(e instanceof AssertionPassedError)) {
 						result.addError(this, e);
 					}
 				}
