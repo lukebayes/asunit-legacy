@@ -123,6 +123,9 @@ package asunit.framework {
 			try {
 				var manager:Class = getDefinitionByName("mx.managers.LayoutManager") as Class;
 				layoutManager = manager["getInstance"]();
+				if(!layoutManager.hasOwnProperty("resetAll")) {
+					throw new Error("TestCase :: mx.managers.LayoutManager missing resetAll method");
+				}
 			}
 			catch(e:Error) {
 				layoutManager = new Object();
