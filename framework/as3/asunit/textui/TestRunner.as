@@ -42,7 +42,7 @@ package asunit.textui {
 		}
 
 		private function configureListeners():void {
-			addEventListener(Event.ADDED, addedHandler);
+			addEventListener(Event.ADDED_TO_STAGE, addedHandler);
 		}
 
 		protected function addedHandler(event:Event):void {
