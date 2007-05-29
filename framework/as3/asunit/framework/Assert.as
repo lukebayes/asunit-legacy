@@ -181,7 +181,7 @@ package asunit.framework {
 			failNotSame(message, expected, actual);
 		}
 	 	/**
-	 	 * Asserts that two objects refer to the same object. If they are not
+	 	 * Asserts that two objects do not refer to the same object. If they do,
 	 	 * an AssertionFailedError is thrown with the given message.
 	 	 */
 		static public function assertNotSame(...args:Array):void {
