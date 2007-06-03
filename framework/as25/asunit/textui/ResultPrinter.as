@@ -50,7 +50,7 @@ class asunit.textui.ResultPrinter extends MovieClip implements IResultPrinter, I
 		createSuccessBar();
 	}
 	
-	public function trace():Void {
+	public function traceln():Void {
 		traceOutput._visible = true;
 		traceOutput.text += arguments.toString() + "\n";
 		traceOutput.scroll = traceOutput.maxscroll;
@@ -162,6 +162,14 @@ class asunit.textui.ResultPrinter extends MovieClip implements IResultPrinter, I
 		bar.height = barHeight;
 	}
 	
+	public function setShowTrace(showTrace:Boolean):Void {
+		this.showTrace = showTrace;
+	}
+	
+	public function getShowTrace():Boolean {
+		return showTrace;
+	}
+	
 	public function printResult(result:TestResult, runTime:Number):Void {
 		printHeader(runTime);
 	    printErrors(result);
@@ -170,7 +178,7 @@ class asunit.textui.ResultPrinter extends MovieClip implements IResultPrinter, I
 
 	    bar.setSuccess(result.wasSuccessful());
 	    if(showTrace) {
-		    trace(textArea.text);
+		    trace(textArea.text.split("\r").join("\n"));
 	    }
 	}
 

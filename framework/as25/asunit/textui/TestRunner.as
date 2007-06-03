@@ -10,6 +10,7 @@ import asunit.textui.ResultPrinter;
  * file system, etc.
  */
 class asunit.textui.TestRunner extends BaseTestRunner {
+	public static var SHOW_TRACE:Boolean = true;
 	
 	public function TestRunner() {
 		super(ResultPrinter);

@@ -27,6 +27,7 @@ class asunit.runner.BaseTestRunner {
 	
 	public function start(testCase:Function, testMethod:String, showTrace:Boolean):TestResult {
 		try {
+			getPrinter().setShowTrace(showTrace);
 			var suite:Test = Test(new testCase(testMethod));
 			return doRun(suite, showTrace);
 		}
@@ -60,7 +61,7 @@ class asunit.runner.BaseTestRunner {
 	}
 	
 	public static function trace(msg:String):Void {
-		getInstance().getPrinter().trace(msg);
+		getInstance().getPrinter().traceln(msg);
 	}
 	
 	public static function getInstance():BaseTestRunner {
