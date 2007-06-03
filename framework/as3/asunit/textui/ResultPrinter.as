@@ -87,7 +87,7 @@ package asunit.textui {
 
    		    bar.setSuccess(result.wasSuccessful());
    		    if(showTrace) {
-			    trace(textArea.text);
+				trace(textArea.text.split("\r").join("\n"));
    		    }
 		}
 
