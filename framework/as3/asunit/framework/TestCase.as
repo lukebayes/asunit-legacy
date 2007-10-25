@@ -80,21 +80,24 @@ package asunit.framework {
 	 * @see TestSuite
 	 */
 	public class TestCase extends Assert implements Test {
-		/**
-		 * the name of the test case
-		 */
-		protected static const DEFAULT_TIMEOUT:int = 1000;
+		protected static const PRE_SET_UP:int		= 0;
+		protected static const SET_UP:int 			= 1;
+		protected static const RUN_METHOD:int 		= 2;
+		protected static const TEAR_DOWN:int		= 3;
+		protected static const DEFAULT_TIMEOUT:int 	= 1000;
 		protected var fName:String;
 		protected var result:TestResult;
 		protected var testMethods:Array;
 		protected var isComplete:Boolean;
 		protected var context:DisplayObjectContainer;
 		protected var methodIsAsynchronous:Boolean;
+		protected var setUpIsAsynchronous:Boolean;
 		protected var timeout:Timer;
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
 		private var layoutManager:Object;
+		private var currentState:int;
 
 		/**
 		 * Constructs a test case with the given name.
@@ -203,6 +206,7 @@ package asunit.framework {
 			var itr:Iterator = getMethodIterator();
 			if(itr.hasNext()) {
 				name = String(itr.next());
+				currentState = PRE_SET_UP;
 				runMethod(name);
 			}
 			else {
@@ -228,10 +232,19 @@ package asunit.framework {
 		
 		private function runMethod(methodName:String):void {
 			try {
-				setUp();
-				currentMethod = methodName;
 				methodIsAsynchronous = false;
-				this[methodName]();
+				if(currentState == PRE_SET_UP) {
+					currentState = SET_UP;
+					setUp(); // setUp may be async and change the state of methodIsAsynchronous
+				}
+				currentMethod = methodName;
+				if(!methodIsAsynchronous) {
+					currentState = RUN_METHOD;
+					this[methodName]();
+				}
+				else {
+					setUpIsAsynchronous = true;
+				}
 			}
 			catch(assertionFailedError:AssertionFailedError) {
 				getResult().addFailure(this, assertionFailedError);
@@ -312,7 +325,7 @@ package asunit.framework {
 					context.getResult().addError(context, ioe);
 				}
 				finally {
-					context.runTearDown();
+					context.asyncMethodComplete();
 				}
 			}
 		}
@@ -321,11 +334,21 @@ package asunit.framework {
 			var context:TestCase = this;
 			return function(event:Event):void {
 				context.getResult().addError(context, new IllegalOperationError("TestCase.timeout (" + duration + "ms) exceeded on an asynchronous test method."));
-				context.runTearDown();
+				context.asyncMethodComplete();
+			}
+		}
+		
+		protected function asyncMethodComplete():void {
+			if(currentState == SET_UP) {
+				runMethod(currentMethod);
+			}
+			else if(currentState == RUN_METHOD) {
+				runTearDown();
 			}
 		}
 
 		protected function runTearDown():void {
+			currentState = TEAR_DOWN;
 			if(isComplete) {
 				return;
 			}
