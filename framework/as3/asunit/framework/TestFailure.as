@@ -21,8 +21,13 @@ package asunit.framework {
 		}
 		
 		public function failedFeature():String {
-			return failedTest().getName() + '.' + fFailedTestMethod + "()";
+			return failedTest().getName() + '.' + fFailedTestMethod;
 		}
+		
+		public function failedMethod():String {
+			return fFailedTestMethod;
+		}
+		
 		/**
 		 * Gets the failed test case.
 		 */

@@ -71,7 +71,7 @@ class XMLTestResult {
 	private var errors:Array;
 	
 	public function XMLTestResult(test:Test) {
-		this.test = test;	
+		this.test = test;
 		failures = new Array();
 	}
 	
@@ -88,11 +88,33 @@ class XMLTestResult {
 		return result;
 	}
 	
+	private function renderOpener(methodName:String):String {
+		return "<testcase classname='" + test.getName() + "' name='" + methodName + "'>\n";
+	}
+	
+	private function renderFailure(methodName:String):String {
+		var failure:TestFailure;
+		for each(failure in failures) {
+			if(failure.failedMethod() == methodName) {
+				return "<failure type='" + failure.thrownException().name + "'>" + failure.thrownException().getStackTrace() + "\n</failure>\n";
+			}
+		}
+		return '';
+	}
+		
+	private function renderCloser():String {
+		return '</testcase>\n';
+	}
+	
 	public function toString():String {
-		var str:String = "";
-		str += "<testcase classname='" + test.getName() + "' name='[method name here]'>\n";
-		str += renderFailures();
-		str += "</testcase>";
+		var str:String = '';
+		var method:String;
+		var failure:TestFailure;
+		for each(method in test.getTestMethods()) {
+			str += renderOpener(method);
+			str += renderFailure(method);
+			str += renderCloser();
+		}
 		return str;
 	}
 }
