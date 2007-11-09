@@ -8,6 +8,7 @@ package asunit.framework {
 	 */
 	public class TestFailure {
 		protected var fFailedTest:String;
+		protected var fFailedTestName:String;
 		protected var fThrownException:Error;
 		
 		/**
@@ -15,13 +16,21 @@ package asunit.framework {
 		 */
 		public function TestFailure(failedTest:Test, thrownException:Error) {
 			fFailedTest = failedTest.toString();
+			fFailedTestName = failedTest.getName();
 			fThrownException = thrownException;
 		}
 		/**
-		 * Gets the failed test.
+		 * Gets the failed test class with method name.
 		 */
 		public function failedTest():String {
 		    return fFailedTest;
+		}
+		
+		/**
+		 * Gets the failed test class name.
+		 */
+		public function failedTestName():String {
+			return fFailedTestName;
 		}
 		/**
 		 * Gets the thrown exception.

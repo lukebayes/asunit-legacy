@@ -277,7 +277,12 @@ package asunit.framework {
 		 * Returns a string representation of the test case
 		 */
 		override public function toString():String {
-			return getName() + "." + getCurrentMethod() + "()";
+			if(getCurrentMethod()) {
+				return getName() + "." + getCurrentMethod() + "()";
+			}
+			else {
+				return getName();
+			}
 		}
 		/**
 		 * Gets the name of a TestCase
