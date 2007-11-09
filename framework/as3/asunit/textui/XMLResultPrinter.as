@@ -62,16 +62,19 @@ package asunit.textui {
 }
 
 import asunit.framework.Test;
-import asunit.framework.TestFailure;	
+import asunit.framework.TestFailure;
+import flash.utils.getQualifiedClassName;	
 
 class XMLTestResult {
 	
 	private var test:Test;
+	private var testName:String;
 	private var failures:Array;
 	private var errors:Array;
 	
 	public function XMLTestResult(test:Test) {
 		this.test = test;
+		testName = test.getName().split("::").join(".");
 		failures = new Array();
 	}
 	
@@ -79,24 +82,15 @@ class XMLTestResult {
 		failures.push(failure);
 	}
 	
-	private function renderFailures():String {
-		var result:String = "";
-		var failure:TestFailure;
-		for each(failure in failures) {
-			result += "<failure type='" + failure.thrownException().name + "'>" + failure.thrownException().getStackTrace() + "\n</failure>\n";
-		}
-		return result;
-	}
-	
 	private function renderOpener(methodName:String):String {
-		return "<testcase classname='" + test.getName() + "' name='" + methodName + "'>\n";
+		return "<testcase classname='" + testName + "' name='" + methodName + "'>\n";
 	}
 	
 	private function renderFailure(methodName:String):String {
 		var failure:TestFailure;
 		for each(failure in failures) {
 			if(failure.failedMethod() == methodName) {
-				return "<failure type='" + failure.thrownException().name + "'>" + failure.thrownException().getStackTrace() + "\n</failure>\n";
+				return "<failure type='" + getQualifiedClassName(failure.thrownException()).split("::").join(".") + "'>" + failure.thrownException().getStackTrace() + "\n</failure>\n";
 			}
 		}
 		return '';
