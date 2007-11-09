@@ -14,6 +14,7 @@ package asunit.textui {
 	import flash.utils.setInterval;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+	import flash.display.DisplayObject;
 
 	/**
 	 * A command line based tool to run tests.
@@ -109,8 +110,12 @@ package asunit.textui {
 		}
 
 		public function setPrinter(printer:ResultPrinter):void {
-			if(fPrinter == null) {
-				fPrinter = printer;
+			if(fPrinter is DisplayObject && getChildIndex(fPrinter)) {
+				removeChild(fPrinter);
+			}
+
+			fPrinter = printer;
+			if(fPrinter is DisplayObject) {
 				addChild(fPrinter);
 			}
 		}
