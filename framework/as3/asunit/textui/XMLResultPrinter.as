@@ -37,13 +37,13 @@ package asunit.textui {
 			if(result.errorCount()) {
 				var error:TestFailure;
 				for each(error in result.errors()) {
-					results[error.failedTestName()].addFailure(error);
+					results[error.failedTest().getName()].addFailure(error);
 				}
 			}
 			if(result.failureCount()) {
 				var failure:TestFailure;
 				for each(failure in result.failures()) {
-					results[failure.failedTestName()].addFailure(failure);
+					results[failure.failedTest().getName()].addFailure(failure);
 				}
 			}
 			trace("<XMLResultPrinter>");
@@ -90,7 +90,7 @@ class XMLTestResult {
 	
 	public function toString():String {
 		var str:String = "";
-		str += "<testcase classname='" + test.getName() + "'>\n";
+		str += "<testcase classname='" + test.getName() + "' name='[method name here]'>\n";
 		str += renderFailures();
 		str += "</testcase>";
 		return str;

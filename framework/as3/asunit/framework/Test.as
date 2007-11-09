@@ -5,6 +5,7 @@ package asunit.framework {
 	public interface Test extends IEventDispatcher {
 		function countTestCases():int;
 		function getName():String;
+		function getTestMethods():Array;
 		function toString():String;
 		function setResult(result:TestResult):void;
 		function run():void;

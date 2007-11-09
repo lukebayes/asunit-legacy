@@ -133,7 +133,7 @@ package asunit.textui {
 			// I feel like making this a println, then adding a line giving the throwable a chance to print something
 			// before we get to the stack trace.
 			var startIndex:uint = textArea.text.length;
-			println(count + ") " + booBoo.failedTest());
+			println(count + ") " + booBoo.failedFeature());
 			var endIndex:uint = textArea.text.length;
 
 			var format:TextFormat = textArea.getTextFormat();

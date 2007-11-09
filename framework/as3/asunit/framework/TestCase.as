@@ -154,6 +154,10 @@ package asunit.framework {
 				testMethods.push(name);
 			}
 		}
+		
+		public function getTestMethods():Array {
+			return testMethods;
+		}
 
 		/**
 		 * Counts the number of test cases executed by run(TestResult result).

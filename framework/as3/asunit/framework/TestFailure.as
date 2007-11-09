@@ -7,30 +7,27 @@ package asunit.framework {
 	 * @see TestResult
 	 */
 	public class TestFailure {
-		protected var fFailedTest:String;
-		protected var fFailedTestName:String;
+		protected var fFailedTest:Test;
+		protected var fFailedTestMethod:String;
 		protected var fThrownException:Error;
 		
 		/**
 		 * Constructs a TestFailure with the given test and exception.
 		 */
 		public function TestFailure(failedTest:Test, thrownException:Error) {
-			fFailedTest = failedTest.toString();
-			fFailedTestName = failedTest.getName();
+			fFailedTest = failedTest;
+			fFailedTestMethod = failedTest.getCurrentMethod();
 			fThrownException = thrownException;
 		}
-		/**
-		 * Gets the failed test class with method name.
-		 */
-		public function failedTest():String {
-		    return fFailedTest;
-		}
 		
+		public function failedFeature():String {
+			return failedTest().getName() + '.' + fFailedTestMethod + "()";
+		}
 		/**
-		 * Gets the failed test class name.
+		 * Gets the failed test case.
 		 */
-		public function failedTestName():String {
-			return fFailedTestName;
+		public function failedTest():Test {
+		    return fFailedTest;
 		}
 		/**
 		 * Gets the thrown exception.
