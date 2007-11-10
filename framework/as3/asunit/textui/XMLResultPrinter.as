@@ -95,7 +95,7 @@ class XMLTestResult {
 		}
 		return '';
 	}
-		
+	
 	private function renderCloser():String {
 		return '</testcase>\n';
 	}
@@ -112,3 +112,4 @@ class XMLTestResult {
 		return str;
 	}
 }
+
