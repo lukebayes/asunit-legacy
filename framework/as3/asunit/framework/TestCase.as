@@ -91,8 +91,8 @@ package asunit.framework {
 		protected var isComplete:Boolean;
 		protected var context:DisplayObjectContainer;
 		protected var methodIsAsynchronous:Boolean;
-		protected var setUpIsAsynchronous:Boolean;
 		protected var timeout:Timer;
+		private var setUpIsAsynchronous:Boolean;
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
