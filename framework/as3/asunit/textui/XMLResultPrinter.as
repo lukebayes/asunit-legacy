@@ -1,8 +1,9 @@
 package asunit.textui {
 
-	import asunit.framework.TestResult;
-	import asunit.framework.TestFailure;
 	import asunit.framework.Test;
+	import asunit.framework.TestFailure;
+	import asunit.framework.TestResult;
+	
 	import flash.utils.Dictionary;
 	
 	public class XMLResultPrinter extends ResultPrinter {
@@ -19,10 +20,17 @@ package asunit.textui {
 			results[test.getName()] = new XMLTestResult(test);
 		}
 
+		override public function endTest(test:Test):void {
+			results[test.getName()].endTest(test);
+		}
+
 /*
 <testsuites>
   <testsuite name="Flash Profile Card AsUnit Test Suite" errors="1" failures="1" tests="8" time="8.002">
-    <testcase classname="lib.test.cases.FailureTest" name="testError">
+    <testcase classname="lib.test.cases.FailureTest" name="testError" time="0.049">
+      <error type="java.lang.NullPointerException">
+      	<!-- stack trace -->
+      </error>
       <failure type="Error">Reference runtime test error</failure>
     </testcase>
     <testcase classname="lib.test.cases.FailureTest" name="testAssertion">
@@ -63,7 +71,8 @@ package asunit.textui {
 
 import asunit.framework.Test;
 import asunit.framework.TestFailure;
-import flash.utils.getQualifiedClassName;	
+import flash.utils.getQualifiedClassName;
+import flash.utils.getTimer;	
 
 class XMLTestResult {
 	
@@ -71,8 +80,11 @@ class XMLTestResult {
 	private var testName:String;
 	private var failures:Array;
 	private var errors:Array;
+	private var start:Number;
+	private var duration:Number;
 	
 	public function XMLTestResult(test:Test) {
+		start = getTimer();
 		this.test = test;
 		testName = test.getName().split("::").join(".");
 		failures = new Array();
@@ -82,8 +94,12 @@ class XMLTestResult {
 		failures.push(failure);
 	}
 	
+	public function endTest(test:Test):void {
+		duration = (getTimer() - start) * .001;
+	}
+	
 	private function renderOpener(methodName:String):String {
-		return "<testcase classname='" + testName + "' name='" + methodName + "'>\n";
+		return "<testcase classname='" + testName + "' name='" + methodName + "' time='" + duration + "'>\n";
 	}
 	
 	private function renderFailure(methodName:String):String {
