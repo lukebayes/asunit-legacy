@@ -49,7 +49,7 @@ package asunit.textui {
 			trace("<XMLResultPrinter>");
 			trace("<?xml version='1.0' encoding='UTF-8'?>");
 			trace("<testsuites>");
-			trace("<testsuite name='AsUnit Test Suite' errors='" + result.errorCount() + "' failures='" + result.failureCount() + "' tests='" + result.runCount() + "' time='" + elapsedTimeAsString(runTime) + " seconds'>");
+			trace("<testsuite name='AsUnit Test Suite' errors='" + result.errorCount() + "' failures='" + result.failureCount() + "' tests='" + result.runCount() + "' time='" + elapsedTimeAsString(runTime) + "'>");
 			var xmlTestResult:XMLTestResult;
 			for each(xmlTestResult in results) {
 				trace(xmlTestResult.toString());
