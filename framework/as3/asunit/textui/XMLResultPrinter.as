@@ -180,7 +180,7 @@ class XMLTestResult implements TestListener {
 	}
 	
 	private function renderTestOpener(methodName:String):String {
-		return "<testcase classname='" + testName + "' name='" + methodName + "' time='" + methodHash[methodName].duration() + "'>\n";
+		return "<testcase classname='" + testName + "' name='" + methodName + "' time='" + methodHash[methodName].duration() + "'><![CDATA[\n";
 	}
 	
 	private function renderTestBody(method:String):String {
@@ -204,7 +204,7 @@ class XMLTestResult implements TestListener {
 	}
 	
 	private function renderTestCloser():String {
-		return '</testcase>\n';
+		return ']]></testcase>\n';
 	}
 	
 	private function renderSuiteCloser():String {
