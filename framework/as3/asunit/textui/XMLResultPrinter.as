@@ -180,7 +180,7 @@ class XMLTestResult implements TestListener {
 	}
 	
 	private function renderTestOpener(methodName:String):String {
-		return "<testcase classname='" + testName + "' name='" + methodName + "' time='" + methodHash[methodName].duration() + "'><![CDATA[\n";
+		return "<testcase classname='" + testName + "' name='" + methodName + "' time='" + methodHash[methodName].duration() + "'>\n";
 	}
 	
 	private function renderTestBody(method:String):String {
@@ -196,15 +196,15 @@ class XMLTestResult implements TestListener {
 	}
 	
 	private function renderError(failure:TestFailure):String {
-		return "<error type='" + getQualifiedClassName(failure.thrownException()).split("::").join(".") + "'>" + failure.thrownException().getStackTrace() + "\n</failure>\n";
+		return "<error type='" + getQualifiedClassName(failure.thrownException()).split("::").join(".") + "'><![CDATA[\n" + failure.thrownException().getStackTrace() + "\n]]></error>\n";
 	}
 	
 	private function renderFailure(failure:TestFailure):String {
-		return "<failure type='" + getQualifiedClassName(failure.thrownException()).split("::").join(".") + "'>" + failure.thrownException().getStackTrace() + "\n</failure>\n";
+		return "<failure type='" + getQualifiedClassName(failure.thrownException()).split("::").join(".") + "'><![CDATA[\n" + failure.thrownException().getStackTrace() + "\n]]></failure>\n";
 	}
 	
 	private function renderTestCloser():String {
-		return ']]></testcase>\n';
+		return '</testcase>\n';
 	}
 	
 	private function renderSuiteCloser():String {
