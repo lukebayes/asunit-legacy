@@ -7,8 +7,9 @@ package asunit.framework {
 		function getName():String;
 		function getTestMethods():Array;
 		function toString():String;
-		function setResult(result:TestResult):void;
+		function setResult(result:TestListener):void;
 		function run():void;
+		function runBare():void;
 		function getCurrentMethod():String;
 		function getIsComplete():Boolean;
 		function setContext(context:DisplayObjectContainer):void;

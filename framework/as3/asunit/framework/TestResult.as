@@ -2,9 +2,6 @@ package asunit.framework {
 	import asunit.errors.AssertionFailedError;
 	import asunit.errors.InstanceNotFoundError;
 	
-	import flash.errors.IllegalOperationError;
-	import flash.events.EventDispatcher;
-	
 	/**
 	 * A <code>TestResult</code> collects the results of executing
 	 * a test case. It is an instance of the Collecting Parameter pattern.
@@ -14,7 +11,7 @@ package asunit.framework {
 	 *
 	 * @see Test
 	 */
-	public class TestResult {
+	public class TestResult implements TestListener {
 		protected var fFailures:Array;
 		protected var fErrors:Array;
 		protected var fListeners:Array;
@@ -101,7 +98,7 @@ package asunit.framework {
 		/**
 		 * Runs a TestCase.
 		 */
-		public function run(test:TestCase):void {
+		public function run(test:Test):void {
 			startTest(test);
 			test.runBare();
 		}
@@ -131,6 +128,25 @@ package asunit.framework {
 				item.startTest(test);
 			}
 		}
+		
+		public function startTestMethod(test:Test, method:String):void {
+			var len:uint = fListeners.length;
+			var item:TestListener;
+			for(var i:uint; i < len; i++) {
+				item = TestListener(fListeners[i]);
+				item.startTestMethod(test, method);
+			}
+		}
+		
+		public function endTestMethod(test:Test, method:String):void {
+			var len:uint = fListeners.length;
+			var item:TestListener;
+			for(var i:uint; i < len; i++) {
+				item = TestListener(fListeners[i]);
+				item.endTestMethod(test, method);
+			}
+		}
+		
 		/**
 		 * Informs the result that a test was completed.
 		 */

@@ -1,8 +1,9 @@
 package asunit.framework {
+	import asunit.util.ArrayIterator;
+	import asunit.util.Iterator;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
-	import asunit.util.Iterator;
-	import asunit.util.ArrayIterator;
 	
 	/**
 	 * A <code>TestSuite</code> is a <code>Composite</code> of Tests.
@@ -53,7 +54,7 @@ package asunit.framework {
 		 * Runs the tests and collects their result in a TestResult.
 		 */
 		public override function run():void {
-			var result:TestResult = getResult();
+			var result:TestListener = getResult();
 			var test:Test;
 			var itr:Iterator = getIterator();
 			while(itr.hasNext()) {

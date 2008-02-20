@@ -1,19 +1,17 @@
 package asunit.framework {
 	import asunit.errors.AssertionFailedError;
+	import asunit.util.ArrayIterator;
+	import asunit.util.Iterator;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.errors.IllegalOperationError;
-	import flash.utils.describeType;
-	import asunit.util.Iterator;
-	import asunit.util.ArrayIterator;
-	import flash.net.getClassByAlias;
 	import flash.events.Event;
-	import flash.utils.Timer;
 	import flash.events.TimerEvent;
-	import flash.utils.setTimeout;
-	import flash.utils.clearTimeout;
+	import flash.utils.Timer;
+	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
+	import flash.utils.setTimeout;
 
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
@@ -86,7 +84,7 @@ package asunit.framework {
 		protected static const TEAR_DOWN:int		= 3;
 		protected static const DEFAULT_TIMEOUT:int 	= 1000;
 		protected var fName:String;
-		protected var result:TestResult;
+		protected var result:TestListener;
 		protected var testMethods:Array;
 		protected var isComplete:Boolean;
 		protected var context:DisplayObjectContainer;
@@ -189,11 +187,11 @@ package asunit.framework {
 			getResult().run(this);
 		}
 
-		public function setResult(result:TestResult):void {
+		public function setResult(result:TestListener):void {
 			this.result = result;
 		}
 
-		protected function getResult():TestResult {
+		protected function getResult():TestListener {
 			return (result == null) ? createResult() : result;
 		}
 
@@ -239,6 +237,7 @@ package asunit.framework {
 				methodIsAsynchronous = false;
 				if(currentState == PRE_SET_UP) {
 					currentState = SET_UP;
+					getResult().startTestMethod(this, methodName);
 					setUp(); // setUp may be async and change the state of methodIsAsynchronous
 				}
 				currentMethod = methodName;
@@ -362,6 +361,7 @@ package asunit.framework {
 				return;
 			}
 			if(!runSingle) {
+				getResult().endTestMethod(this, currentMethod);
 				tearDown();
 				layoutManager.resetAll();
 			}

@@ -69,7 +69,6 @@ package asunit.textui {
 		 */
 		public function start(testCase:Class, testMethod:String = null, showTrace:Boolean = false):TestResult {
 //			fscommand("showmenu", "false");
-
 			try {
 				var instance:Test;
 				if(testMethod != null) {

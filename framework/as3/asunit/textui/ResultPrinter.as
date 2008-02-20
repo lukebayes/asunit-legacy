@@ -6,16 +6,11 @@ package asunit.textui {
 	import asunit.framework.TestResult;
 	import asunit.runner.BaseTestRunner;
 	import asunit.runner.Version;
-
-	import flash.display.Shape;
+	
 	import flash.display.Sprite;
-	import flash.display.Stage;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
 	import flash.events.*;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-	import flash.ui.Keyboard;
 	import flash.utils.setTimeout;
 
 	public class ResultPrinter extends Sprite implements TestListener {
@@ -76,9 +71,14 @@ package asunit.textui {
 		public function print(...args:Array):void {
 			textArea.appendText(args.toString());
 		}
-		/* API for use by textui.TestRunner
+		
+		/**
+		 * API for use by textui.TestRunner
 		 */
-
+		 
+		public function run(test:Test):void {
+		}
+		
 		public function printResult(result:TestResult, runTime:Number):void {
 			printHeader(runTime);
 		    printErrors(result);
@@ -174,27 +174,39 @@ package asunit.textui {
 		}
 
 		/**
-		 * @see junit.framework.TestListener#addError(Test, Throwable)
+		 * @see asunit.framework.TestListener#addError(Test, Throwable)
 		 */
 		public function addError(test:Test, t:Error):void {
 			print("E");
 		}
 
 		/**
-		 * @see junit.framework.TestListener#addFailure(Test, AssertionFailedError)
+		 * @see asunit.framework.TestListener#addFailure(Test, AssertionFailedError)
 		 */
 		public function addFailure(test:Test, t:AssertionFailedError):void {
 			print("F");
 		}
 
 		/**
-		 * @see junit.framework.TestListener#endTest(Test)
+		 * @see asunit.framework.TestListener#endTestMethod(test, testMethod);
+		 */
+		public function startTestMethod(test:Test, methodName:String):void {
+		}
+
+		/**
+		 * @see asunit.framework.TestListener#endTestMethod(test, testMethod);
+		 */
+		public function endTestMethod(test:Test, methodName:String):void {
+		}
+
+		/**
+		 * @see asunit.framework.TestListener#endTest(Test)
 		 */
 		public function endTest(test:Test):void {
 		}
 
 		/**
-		 * @see junit.framework.TestListener#startTest(Test)
+		 * @see asunit.framework.TestListener#startTest(Test)
 		 */
 		public function startTest(test:Test):void {
 			var count:uint = test.countTestCases();
