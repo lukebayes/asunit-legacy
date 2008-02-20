@@ -40,12 +40,12 @@ package asunit.textui {
 
 		override public function addFailure(test:Test, t:AssertionFailedError):void {
 			super.addFailure(test, t);
-			results[test.getName()].addFailure(test);
+			results[test.getName()].addFailure(test, t);
 		}
 		
 		override public function addError(test:Test, t:Error):void {
 			super.addError(test, t);
-			results[test.getName()].addError(test);
+			results[test.getName()].addError(test, t);
 		}
 
 /*
