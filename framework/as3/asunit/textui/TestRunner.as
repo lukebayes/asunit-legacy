@@ -1,5 +1,4 @@
 package asunit.textui {
-	import asunit.errors.AbstractMemberCalledError;
 	import asunit.framework.Test;
 	import asunit.framework.TestResult;
 
