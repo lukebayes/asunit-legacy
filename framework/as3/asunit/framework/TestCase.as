@@ -1,19 +1,6 @@
 package asunit.framework {
-	import asunit.errors.AssertionFailedError;
-	import asunit.util.ArrayIterator;
-	import asunit.util.Iterator;
-	
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.errors.IllegalOperationError;
-	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-	import flash.utils.describeType;
-	import flash.utils.getDefinitionByName;
-	import flash.utils.setTimeout;
-
-	/**
+	import flash.display.DisplayObject;	import flash.display.DisplayObjectContainer;	import flash.errors.IllegalOperationError;	import flash.events.Event;	import flash.utils.describeType;	import flash.utils.getDefinitionByName;	import flash.utils.setTimeout;		import asunit.errors.AssertionFailedError;	import asunit.util.ArrayIterator;	import asunit.util.Iterator;	
+	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
 	 * 1) implement a subclass of TestCase<br>
 	 * 2) define instance variables that store the state of the fixture<br>
@@ -319,7 +306,7 @@ package asunit.framework {
 		}
 
 		internal function asyncOperationTimeout(async:AsyncOperation, duration:Number):void{
-			getResult().addError(this, new IllegalOperationError("TestCase.timeout (" + duration + "ms) exceeded on an asynchronous operation."))
+			getResult().addError(this, new IllegalOperationError("TestCase.timeout (" + duration + "ms) exceeded on an asynchronous operation."));
 			asyncOperationComplete(async);
 		}
 
