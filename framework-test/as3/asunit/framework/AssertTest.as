@@ -1,8 +1,5 @@
 package asunit.framework {
 
-	import flash.errors.IllegalOperationError;
-	import flash.display.Sprite;
-
 	public class AssertTest extends TestCase {
 		
 		public function AssertTest(testMethod:String = null) {
@@ -69,12 +66,12 @@ package asunit.framework {
 			var obj1:Object = new Object();
 			obj1.equals = function():Boolean {
 				return true;
-			}
+			};
 			
 			var obj2:Object = new Object();
 			obj2.equals = function():Boolean {
 				return true;
-			}
+			};
 			assertEquals(obj1, obj2);
 		}
 		

@@ -1,5 +1,4 @@
 package asunit.framework {
-	import flash.net.URLRequest;
 	import flash.net.URLLoader;
 	import flash.events.*;
 	import flash.errors.IllegalOperationError;

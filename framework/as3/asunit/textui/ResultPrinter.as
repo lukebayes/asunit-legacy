@@ -8,7 +8,6 @@ package asunit.textui {
 	import asunit.runner.Version;
 	
 	import flash.display.Sprite;
-	import flash.events.*;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.utils.setTimeout;

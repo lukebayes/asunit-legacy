@@ -1,6 +1,5 @@
 package asunit.framework {
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.utils.setTimeout;
 
 	public class AsyncMethodTest extends TestCase {

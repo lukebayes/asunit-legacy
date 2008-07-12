@@ -1,7 +1,4 @@
 package asunit.framework {
-	import flash.utils.setTimeout;
-	import flash.display.Sprite;
-	
 
 	public class TestCaseMock extends TestCase {
 		public var testMethod1Run:Boolean;
