@@ -2,6 +2,9 @@ import asunit.flash.utils.Timer;
 import asunit.framework.TestCase;
 
 class asunit.framework.AsyncMethodTest extends TestCase {
+	
+	public var className:String = "asunit.framework.AsyncMethodTest";
+	
 	private var instance:MovieClip;
 
 	public function AsyncMethodTest(testMethod:String) {

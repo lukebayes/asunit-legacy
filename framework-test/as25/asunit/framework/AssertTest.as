@@ -3,6 +3,8 @@ import asunit.framework.Assert;
 
 class asunit.framework.AssertTest extends TestCase {
 
+	public var className:String = "asunit.framework.AssertTest";
+
 	public function AssertTest(testMethod:String) {
 		super(testMethod);
 	}

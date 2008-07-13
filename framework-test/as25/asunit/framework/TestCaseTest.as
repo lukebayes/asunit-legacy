@@ -6,7 +6,7 @@ import asunit.flash.utils.Timer;
 
 class asunit.framework.TestCaseTest extends TestCase {
 
-	private var className:String = "asunit.framework.TestCaseTest";
+	public var className:String = "asunit.framework.TestCaseTest";
 
 	public function TestCaseTest(testMethod:String) {
 		super(testMethod);

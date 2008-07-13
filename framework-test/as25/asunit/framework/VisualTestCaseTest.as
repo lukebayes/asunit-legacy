@@ -2,7 +2,7 @@ import asunit.framework.TestCase;
 
 class asunit.framework.VisualTestCaseTest extends TestCase {
 	
-	private var className:String = "asunit.framework.VisualTestCaseTest";
+	public var className:String = "asunit.framework.VisualTestCaseTest";
 	
 	private var instance:MovieClip;
 

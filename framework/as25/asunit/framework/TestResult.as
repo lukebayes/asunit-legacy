@@ -17,8 +17,7 @@ class asunit.framework.TestResult implements TestListener {
 	private var fRunTests:Number;
 	private var fStop:Boolean;
 	
-	public function TestResult() {
-		fFailures  = new Array();
+	public function TestResult() {		fFailures  = new Array();
 		fErrors	   = new Array();
 		fListeners = new Array();
 		fRunTests  = 0;
@@ -116,9 +115,7 @@ class asunit.framework.TestResult implements TestListener {
 	/**
 	 * Informs the result that a test will be started.
 	 */
-	public function startTest(test:Test):Void {
-		var count:Number = test.countTestCases();
-		fRunTests += count;
+	public function startTest(test:Test):Void {		var count:Number = test.countTestCases();		fRunTests += count;
 
 		var len:Number = fListeners.length;
 		var item:TestListener;

@@ -33,16 +33,14 @@ class asunit.textui.TestRunner{
 		fPrinter = null;
 		result = null;
 		startTime = 0;
-		trace("TestRunner::constructor");
 		configureListeners();
 	}
 
 	private function configureListeners():Void {
-		Timer.setTimeout(this, addedHandler, 10);
+		addedHandler();
 	}
 
 	private function addedHandler():Void {
-		trace("TestRunner::addedHandler");
 		Stage.align = "TL";
 		Stage.scaleMode = "noScale";
 		var tR:TestRunner = this;
@@ -106,7 +104,7 @@ class asunit.textui.TestRunner{
 		startTime = getTimer();
 		test.setResult(result);
 		test.setContext(parent);
-		test.addEventListener(Event.COMPLETE, testCompleteHandler);
+		test.addEventListener(Event.COMPLETE, testCompleteHandler, this);
 		test.run();
 		return result;
 	}
@@ -114,6 +112,7 @@ class asunit.textui.TestRunner{
 	private function testCompleteHandler(event:Event):Void {
 		var endTime:Number = getTimer();
 		var runTime:Number = endTime - startTime;
+		
 		getPrinter().printResult(result, runTime);
 	}
 
@@ -122,6 +121,7 @@ class asunit.textui.TestRunner{
 		if(printer) printer.destroyAssets();
 		fPrinter = printer;
 		fPrinter.setParent(parent);
+		resizeHandler();
 	}
 
 	public function getPrinter():ResultPrinter {

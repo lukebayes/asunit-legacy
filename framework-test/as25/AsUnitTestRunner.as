@@ -6,10 +6,6 @@ class AsUnitTestRunner extends TestRunner {
 		var tR = new AsUnitTestRunner();
 	}
 	public function AsUnitTestRunner() {
-		try{
 		start(AllTests);
-		}catch(e){
-			trace(e);
-		}
 	}
 }

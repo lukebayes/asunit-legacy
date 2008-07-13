@@ -3,6 +3,8 @@ import asunit.framework.TestCase;
 
 class asunit.util.ArrayIteratorTest extends TestCase {
 	
+	public var className:String = "asunit.util.ArrayIteratorTest";
+	
 	private var itr : ArrayIterator;
 
 	public function ArrayIteratorTest(testMethod:String) {

@@ -2,6 +2,9 @@ import asunit.textui.TestRunner;
 import asunit.framework.TestCase;
 
 class asunit.textui.TestRunnerTest extends TestCase {
+	
+	public var className:String = "asunit.textui.TestRunnerTest";
+	
 	private var instance : TestRunner;
 
 	public function TestRunnerTest(testMethod:String) {

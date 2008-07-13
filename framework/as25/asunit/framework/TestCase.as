@@ -96,7 +96,7 @@ class asunit.framework.TestCase extends Assert implements Test {
 		} else {
 			setTestMethods(this);
 		}
-		setName(className);		// I don't think this is necessary for as2
+		setName(this.className);		// I don't think this is necessary for as2
 //		resolveLayoutManager();
 		asyncQueue = [];
 	}
@@ -130,10 +130,14 @@ class asunit.framework.TestCase extends Assert implements Test {
 
 	private function setTestMethods(obj:Object):Void {
 		testMethods = [];
-		for(var prop:String in obj) {			// look for functions starting with "test"
+		_global.ASSetPropFlags(obj.__proto__, null, 6, true);
+		for(var prop:String in obj) {
+				// look for functions starting with "test"
 			if((prop.indexOf("test")==0)  && (obj[prop] instanceof Function)){
 				testMethods.push(prop);			}
 		}
+		_global.ASSetPropFlags(this.__proto__, null, 1, true);
+		testMethods.reverse();		
 	}
 	
 	public function getTestMethods():Array {

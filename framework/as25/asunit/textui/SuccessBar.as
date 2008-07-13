@@ -6,7 +6,7 @@ class asunit.textui.SuccessBar extends MovieClip {
 	private var failingColor:Number = 0xFD0000;
 
 	public static function create(movieClip:MovieClip):SuccessBar{
-		movieClip.__proto__ = SuccessBar;
+		movieClip.__proto__ = SuccessBar.prototype;
 		Function(SuccessBar).apply(movieClip);
 		return SuccessBar(movieClip);
 	}

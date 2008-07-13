@@ -14,7 +14,6 @@ class asunit.flash.utils.Timer extends EventDispatcher {
 	private var state:Number;
 
 	public function Timer(delay:Number, repeatCount:Number) {
-		trace("new Timer");
 		if(repeatCount==undefined) repeatCount=0;
 		_delay = delay;
 		_repeatCount = repeatCount;
@@ -44,7 +43,6 @@ class asunit.flash.utils.Timer extends EventDispatcher {
 	}
 
 	private function onInterval():Void{
-		trace("Timer::onInterval");
 		_currentCount++;
 		if(_currentCount==_repeatCount) {
 			stop();
@@ -60,7 +58,6 @@ class asunit.flash.utils.Timer extends EventDispatcher {
 	 * _global.setTimeout() is only available in FP8+
 	 */
 	public static function setTimeout(scope:Object, callback:Object, duration:Number):Void{
-		trace("Timer::setTimeout");
 		var t:Timer = new Timer(duration, 1);
 		var args:Array = arguments.length > 3 ? arguments.slice(3) : [];
 		// normalise callback as Function
