@@ -93,15 +93,12 @@ class asunit.framework.Assert extends EventDispatcher {
 			return;
 		}
 
-		try {
-			if(expected != null && expected.equals(actual)) {
-				return;
-			}
-		}
-		catch(e:Error) {
-			if(expected != null && expected == actual) {
-				return;
-			}
+		if(expected.equals instanceof Function && expected.equals(actual)){
+			return;
+		}else if(actual.equals instanceof Function && actual.equals(expected)){
+			return;
+		}else if(expected==actual){
+			return;
 		}
 
 		failNotEquals(message, expected, actual);
