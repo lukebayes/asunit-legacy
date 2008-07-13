@@ -1,30 +1,35 @@
+import asunit.framework.TestListener;import asunit.util.ArrayUtil;import asunit.framework.Test;
 import asunit.framework.TestCase;
-import asunit.framework.Test;
-import asunit.framework.TestResult;
-import asunit.util.Iterator;
 import asunit.util.ArrayIterator;
+import asunit.util.Iterator;
 
-class asunit.framework.TestSuite extends TestCase {
+import asunit.flash.events.Event;
+
+/**
+ * A <code>TestSuite</code> is a <code>Composite</code> of Tests.
+ * It runs a collection of test cases. Here is an example using
+ * the dynamic test definition.
+ * <pre>
+ * TestSuite suite = new TestSuite();
+ * suite.addTest(new MathTest());
+ * suite.addTest(new OtherTest());
+ * </pre>
+ * @see Test
+ * @see TestCase
+ */
+class asunit.framework.TestSuite extends TestCase implements Test {
 	private var fTests:Array = new Array();
+	private var testsCompleteCount:Number = 0;
+	private var iterator:ArrayIterator;
+	private var isRunning:Boolean;
 
 	 public function TestSuite() {
 	 	super();
 	 	fTests = new Array();
 	}
-
-	private function getTestMethods():Array {
-		return new Array();
-	}
-	
-	public function testsComplete():Boolean {
-		var completed:Boolean;
-		var len:Number = fTests.length;
-		for(var i:Number = 0; i < len; i++) {
-			if(!fTests[i].testsComplete()) {
-				return false;
-			}
-		}
-		return true;
+	private function setName(name:String):Void {		fName = name;	}
+	function setTestMethods(object:Object):Void {
+		testMethods = new Array();
 	}
 	
 	/**
@@ -38,11 +43,8 @@ class asunit.framework.TestSuite extends TestCase {
 	 * Counts the number of tests that will be run by this Suite.
 	 */
 	public function countTestCases():Number {
-		var count:Number;
-		var len:Number = fTests.length;
-		for(var i:Number = 0; i < len; i++) {
-			count = count + fTests[i].countTestCases();
-		}
+		var count:Number = 0;
+		ArrayUtil.forEach(fTests,			function(test:TestCase):Void{				count = count + test.countTestCases();			}		);
 		return count;
 	}
 	
@@ -50,27 +52,38 @@ class asunit.framework.TestSuite extends TestCase {
 	 * Runs the tests and collects their result in a TestResult.
 	 */
 	public function run():Void {
-		var result:TestResult = getResult();
-		runTests(fTests, result);
- 	}
-	
-	public function runTests(tests:Array, result:TestResult):Void {
-		var itr:Iterator = new ArrayIterator(tests);
-		var test:TestCase;
-		if(itr.hasNext()) {
-			test = TestCase(itr.next());
-			runTest(itr, test, result);
-		}
-	}
-	
-	public function runTest(itr:Iterator, test:TestCase, result:TestResult):Void {
-		test.setResult(result);
-		test.run();
-		if(itr.hasNext()) {
-			_global.setTimeout(this, "runTest", 10, itr, itr.next(), result);
+		var result:TestListener = getResult();
+		var test:Test;
+		var itr:Iterator = getIterator();
+		while(itr.hasNext()) {
+			isRunning = true;
+			test = Test(itr.next());
+			test.setResult(result);
+			test.addEventListener(Event.COMPLETE, testCompleteHandler, this);
+			test.run();
+			if(!test.getIsComplete()) {
+				isRunning = false;
+				break;
+			}
 		}
 	}
 
+	private function getIterator():ArrayIterator {
+		if(iterator == null) {
+			iterator = new ArrayIterator(fTests);
+		}
+		return iterator;
+	}
+	
+	private function testCompleteHandler(event:Event):Void {
+		if(!isRunning) {
+			run();
+		}
+		if(++testsCompleteCount >= testCount()) {
+			dispatchEvent(new Event(Event.COMPLETE));
+		}
+	}
+	
 	/**
 	 * Returns the number of tests in this suite
 	 */
@@ -82,21 +95,10 @@ class asunit.framework.TestSuite extends TestCase {
 		return getName();
 	}
 	
-	public function getIsComplete():Boolean {
-		var len:Number = fTests.length;
-		for(var i:Number = 0; i < len; i++) {
-			if(!fTests[i].getIsComplete()) {
-				return false;
-			}
-		}
-		return true;
+	public function getIsComplete():Boolean {		return ArrayUtil.every(fTests,			function(test:TestCase):Boolean{				return test.getIsComplete();			}		);
 	}
 	
 	public function setContext(context:MovieClip):Void {
-		super.setContext(context);
-		var len:Number = fTests.length;
-		for(var i:Number = 0; i < len; i++) {
-			fTests[i].setContext(context);
-		}
+		super.setContext(context);		ArrayUtil.forEach(fTests,			function(test:Test):Void{				test.setContext(context);			}		);
 	}
 }

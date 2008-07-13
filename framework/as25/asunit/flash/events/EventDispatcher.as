@@ -1,0 +1,5 @@
+import asunit.util.ArrayUtil;import asunit.flash.events.Event;import asunit.flash.events.IEventDispatcher;
+/* * Minimal implementation of AS3 flash.events.EventDispatcher as required by asunit3 */
+class asunit.flash.events.EventDispatcher implements IEventDispatcher{	private var listeners:Object;	public function EventDispatcher() {		listeners = {};	}
+	public function addEventListener(type:String, listener:Function, scope:Object):Void {		var l:Object = {s:scope, c:listener};		if(listeners[type] instanceof Array){			listeners[type].push(l);		}else{			trace("create new listener");			listeners[type] = [l];		}	}		public function dispatchEvent(event : Event) : Void {		trace("EventDispatcher::dispatchEvent: type: " + event.type);		if(listeners[event.type] instanceof Array){			trace("listerner is array")			ArrayUtil.forEach(listeners[event.type],				function(listener:Object):Void{					trace("dispatching event...");					var callback:Function = listener.c;					var scope:Object = listener.s;					callback.call(scope, event);				}			);		}
+	}}
