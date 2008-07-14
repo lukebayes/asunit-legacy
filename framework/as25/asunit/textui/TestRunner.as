@@ -67,9 +67,6 @@ class asunit.textui.TestRunner{
 		if(testMethod==undefined) testMethod = null;
 		if(showTrace==undefined) showTrace = false;
 		
-		trace("TestRunner::start");
-		trace("testCase: " + testCase);
-		
 //			fscommand("showmenu", "false");
 		try {
 			var instance:Test;
@@ -77,20 +74,17 @@ class asunit.textui.TestRunner{
 				instance = new testCase(testMethod);
 			}
 			else {
-				trace("==============create test case");
 				instance = new testCase();
 			}
 			return doRun(instance, showTrace);
 		}
 		catch(e:Error) {
-			trace("an error was thrown");
 			throw new Error("Could not create and run test suite: " + e.toString());
 		}
 		return null;
 	}
 
 	public function doRun(test:Test, showTrace:Boolean):TestResult {
-		trace("TestRunner::doRun");
 		
 		if(showTrace==undefined) showTrace=false;
 		result = new TestResult();

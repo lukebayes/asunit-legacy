@@ -42,9 +42,8 @@ class asunit.framework.TestSuite extends TestCase implements Test {
 	/**
 	 * Counts the number of tests that will be run by this Suite.
 	 */
-	public function countTestCases():Number {		trace("countTestCases");
-		var count:Number = 0;
-		ArrayUtil.forEach(fTests,			function(test:TestCase):Void{				trace("test: "+ test);				count = count + test.countTestCases();				trace("count: " + count);			}		);
+	public function countTestCases():Number {		var count:Number = 0;
+		ArrayUtil.forEach(fTests,			function(test:TestCase):Void{				count = count + test.countTestCases();			}		);
 		return count;
 	}
 	

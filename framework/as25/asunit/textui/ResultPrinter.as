@@ -21,12 +21,10 @@ class asunit.textui.ResultPrinter implements TestListener {
 	private var showTrace:Boolean;
 
 	public function ResultPrinter(showTrace:Boolean) {
-		trace("ResultPrinter::constructor");
 		this.showTrace = showTrace==undefined ? false : showTrace;
 	}
 
 	public function setParent(parent:MovieClip):Void{
-		trace("setParent: " + parent);
 		configureAssets(parent);
 		println();
 	}
@@ -222,7 +220,7 @@ class asunit.textui.ResultPrinter implements TestListener {
 	 */
 	public function startTest(test:Test):Void {
 		var count:Number = test.countTestCases();
-		for(var i:Number; i < count; i++) {
+		for(var i:Number=0; i < count; i++) {
 			print(".");
 			if (fColumn++ >= 80) {
 				println();

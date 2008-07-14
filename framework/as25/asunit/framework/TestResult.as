@@ -31,7 +31,7 @@ class asunit.framework.TestResult implements TestListener {
 		fErrors.push(new TestFailure(test, t));
 		var len:Number = fListeners.length;
 		var item:TestListener;
-		for(var i:Number; i < len; i++) {
+		for(var i:Number=0; i < len; i++) {
 			item = TestListener(fListeners[i]);
 			item.addError(test, t);
 		}
@@ -44,7 +44,7 @@ class asunit.framework.TestResult implements TestListener {
 		fFailures.push(new TestFailure(test, t));
 		var len:Number = fListeners.length;
 		var item:TestListener;
-		for(var i:Number; i < len; i++) {
+		for(var i:Number=0; i < len; i++) {
 			item = TestListener(fListeners[i]);
 			item.addFailure(test, t);
 		}
@@ -60,7 +60,7 @@ class asunit.framework.TestResult implements TestListener {
 	 */
 	public function removeListener(listener:TestListener):Void {
 		var len:Number = fListeners.length;
-		for(var i:Number; i < len; i++) {
+		for(var i:Number=0; i < len; i++) {
 			if(fListeners[i] == listener) {
 				fListeners.splice(i, 1);
 				return;
@@ -119,7 +119,7 @@ class asunit.framework.TestResult implements TestListener {
 
 		var len:Number = fListeners.length;
 		var item:TestListener;
-		for(var i:Number; i < len; i++) {
+		for(var i:Number=0; i < len; i++) {
 			item = TestListener(fListeners[i]);
 			item.startTest(test);
 		}
@@ -128,7 +128,7 @@ class asunit.framework.TestResult implements TestListener {
 	public function startTestMethod(test:Test, method:String):Void {
 		var len:Number = fListeners.length;
 		var item:TestListener;
-		for(var i:Number; i < len; i++) {
+		for(var i:Number=0; i < len; i++) {
 			item = TestListener(fListeners[i]);
 			item.startTestMethod(test, method);
 		}
@@ -137,7 +137,7 @@ class asunit.framework.TestResult implements TestListener {
 	public function endTestMethod(test:Test, method:String):Void {
 		var len:Number = fListeners.length;
 		var item:TestListener;
-		for(var i:Number; i < len; i++) {
+		for(var i:Number=0; i < len; i++) {
 			item = TestListener(fListeners[i]);
 			item.endTestMethod(test, method);
 		}
@@ -149,7 +149,7 @@ class asunit.framework.TestResult implements TestListener {
 	public function endTest(test:Test):Void {
 		var len:Number = fListeners.length;
 		var item:TestListener;
-		for(var i:Number; i < len; i++) {
+		for(var i:Number=0; i < len; i++) {
 			item = TestListener(fListeners[i]);
 			item.endTest(test);
 		}
