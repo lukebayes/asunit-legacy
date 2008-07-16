@@ -84,6 +84,8 @@ class asunit.framework.TestCase extends Assert implements Test {
 	private var layoutManager:Object;
 	private var currentState:Number;
 
+	private static var lastDepth:Number = 10;
+
 	/**
 	 * Constructs a test case with the given name.
 	 */
@@ -334,20 +336,123 @@ class asunit.framework.TestCase extends Assert implements Test {
 		if(!runSingle) {
 			getResult().endTestMethod(this, currentMethod);
 			tearDown();
-//			layoutManager.resetAll();
 		}
 		Timer.setTimeout(this, runBare, 5);
 	}
 	
-/*	private function addChild(child:DisplayObject):DisplayObject {
-		return getContext().addChild(child);
+	/**
+	 * begin asunit25 specific methods
+	 */
+	
+	private function createEmptyMovieClip(name:String, depth:Number):MovieClip {
+		if(depth==undefined || depth===null) depth = getNextHighestDepth();
+		return getContext().createEmptyMovieClip(name, depth);
 	}
 
-	private function removeChild(child:DisplayObject):DisplayObject {
-		if(child == null) {
-			throw new IllegalOperationError("TestCase.removeChild must have non-null parameter child");
+	private function createTextField(name:String, depth:Number, x:Number, y:Number, width:Number, height:Number):TextField {
+	    getContext().createTextField(name, depth, x, y, width, height);
+	    return TextField(getContext()[name]);
+	}
+
+	private function getNextHighestDepth():Number {
+		return getContext().getNextHighestDepth();
+	}
+
+	/*
+	 * This helper method will support the following method signatures:
+	 *
+	 * attachMovie(linkageId:String):MovieClip;
+	 * attachMovie(linkageId:String, initObject:Object):MovieClip;
+	 * attachMovie(linkageId:String, name:String, depth:Number):MovieClip;
+	 * attachMovie(linkageId:String, name:String, depth:Number, initObject:Object):MovieClip;
+	 *
+	 * @return
+	 * 	MovieClip
+	 */
+ 	private function attachMovie():MovieClip {
+ 		var linkageId:String = arguments[0];
+ 		var name:String;
+ 		var depth:Number;
+ 		var initObj:Object = new Object();
+
+		switch(arguments.length) {
+			case 1 :
+			case 2 :
+				name = getValidName(getContext(), name);
+				depth = getValidDepth(getContext());
+ 				initObj = arguments[1];
+ 				break;
+ 			case 3 :
+ 			case 4 :
+ 				name = arguments[1];
+ 				depth = arguments[2];
+ 				initObj = arguments[3];
+ 				break;
 		}
-		return getContext().removeChild(child);
-	}*/
+		return getContext().attachMovie(linkageId, name, depth, initObj);
+ 	}
+
+	public function getUpperEmptyDepth(parent:MovieClip, depth:Number):Number {
+		if(depth == undefined || !isValidDepth(parent, depth)) {
+			var high:Number = (depth == undefined) ? 1 : depth;
+			for(var i:String in parent) {
+				if(parent[i] instanceof MovieClip && parent[i].getDepth() != undefined) {
+					high = Math.max(parent[i].getDepth()+1, high);
+				}
+			}
+			return high;
+		}
+		return depth;
+	}
+
+	private function getValidName(parent:MovieClip, nm:Object):String {
+		var incr:Number = 1;
+
+		var name:String = (nm == undefined || nm instanceof Object) ? "item" : nm.toString();
+		var ref:MovieClip = parent[name];
+
+		var name2:String = name;
+		while(ref != undefined && incr < 100) {
+			name2 = name + "-" + (incr++);
+			ref = parent[name2];
+		}
+		return name2;
+	}
+
+	private function isValidDepth(parent:MovieClip, depth:Number):Boolean {
+		var item:MovieClip = getItemByDepth(parent, depth);
+		return (item == null) ? true : false;
+	}
+
+	private function getItemByDepth(parent:MovieClip, depth:Number):MovieClip {
+		for(var i:String in parent) {
+			if(parent[i].getDepth() == depth) {
+				return parent[i];
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the next available depth for attaching a MovieClip.
+	 *
+	 * @return
+	 *         Number of next available depth.
+	 */
+	public static function nextDepth():Number {
+		return lastDepth++;
+	}
+
+	private function getValidDepth(mc:MovieClip):Number {
+		var mcDepth:Number;
+		var dp:Number = nextDepth();
+		for(var i:String in mc) {
+			mcDepth = mc[i].getDepth();
+			if(mc[i] instanceof MovieClip && mcDepth < 10000) {
+				dp = Math.max(mcDepth, dp);
+			}
+		}
+		return ++dp;
+	}
 
 }
