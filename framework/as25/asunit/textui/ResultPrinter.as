@@ -77,7 +77,11 @@ class asunit.textui.ResultPrinter implements TestListener {
 		textArea.text += (arguments.toString() + "\n");
 	}
 
-	public function print():Void {
+	/*
+	 * Flash IDE compiler mandates that "print must have two parameters",
+	 * as a workaround have renamed to _print.
+	 */
+	public function _print():Void {
 		textArea.text += (arguments.toString());
 	}
 	
@@ -164,7 +168,7 @@ class asunit.textui.ResultPrinter implements TestListener {
 	private function printFooter(result:TestResult):Void {
 		println();
 		if (result.wasSuccessful()) {
-			print("OK");
+			_print("OK");
 			println (" (" + result.runCount() + " test" + (result.runCount() == 1 ? "": "s") + ")");
 		} else {
 			println("FAILURES!!!");
@@ -187,14 +191,14 @@ class asunit.textui.ResultPrinter implements TestListener {
 	 * @see asunit.framework.TestListener#addError(Test, Throwable)
 	 */
 	public function addError(test:Test, t:Error):Void {
-		print("E");
+		_print("E");
 	}
 
 	/**
 	 * @see asunit.framework.TestListener#addFailure(Test, AssertionFailedError)
 	 */
 	public function addFailure(test:Test, t:AssertionFailedError):Void {
-		print("F");
+		_print("F");
 	}
 
 	/**
@@ -221,7 +225,7 @@ class asunit.textui.ResultPrinter implements TestListener {
 	public function startTest(test:Test):Void {
 		var count:Number = test.countTestCases();
 		for(var i:Number=0; i < count; i++) {
-			print(".");
+			_print(".");
 			if (fColumn++ >= 80) {
 				println();
 				fColumn = 0;
