@@ -1,3 +1,6 @@
+import asunit.flash.events.Event;
+import asunit.flash.events.IEventDispatcher;
+import asunit.flash.events.EventDispatcher;
 import asunit.flash.utils.Timer;
 import asunit.framework.TestCase;
 
@@ -46,4 +49,26 @@ class asunit.framework.AsyncMethodTest extends TestCase {
 		var handler:Function = addAsync(spriteHandler);
 		Timer.setTimeout(this, handler, 100);
 	}
+	
+	// This is an asynchronous test method
+	public function testAsyncFeature():Void {
+		// create a new object that dispatches events...
+		var dispatcher : IEventDispatcher = new EventDispatcher();
+		// get a TestCase async event handler reference
+		// the 2nd arg is an optional timeout in ms. (default=1000ms )
+		var handler:Function = addAsync(changeHandler, 2000);
+		// subscribe to your event dispatcher using the returned handler
+		dispatcher.addEventListener(Event.CHANGE, handler, this);
+		// cause the event to be dispatched.
+		// either immediately:
+		//dispatcher.dispatchEvent(new Event(Event.CHANGE));
+		// or in the future < your assigned timeout
+		Timer.setTimeout( dispatcher, dispatchEvent, 200, new Event(Event.CHANGE));
+	}
+
+	private function changeHandler(event:Event):Void {
+		// perform assertions in your handler
+		assertEquals(Event.CHANGE, event.type);
+	}	
+	
 }
