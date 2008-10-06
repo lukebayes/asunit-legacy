@@ -253,7 +253,7 @@ class asunit.framework.Assert {
 			object1 = msg;
 			msg = "";
 		}
-		addTestResult(String(msg), "assertSame", (object1 === object2));
+		addTestResult(format(String(msg), object1, object2), "assertSame", (object1 === object2));
 	}
 
 	/**
