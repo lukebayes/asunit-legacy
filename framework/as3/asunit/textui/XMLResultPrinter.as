@@ -5,7 +5,7 @@ package asunit.textui {
 	import asunit.framework.TestFailure;
 	import asunit.framework.TestListener;
 	import asunit.framework.TestResult;
-	
+	import flash.utils.setTimeout;
 	import flash.utils.Dictionary;
 	
 	public class XMLResultPrinter extends ResultPrinter {
@@ -14,6 +14,10 @@ package asunit.textui {
 		
 		public function XMLResultPrinter() {
 			results = new Dictionary();
+			// Create a loop so that the FDBTask
+			// can halt execution properly:
+			setTimeout(function():void {
+		    }, 500);
 		}
 
 		override public function startTest(test:Test):void {
