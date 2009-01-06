@@ -13,6 +13,7 @@ package asunit.textui {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.utils.getTimer;
+	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 
 	public class ResultPrinter extends Sprite implements TestListener {
@@ -34,7 +35,7 @@ package asunit.textui {
 
 			// Create a loop so that the FDBTask
 			// can halt execution properly:
-			setTimeout(function():void {
+			setInterval(function():void {
 		    }, 500);
 		}
 
