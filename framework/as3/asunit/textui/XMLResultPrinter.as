@@ -14,10 +14,6 @@ package asunit.textui {
 		
 		public function XMLResultPrinter() {
 			results = new Dictionary();
-			// Create a loop so that the FDBTask
-			// can halt execution properly:
-			setTimeout(function():void {
-		    }, 500);
 		}
 
 		override public function startTest(test:Test):void {
