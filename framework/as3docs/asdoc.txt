@@ -1,3 +1,0 @@
-Created with asdoc.exe
-
-E:\asunit>"E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\moxie\bin\asdoc.exe" -doc-sources framework\as3 -output "E:\asdoc" -source-path framework\as3

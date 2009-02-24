@@ -1,1 +1,0 @@
-This was a quick fix to grab the contents of catalog.xml which is a listing of all API classes found in the core AS 3 library. This file ships with FlexBuilder inside of playerglogal.swc. The result of this exploration basically allowed us to give the class listing for superclasses in as3 in the XUL UI.

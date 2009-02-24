@@ -1,4 +1,0 @@
-
-AsDirectory = function() {
-
-}
