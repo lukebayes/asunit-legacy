@@ -48,10 +48,12 @@ package asunit.textui {
 
 		protected function addedHandler(event:Event):void {
 			if(event.target === fPrinter) {
-				stage.align = StageAlign.TOP_LEFT;
-				stage.scaleMode = StageScaleMode.NO_SCALE;
-				stage.addEventListener(Event.RESIZE, resizeHandler);
-				resizeHandler(new Event("resize"));
+			    if(stage != null) {
+    				stage.align = StageAlign.TOP_LEFT;
+    				stage.scaleMode = StageScaleMode.NO_SCALE;
+    				stage.addEventListener(Event.RESIZE, resizeHandler);
+    				resizeHandler(new Event("resize"));
+				}
 			}
 		}
 
