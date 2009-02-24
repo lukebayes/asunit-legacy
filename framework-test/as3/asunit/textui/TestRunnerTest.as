@@ -1,8 +1,5 @@
 package asunit.textui {
 	import asunit.framework.TestCase;
-	import flash.utils.setTimeout;
-	import flash.events.Event;
-	import flash.errors.IllegalOperationError;
 
 	public class TestRunnerTest extends TestCase {
 		private var instance:TestRunner;

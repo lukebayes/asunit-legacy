@@ -6,13 +6,7 @@ package asunit.textui {
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
-	import flash.system.fscommand;
-	import flash.utils.clearInterval;
-	import flash.utils.describeType;
 	import flash.utils.getTimer;
-	import flash.utils.setInterval;
-	import flash.utils.Timer;
-	import flash.events.TimerEvent;
 	import flash.display.DisplayObject;
 
 	/**
@@ -69,7 +63,6 @@ package asunit.textui {
 		 * constructor.
 		 */
 		public function start(testCase:Class, testMethod:String = null, showTrace:Boolean = false):TestResult {
-//			fscommand("showmenu", "false");
 			try {
 				var instance:Test;
 				if(testMethod != null) {

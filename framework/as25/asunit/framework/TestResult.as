@@ -1,9 +1,5 @@
-import asunit.errors.AssertionFailedError;
+import asunit.framework.Test;import asunit.framework.TestFailure;import asunit.framework.TestListener;import asunit.errors.AssertionFailedError;
 import asunit.errors.InstanceNotFoundError;
-import asunit.framework.Test;
-import asunit.framework.TestCase;
-import asunit.framework.TestFailure;
-import asunit.framework.ITestListener;
 
 /**
  * A <code>TestResult</code> collects the results of executing
@@ -14,15 +10,14 @@ import asunit.framework.ITestListener;
  *
  * @see Test
  */
-class asunit.framework.TestResult {
+class asunit.framework.TestResult implements TestListener {
 	private var fFailures:Array;
 	private var fErrors:Array;
 	private var fListeners:Array;
 	private var fRunTests:Number;
 	private var fStop:Boolean;
-
-	public function TestResult() {
-		fFailures  = new Array();
+	
+	public function TestResult() {		fFailures  = new Array();
 		fErrors	   = new Array();
 		fListeners = new Array();
 		fRunTests  = 0;
@@ -35,9 +30,9 @@ class asunit.framework.TestResult {
 	public function addError(test:Test, t:Error):Void {
 		fErrors.push(new TestFailure(test, t));
 		var len:Number = fListeners.length;
-		var item:ITestListener;
-		for(var i:Number = 0; i < len; i++) {
-			item = ITestListener(fListeners[i]);
+		var item:TestListener;
+		for(var i:Number=0; i < len; i++) {
+			item = TestListener(fListeners[i]);
 			item.addError(test, t);
 		}
 	}
@@ -48,24 +43,24 @@ class asunit.framework.TestResult {
 	public function addFailure(test:Test, t:AssertionFailedError):Void {
 		fFailures.push(new TestFailure(test, t));
 		var len:Number = fListeners.length;
-		var item:ITestListener;
-		for(var i:Number = 0; i < len; i++) {
-			item = ITestListener(fListeners[i]);
+		var item:TestListener;
+		for(var i:Number=0; i < len; i++) {
+			item = TestListener(fListeners[i]);
 			item.addFailure(test, t);
 		}
 	}
 	/**
-	 * Registers a ITestListener
+	 * Registers a TestListener
 	 */
-	public function addListener(listener:ITestListener):Void {
+	public function addListener(listener:TestListener):Void {
 		fListeners.push(listener);
 	}
 	/**
-	 * Unregisters a ITestListener
+	 * Unregisters a TestListener
 	 */
-	public function removeListener(listener:ITestListener):Void {
+	public function removeListener(listener:TestListener):Void {
 		var len:Number = fListeners.length;
-		for(var i:Number = 0; i < len; i++) {
+		for(var i:Number=0; i < len; i++) {
 			if(fListeners[i] == listener) {
 				fListeners.splice(i, 1);
 				return;
@@ -97,24 +92,13 @@ class asunit.framework.TestResult {
 	public function failures():Array {
 		return fFailures;
 	}
-
+	
 	/**
 	 * Runs a TestCase.
 	 */
-	public function run(test:TestCase):Void {
+	public function run(test:Test):Void {
 		startTest(test);
-		try {
-			test.runBare();
-		}
-		catch(afe:AssertionFailedError) {
-			addFailure(test, afe);
-		}
-		catch(e:Error) {
-			addError(test, e);
-		}
-		finally {
-			endTest(test);
-		}
+		test.runBare();
 	}
 	/**
 	 * Gets the number of run tests.
@@ -131,25 +115,42 @@ class asunit.framework.TestResult {
 	/**
 	 * Informs the result that a test will be started.
 	 */
-	public function startTest(test:Test):Void {
-		var count:Number = test.countTestCases();
-		fRunTests += count;
+	public function startTest(test:Test):Void {		var count:Number = test.countTestCases();		fRunTests += count;
 
 		var len:Number = fListeners.length;
-		var item:ITestListener;
-		for(var i:Number = 0; i < len; i++) {
-			item = ITestListener(fListeners[i]);
+		var item:TestListener;
+		for(var i:Number=0; i < len; i++) {
+			item = TestListener(fListeners[i]);
 			item.startTest(test);
 		}
 	}
+	
+	public function startTestMethod(test:Test, method:String):Void {
+		var len:Number = fListeners.length;
+		var item:TestListener;
+		for(var i:Number=0; i < len; i++) {
+			item = TestListener(fListeners[i]);
+			item.startTestMethod(test, method);
+		}
+	}
+	
+	public function endTestMethod(test:Test, method:String):Void {
+		var len:Number = fListeners.length;
+		var item:TestListener;
+		for(var i:Number=0; i < len; i++) {
+			item = TestListener(fListeners[i]);
+			item.endTestMethod(test, method);
+		}
+	}
+	
 	/**
 	 * Informs the result that a test was completed.
 	 */
 	public function endTest(test:Test):Void {
 		var len:Number = fListeners.length;
-		var item:ITestListener;
-		for(var i:Number = 0; i < len; i++) {
-			item = ITestListener(fListeners[i]);
+		var item:TestListener;
+		for(var i:Number=0; i < len; i++) {
+			item = TestListener(fListeners[i]);
 			item.endTest(test);
 		}
 	}
@@ -163,6 +164,6 @@ class asunit.framework.TestResult {
 	 * Returns whether the entire test was successful or not.
 	 */
 	public function wasSuccessful():Boolean {
-		return (failureCount() == 0 && errorCount() == 0);
+		return failureCount() == 0 && errorCount() == 0;
 	}
 }

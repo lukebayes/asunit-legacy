@@ -1,6 +1,5 @@
-//import flash.util.StringBuilder;
-import asunit.errors.AssertionFailedError;
 import asunit.framework.Test;
+import asunit.errors.AssertionFailedError;
 
 /**
  * A <code>TestFailure</code> collects a failed test together with
@@ -8,20 +7,31 @@ import asunit.framework.Test;
  * @see TestResult
  */
 class asunit.framework.TestFailure {
-	private var fFailedTest:String;
+	private var fFailedTest:Test;
+	private var fFailedTestMethod:String;
 	private var fThrownException:Error;
 	
 	/**
 	 * Constructs a TestFailure with the given test and exception.
 	 */
 	public function TestFailure(failedTest:Test, thrownException:Error) {
-		fFailedTest = failedTest.toString();
+		fFailedTest = failedTest;
+		fFailedTestMethod = failedTest.getCurrentMethod();
 		fThrownException = thrownException;
 	}
+	
+	public function failedFeature():String {
+		return failedTest().getName() + '.' + fFailedTestMethod;
+	}
+	
+	public function failedMethod():String {
+		return fFailedTestMethod;
+	}
+	
 	/**
-	 * Gets the failed test.
+	 * Gets the failed test case.
 	 */
-	public function failedTest():String {
+	public function failedTest():Test {
 	    return fFailedTest;
 	}
 	/**

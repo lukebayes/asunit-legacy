@@ -1,17 +1,15 @@
 package asunit.framework {
-	import asunit.errors.AssertionFailedError;
-	import asunit.util.ArrayIterator;
-	import asunit.util.Iterator;
-	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.errors.IllegalOperationError;
 	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.setTimeout;
+	
+	import asunit.errors.AssertionFailedError;
+	import asunit.util.ArrayIterator;
+	import asunit.util.Iterator;	
 
 	/**
 	 * A test case defines the fixture to run multiple tests. To define a test case<br>
@@ -88,9 +86,10 @@ package asunit.framework {
 		protected var testMethods:Array;
 		protected var isComplete:Boolean;
 		protected var context:DisplayObjectContainer;
-		protected var methodIsAsynchronous:Boolean;
-		protected var timeout:Timer;
-		private var setUpIsAsynchronous:Boolean;
+//		protected var methodIsAsynchronous:Boolean;
+//		protected var timeout:Timer;
+//		private var setUpIsAsynchronous:Boolean;
+		private var asyncQueue:Array;
 		private var currentMethod:String;
 		private var runSingle:Boolean;
 		private var methodIterator:Iterator;
@@ -114,8 +113,9 @@ package asunit.framework {
 			}
 			setName(className.toString());
 			resolveLayoutManager();
+			asyncQueue = [];
 		}
-		
+
 		private function resolveLayoutManager():void {
 			// Avoid creating import dependencies on flex framework
 			// If you have the framework.swc in your classpath,
@@ -131,7 +131,7 @@ package asunit.framework {
 			catch(e:Error) {
 				layoutManager = new Object();
 				layoutManager.resetAll = function():void {
-				}
+				};
 			}
 		}
 
@@ -191,7 +191,7 @@ package asunit.framework {
 			this.result = result;
 		}
 
-		protected function getResult():TestListener {
+		internal function getResult():TestListener {
 			return (result == null) ? createResult() : result;
 		}
 
@@ -234,20 +234,15 @@ package asunit.framework {
 		
 		private function runMethod(methodName:String):void {
 			try {
-				//trace("Test: " + getName() + " and method is " + methodName);
-				methodIsAsynchronous = false;
 				if(currentState == PRE_SET_UP) {
 					currentState = SET_UP;
 					getResult().startTestMethod(this, methodName);
 					setUp(); // setUp may be async and change the state of methodIsAsynchronous
 				}
 				currentMethod = methodName;
-				if(!methodIsAsynchronous) {
+				if(!waitForAsync()) {
 					currentState = RUN_METHOD;
 					this[methodName]();
-				}
-				else {
-					setUpIsAsynchronous = true;
 				}
 			}
 			catch(assertionFailedError:AssertionFailedError) {
@@ -257,7 +252,7 @@ package asunit.framework {
 				getResult().addError(this, unknownError);
 			}
 			finally {
-				if(!methodIsAsynchronous) {
+				if(!waitForAsync()) {
 					runTearDown();
 				}
 			}
@@ -314,49 +309,34 @@ package asunit.framework {
 
 		protected function addAsync(handler:Function = null, duration:Number=DEFAULT_TIMEOUT):Function {
 			if(handler == null) {
-				handler = function(args:*):* {};
+				handler = function(args:*):* {return;};
 			}
-			if(isNaN(duration)) {
-				duration = DEFAULT_TIMEOUT;
-			}
-			methodIsAsynchronous = true;
-			timeout = new Timer(duration, 1);
-			timeout.addEventListener(TimerEvent.TIMER_COMPLETE, getTimeoutComplete(duration));
-			timeout.start();
-			// try ..args
-			var context:TestCase = this;
-			return function(args:*):* {
-				context.timeout.stop();
-				try {
-					handler.apply(context, arguments);
-				}
-				catch(e:AssertionFailedError) {
-					context.getResult().addFailure(context, e);
-				}
-				catch(ioe:IllegalOperationError) {
-					context.getResult().addError(context, ioe);
-				}
-				finally {
-					context.asyncMethodComplete();
-				}
-			}
+			var async:AsyncOperation = new AsyncOperation(this, handler, duration);
+			asyncQueue.push(async);
+			return async.getCallback();
 		}
-		
-		private function getTimeoutComplete(duration:Number):Function {
-			var context:TestCase = this;
-			return function(event:Event):void {
-				context.getResult().addError(context, new IllegalOperationError("TestCase.timeout (" + duration + "ms) exceeded on an asynchronous test method."));
-				context.asyncMethodComplete();
-			}
+
+		internal function asyncOperationTimeout(async:AsyncOperation, duration:Number):void{
+			getResult().addError(this, new IllegalOperationError("TestCase.timeout (" + duration + "ms) exceeded on an asynchronous operation."));
+			asyncOperationComplete(async);
 		}
-		
-		protected function asyncMethodComplete():void {
+
+		internal function asyncOperationComplete(async:AsyncOperation):void{
+			// remove operation from queue
+			var i:int = asyncQueue.indexOf(async);
+			asyncQueue.splice(i,1);
+			// if we still need to wait, return
+			if(waitForAsync()) return;
 			if(currentState == SET_UP) {
 				runMethod(currentMethod);
 			}
 			else if(currentState == RUN_METHOD) {
 				runTearDown();
 			}
+		}
+
+		private function waitForAsync():Boolean{
+			return asyncQueue.length > 0;
 		}
 
 		protected function runTearDown():void {
@@ -376,12 +356,11 @@ package asunit.framework {
 			return getContext().addChild(child);
 		}
 
-		protected function removeChild(displayObject:DisplayObject):DisplayObject {
-			if (displayObject && displayObject.parent === getContext())
-			{
-				return getContext().removeChild(displayObject);
+		protected function removeChild(child:DisplayObject):DisplayObject {
+			if(child == null) {
+				throw new IllegalOperationError("TestCase.removeChild must have non-null parameter child");
 			}
-			return null;
+			return getContext().removeChild(child);
 		}
 
 //		public function fail(message:String):void {

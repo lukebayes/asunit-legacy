@@ -1,11 +1,17 @@
-import asunit.framework.TestResult;
+import asunit.framework.TestListener;
 
-interface asunit.framework.Test {
+import asunit.flash.events.IEventDispatcher;
 	
-	public function testsComplete():Boolean;
-	public function setResult(result:TestResult):Void;
-	public function setContext(context:MovieClip):Void;
-	public function run():Void;
-	public function countTestCases():Number;
-	public function toString():String;
+interface asunit.framework.Test extends IEventDispatcher{
+	function countTestCases():Number;
+	function getName():String;
+	function getTestMethods():Array;
+	function toString():String;
+	function setResult(result : TestListener) : Void;
+	function run():Void;
+	function runBare():Void;
+	function getCurrentMethod():String;
+	function getIsComplete():Boolean;
+	function setContext(context:MovieClip):Void;
+	function getContext():MovieClip;
 }

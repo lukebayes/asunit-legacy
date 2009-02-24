@@ -2,8 +2,6 @@ package asunit.framework {
 	import flash.events.EventDispatcher;
 	import flash.events.Event;
 	import flash.utils.setTimeout;
-	import flash.errors.IllegalOperationError;
-	
 	
 	public class TestCaseTest extends TestCase {
 		
@@ -27,7 +25,8 @@ package asunit.framework {
 				assertTrue("testMethod1Run", mock.testMethod1Run);
 				assertFalse("testMethod2Run", mock.testMethod2Run);
 				assertFalse("testMethod3Run", mock.testMethod3Run);
-			}
+				return;
+			};
 		}
 		
 		public function testCustomConstructor2():void {
@@ -42,7 +41,8 @@ package asunit.framework {
 				assertTrue("testMethod1Run", mock.testMethod1Run);
 				assertFalse("testMethod2Run", mock.testMethod2Run);
 				assertTrue("testMethod3Run", mock.testMethod3Run);
-			}
+				return;
+			};
 		}
 
 		public function testCustomConstructor3():void {
@@ -57,7 +57,8 @@ package asunit.framework {
 				assertTrue("testMethod1Run", mock.testMethod1Run);
 				assertFalse("testMethod2Run", mock.testMethod2Run);
 				assertTrue("testMethod3Run", mock.testMethod3Run);
-			}
+				return;
+			};
 		}
 
 		public function testCustomConstructor4():void {
@@ -72,7 +73,8 @@ package asunit.framework {
 				assertTrue("testMethod1Run", mock.testMethod1Run);
 				assertTrue("testMethod2Run", mock.testMethod2Run);
 				assertTrue("testMethod3Run", mock.testMethod3Run);
-			}
+				return;
+			};
 		}
 
 		public function testAsync():void {

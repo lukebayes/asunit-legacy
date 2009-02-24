@@ -1,2 +1,4 @@
 *.DS_Store
 .svn
+framework-test/as25/AsUnitTestRunner.swf
+framework-test/as3/bin/

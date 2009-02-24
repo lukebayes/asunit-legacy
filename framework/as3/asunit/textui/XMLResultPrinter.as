@@ -2,7 +2,6 @@ package asunit.textui {
 
 	import asunit.errors.AssertionFailedError;
 	import asunit.framework.Test;
-	import asunit.framework.TestFailure;
 	import asunit.framework.TestListener;
 	import asunit.framework.TestResult;
 	import flash.utils.setTimeout;
@@ -213,7 +212,6 @@ class XMLTestResult implements TestListener {
 	
 	public function toString():String {
 		var str:String = '';
-		var failure:TestFailure;
 		str += renderSuiteOpener();
 		for(var name:String in methodHash) {
 			str += renderTestOpener(name);
